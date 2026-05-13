@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Streamlining the Surge</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="brand-block">
+      <div class="brand-mark">ICU</div>
+
+      <div class="brand-text">
+        <p class="eyebrow">Decision support</p>
+        <h1>Streamlining the Surge</h1>
+      </div>
+
+      <button id="sidebar-toggle" class="sidebar-toggle" type="button">
+        <span>←</span>
+      </button>
+    </div>
+
+    <nav class="nav-list">
+      <button class="nav-item active" data-tab="patient-risk" type="button">
+        <span class="nav-icon">01</span>
+        <span class="nav-label">Patient Risk Assessment</span>
+      </button>
+
+      <button class="nav-item" data-tab="triage-matrix" type="button">
+        <span class="nav-icon">02</span>
+        <span class="nav-label">Triage Matrix</span>
+      </button>
+
+      <button class="nav-item" data-tab="surge-simulation" type="button">
+        <span class="nav-icon">03</span>
+        <span class="nav-label">Surge Simulation</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="micro-label">Prototype status</p>
+      <p>Frontend prototype for biomarker-driven ICU triage support.</p>
+      <p id="backend-status" class="backend-status">Backend: frontend prototype only</p>
+    </div>
+  </aside>
+
+  <main class="workspace">
+
+    <header class="topbar">
+      <div>
+        <h2 id="page-title">Patient Risk Assessment</h2>
+        <p id="page-subtitle" class="page-subtitle">
+          Upload patient biomarker data and generate patient-specific severity, deterioration risk, confidence and escalation recommendation.
+        </p>
+      </div>
+    </header>
+
+    <section class="tab-panel active" id="patient-risk">
+
+      <div class="calculator-grid">
+
+        <section class="panel input-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="micro-label">Clinician input</p>
+              <h3>Patient biomarker data</h3>
+            </div>
+
+            <select id="demo-patient">
+              <option value="demo-1">Prototype patient A</option>
+              <option value="demo-2">Prototype patient B</option>
+              <option value="demo-3">Prototype patient C</option>
+            </select>
+          </div>
+
+          <p class="page-subtitle">
+            Prototype patients demonstrate the dashboard before the backend model is connected. In the final system,
+            clinicians upload a standardised CSV and the backend automatically returns model predictions.
+          </p>
+
+          <p class="micro-label input-section-label">Assessment mode</p>
+
+          <div class="segmented">
+            <button class="segment active" data-input-mode="full" type="button">
+              Full biomarker CSV
+            </button>
+
+            <button class="segment" data-input-mode="quick" type="button">
+              Quick biomarker CSV
+            </button>
+          </div>
+
+          <div class="upload-strip">
+            <label class="file-box">
+              <span id="csv-label" class="micro-label">Full biomarker CSV</span>
+              <input id="biomarker-upload" type="file" accept=".csv,text/csv">
+              <span id="upload-name">No file selected</span>
+            </label>
+
+            <!-- FIX: removed inline onclick="runPrediction(event)" — the click
+                 listener in app.js handles this. Having both caused the function
+                 to fire twice, the second call finding no file and resetting state. -->
+            <button id="run-prediction" class="primary-button" type="button">
+              Generate Assessment
+            </button>
+          </div>
+
+          <pre id="prediction-output" style="
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 12px;
+            background: #111827;
+            color: #f9fafb;
+            font-size: 13px;
+            overflow-x: auto;
+          "></pre>
+
+          <div class="sparkline-panel" style="margin-top: 18px;">
+            <div class="sparkline-heading">
+              <span>Expected CSV format</span>
+              <strong id="csv-format-title">Full model input</strong>
+            </div>
+
+            <p id="csv-format-text">
+              One patient row containing the complete full-biomarker feature set. The backend aligns the CSV to the training features, then the saved pipelines perform internal feature selection.
+            </p>
+          </div>
+
+          <div class="sparkline-panel" style="margin-top: 18px;">
+            <div class="sparkline-heading">
+              <span>Model feature selection</span>
+              <strong>Embedded in pipeline</strong>
+            </div>
+
+            <p id="feature-selection-text">
+              Model 1 uses binary severity prediction with 75 selected features. Model 2 uses binary deterioration prediction with 100 selected features.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel result-panel">
+          <div class="panel-heading compact-heading">
+            <div>
+              <p class="micro-label">Patient-specific output</p>
+              <h3 id="risk-band">Awaiting assessment</h3>
+            </div>
+
+            <span id="model-chip" class="model-chip">Model output</span>
+          </div>
+
+          <div class="risk-visual">
+            <div id="patient-risk-ring" class="risk-ring">
+              <span id="risk-score">--</span>
+            </div>
+
+            <div class="risk-copy">
+              <div class="confidence-row">
+                <span>Recommended action</span>
+                <strong id="calibration-label">No recommendation yet</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-output-grid">
+            <div class="output-card">
+              <span>Severity</span>
+              <strong id="severity-card">--</strong>
+              <small>Model 1 prediction</small>
+            </div>
+
+            <div class="output-card">
+              <span>Deterioration</span>
+              <strong id="deterioration-card">--</strong>
+              <small>Model 2 prediction</small>
+            </div>
+
+            <div class="output-card">
+              <span>Confidence</span>
+              <strong id="confidence-card">--</strong>
+              <small>Generated by model</small>
+            </div>
+          </div>
+
+          <div class="sparkline-panel">
+            <div class="sparkline-heading">
+              <span>Decision explanation</span>
+              <strong>Triage output</strong>
+            </div>
+
+            <p id="decision-explanation">
+              Generate an assessment to view the patient-specific recommendation.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+    </section>
+
+    <section class="tab-panel" id="triage-matrix">
+
+      <section class="panel wide-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="micro-label">Decision framework</p>
+            <h3>Final binary triage matrix</h3>
+          </div>
+        </div>
+
+        <p class="page-subtitle">
+          Model 1 predicts binary admission severity: non-severe or severe. Model 2 predicts binary deterioration risk:
+          low risk or high risk. Together, they produce a priority score and recommended action.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Model 1 Severity</th>
+                <th>Model 2 Deterioration Risk</th>
+                <th>Priority Score</th>
+                <th>Recommended Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="triage-matrix-table">
+              <tr data-severity="Non-severe" data-risk="Low Risk">
+                <td>Non-severe</td>
+                <td>Low Risk</td>
+                <td>1</td>
+                <td>Routine ward monitoring</td>
+              </tr>
+
+              <tr data-severity="Non-severe" data-risk="High Risk">
+                <td>Non-severe</td>
+                <td>High Risk</td>
+                <td>2</td>
+                <td>Increased monitoring and repeat biomarker assessment</td>
+              </tr>
+
+              <tr data-severity="Severe" data-risk="Low Risk">
+                <td>Severe</td>
+                <td>Low Risk</td>
+                <td>3</td>
+                <td>HDU review and frequent reassessment</td>
+              </tr>
+
+              <tr data-severity="Severe" data-risk="High Risk">
+                <td>Severe</td>
+                <td>High Risk</td>
+                <td>4</td>
+                <td>ICU escalation candidate / urgent clinical review</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </section>
+
+    <section class="tab-panel" id="surge-simulation">
+
+      <div class="calculator-grid">
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="micro-label">Hospital operations input</p>
+              <h3>Surge triage simulation</h3>
+            </div>
+          </div>
+
+          <p class="micro-label input-section-label">Simulation mode</p>
+
+          <div class="segmented">
+            <button class="segment active" data-surge-mode="test" type="button">
+              Test triage framework
+            </button>
+
+            <button class="segment" data-surge-mode="recommend" type="button">
+              Recommend best strategy
+            </button>
+          </div>
+
+          <div class="field-grid" style="margin-top: 18px;">
+            <label class="field select-field">
+              <span>Triage framework</span>
+              <select id="triage-framework">
+                <option value="severity-first">Severity-first allocation</option>
+                <option value="deterioration-first">Deterioration-risk-first allocation</option>
+                <option value="combined-matrix">Combined matrix allocation</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>ICU capacity available</span>
+              <input id="icu-capacity" type="range" min="0" max="100" step="1" value="35">
+              <output id="icu-capacity-value">35%</output>
+            </label>
+
+            <label class="field">
+              <span>Current ward pressure</span>
+              <input id="ward-pressure" type="range" min="0" max="100" step="1" value="70">
+              <output id="ward-pressure-value">70%</output>
+            </label>
+
+            <label class="field">
+              <span>Projected incoming patients</span>
+              <input id="incoming-patients" type="range" min="0" max="100" step="1" value="30">
+              <output id="incoming-patients-value">30</output>
+            </label>
+
+            <label class="field">
+              <span>High-risk patient proportion</span>
+              <input id="high-risk-proportion" type="range" min="0" max="100" step="1" value="40">
+              <output id="high-risk-proportion-value">40%</output>
+            </label>
+          </div>
+
+          <button id="simulate-surge" class="primary-button" type="button" style="margin-top: 18px;">
+            Run Surge Simulation
+          </button>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="micro-label">Simulation output</p>
+              <h3 id="surge-band">Awaiting simulation</h3>
+            </div>
+          </div>
+
+          <div class="risk-visual">
+            <div id="surge-risk-ring" class="risk-ring">
+              <span id="surge-score">--</span>
+            </div>
+
+            <div class="risk-copy">
+              <div class="confidence-row">
+                <span>Operational recommendation</span>
+                <strong id="surge-action">No simulation yet</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="sparkline-panel">
+            <div class="sparkline-heading">
+              <span>Surge explanation</span>
+              <strong id="surge-mode-label">Prototype</strong>
+            </div>
+
+            <p id="surge-explanation">
+              Select a simulation mode, adjust surge conditions and run the simulation.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js?v=1.0.3" defer></script>
+</body>
+</html>
