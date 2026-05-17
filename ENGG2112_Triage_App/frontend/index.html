@@ -60,7 +60,6 @@
     </header>
 
     <section class="tab-panel active" id="patient-risk">
-
       <div class="calculator-grid">
 
         <section class="panel input-panel">
@@ -82,18 +81,6 @@
             clinicians upload a standardised CSV and the backend automatically returns model predictions.
           </p>
 
-          <p class="micro-label input-section-label">Assessment mode</p>
-
-          <div class="segmented">
-            <button class="segment active" data-input-mode="full" type="button">
-              Full biomarker CSV
-            </button>
-
-            <button class="segment" data-input-mode="quick" type="button">
-              Quick biomarker CSV
-            </button>
-          </div>
-
           <div class="upload-strip">
             <label class="file-box">
               <span id="csv-label" class="micro-label">Full biomarker CSV</span>
@@ -101,9 +88,6 @@
               <span id="upload-name">No file selected</span>
             </label>
 
-            <!-- FIX: removed inline onclick="runPrediction(event)" — the click
-                 listener in app.js handles this. Having both caused the function
-                 to fire twice, the second call finding no file and resetting state. -->
             <button id="run-prediction" class="primary-button" type="button">
               Generate Assessment
             </button>
@@ -124,7 +108,6 @@
               <span>Expected CSV format</span>
               <strong id="csv-format-title">Full model input</strong>
             </div>
-
             <p id="csv-format-text">
               One patient row containing the complete full-biomarker feature set. The backend aligns the CSV to the training features, then the saved pipelines perform internal feature selection.
             </p>
@@ -135,7 +118,6 @@
               <span>Model feature selection</span>
               <strong>Embedded in pipeline</strong>
             </div>
-
             <p id="feature-selection-text">
               Model 1 uses binary severity prediction with 75 selected features. Model 2 uses binary deterioration prediction with 100 selected features.
             </p>
@@ -148,7 +130,6 @@
               <p class="micro-label">Patient-specific output</p>
               <h3 id="risk-band">Awaiting assessment</h3>
             </div>
-
             <span id="model-chip" class="model-chip">Model output</span>
           </div>
 
@@ -190,7 +171,6 @@
               <span>Decision explanation</span>
               <strong>Triage output</strong>
             </div>
-
             <p id="decision-explanation">
               Generate an assessment to view the patient-specific recommendation.
             </p>
@@ -198,11 +178,9 @@
         </section>
 
       </div>
-
     </section>
 
     <section class="tab-panel" id="triage-matrix">
-
       <section class="panel wide-panel">
         <div class="panel-heading">
           <div>
@@ -226,7 +204,6 @@
                 <th>Recommended Action</th>
               </tr>
             </thead>
-
             <tbody id="triage-matrix-table">
               <tr data-severity="Non-severe" data-risk="Low Risk">
                 <td>Non-severe</td>
@@ -234,21 +211,18 @@
                 <td>1</td>
                 <td>Routine ward monitoring</td>
               </tr>
-
               <tr data-severity="Non-severe" data-risk="High Risk">
                 <td>Non-severe</td>
                 <td>High Risk</td>
                 <td>2</td>
                 <td>Increased monitoring and repeat biomarker assessment</td>
               </tr>
-
               <tr data-severity="Severe" data-risk="Low Risk">
                 <td>Severe</td>
                 <td>Low Risk</td>
                 <td>3</td>
                 <td>HDU review and frequent reassessment</td>
               </tr>
-
               <tr data-severity="Severe" data-risk="High Risk">
                 <td>Severe</td>
                 <td>High Risk</td>
@@ -259,11 +233,9 @@
           </table>
         </div>
       </section>
-
     </section>
 
     <section class="tab-panel" id="surge-simulation">
-
       <div class="calculator-grid">
 
         <section class="panel">
@@ -274,50 +246,48 @@
             </div>
           </div>
 
-          <p class="micro-label input-section-label">Simulation mode</p>
-
-          <div class="segmented">
-            <button class="segment active" data-surge-mode="test" type="button">
-              Test triage framework
-            </button>
-
-            <button class="segment" data-surge-mode="recommend" type="button">
-              Recommend best strategy
-            </button>
-          </div>
+          <p class="page-subtitle">
+            Enter current hospital patient counts by priority category and available ICU resources. The system compares triage strategies and recommends the lowest-risk allocation method.
+          </p>
 
           <div class="field-grid" style="margin-top: 18px;">
+            <label class="field">
+              <span>Priority 4 patients</span>
+              <input id="priority4" type="number" min="0" value="80">
+            </label>
+
+            <label class="field">
+              <span>Priority 3 patients</span>
+              <input id="priority3" type="number" min="0" value="120">
+            </label>
+
+            <label class="field">
+              <span>Priority 2 patients</span>
+              <input id="priority2" type="number" min="0" value="160">
+            </label>
+
+            <label class="field">
+              <span>Priority 1 patients</span>
+              <input id="priority1" type="number" min="0" value="240">
+            </label>
+
+            <label class="field">
+              <span>Total ICU beds</span>
+              <input id="totalIcuBeds" type="number" min="0" value="450">
+            </label>
+
+            <label class="field">
+              <span>Occupied ICU beds</span>
+              <input id="occupiedIcuBeds" type="number" min="0" value="250">
+            </label>
+
             <label class="field select-field">
-              <span>Triage framework</span>
-              <select id="triage-framework">
-                <option value="severity-first">Severity-first allocation</option>
-                <option value="deterioration-first">Deterioration-risk-first allocation</option>
-                <option value="combined-matrix">Combined matrix allocation</option>
+              <span>Surge condition</span>
+              <select id="surgeCondition">
+                <option value="Moderate Surge">Moderate Surge</option>
+                <option value="Severe Surge" selected>Severe Surge</option>
+                <option value="Crisis">Crisis</option>
               </select>
-            </label>
-
-            <label class="field">
-              <span>ICU capacity available</span>
-              <input id="icu-capacity" type="range" min="0" max="100" step="1" value="35">
-              <output id="icu-capacity-value">35%</output>
-            </label>
-
-            <label class="field">
-              <span>Current ward pressure</span>
-              <input id="ward-pressure" type="range" min="0" max="100" step="1" value="70">
-              <output id="ward-pressure-value">70%</output>
-            </label>
-
-            <label class="field">
-              <span>Projected incoming patients</span>
-              <input id="incoming-patients" type="range" min="0" max="100" step="1" value="30">
-              <output id="incoming-patients-value">30</output>
-            </label>
-
-            <label class="field">
-              <span>High-risk patient proportion</span>
-              <input id="high-risk-proportion" type="range" min="0" max="100" step="1" value="40">
-              <output id="high-risk-proportion-value">40%</output>
             </label>
           </div>
 
@@ -341,7 +311,7 @@
 
             <div class="risk-copy">
               <div class="confidence-row">
-                <span>Operational recommendation</span>
+                <span>Recommended triage method</span>
                 <strong id="surge-action">No simulation yet</strong>
               </div>
             </div>
@@ -349,18 +319,19 @@
 
           <div class="sparkline-panel">
             <div class="sparkline-heading">
-              <span>Surge explanation</span>
-              <strong id="surge-mode-label">Prototype</strong>
+              <span>Strategy comparison</span>
+              <strong id="surge-mode-label">Awaiting input</strong>
             </div>
 
             <p id="surge-explanation">
-              Select a simulation mode, adjust surge conditions and run the simulation.
+              Enter hospital capacity and patient priority counts, then run the simulation.
             </p>
+
+            <div id="surge-results-table" class="table-wrap" style="margin-top: 14px;"></div>
           </div>
         </section>
 
       </div>
-
     </section>
 
   </main>

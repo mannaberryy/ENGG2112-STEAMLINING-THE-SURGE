@@ -1313,3 +1313,38 @@ tbody tr:hover {
   word-break: keep-all;
   overflow-wrap: normal;
 }
+
+.surge-results-grid {
+    display: grid;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.surge-result-card {
+    border: 1px solid #dbe2ea;
+    border-radius: 18px;
+    padding: 18px;
+    background: #ffffff;
+}
+
+.surge-result-card h4 {
+    margin-bottom: 14px;
+    font-size: 20px;
+    color: #102047;
+}
+
+.surge-metric {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.surge-metric strong {
+    color: #102047;
+}
+
+.recommended-card {
+    border: 2px solid #1e8e5a;
+    background: #f4fbf7;
+}

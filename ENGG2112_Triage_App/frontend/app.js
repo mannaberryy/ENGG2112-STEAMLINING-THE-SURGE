@@ -92,7 +92,7 @@ function updateCsvFormat() {
     }
 }
 
-// FIX: store the file reference before the button is clicked so it is never lost
+// Store the file reference before the button is clicked so it is never lost
 let storedFile = null;
 
 const upload = document.getElementById("biomarker-upload");
@@ -101,7 +101,7 @@ const uploadName = document.getElementById("upload-name");
 if (upload && uploadName) {
     upload.addEventListener("change", () => {
         if (upload.files && upload.files[0]) {
-            storedFile = upload.files[0];           // save reference immediately
+            storedFile = upload.files[0];
             uploadName.textContent = storedFile.name;
         } else {
             storedFile = null;
@@ -146,28 +146,15 @@ function riskColour(score) {
     return "var(--risk-high)";
 }
 
-
 function updateRingColour(ringId, score) {
     const ring = document.getElementById(ringId);
 
     if (!ring) return;
 
-    ring.style.setProperty(
-        "--ring-colour",
-        riskColour(score)
-    );
+    ring.style.setProperty("--ring-colour", riskColour(score));
 
-    const percentages = {
-        1: "25%",
-        2: "50%",
-        3: "75%",
-        4: "100%"
-    };
-
-    ring.style.setProperty(
-        "--risk",
-        percentages[score] || "0%"
-    );
+    const percentages = { 1: "25%", 2: "50%", 3: "75%", 4: "100%" };
+    ring.style.setProperty("--risk", percentages[score] || "0%");
 }
 
 function cleanProbability(val) {
@@ -182,7 +169,6 @@ async function runPrediction(event) {
         event.stopPropagation();
     }
 
-    // FIX: use the stored file reference instead of re-reading from the input
     const file = storedFile;
 
     if (!file) {
@@ -261,7 +247,6 @@ async function runPrediction(event) {
         updateRingColour("patient-risk-ring", resultMatrix.score);
         safeSetText("backend-status", "Backend: connected");
 
-        // Restore the filename display after successful prediction
         if (uploadName) {
             uploadName.textContent = file.name;
         }
@@ -277,8 +262,6 @@ async function runPrediction(event) {
     }
 }
 
-// FIX: use "click" only — NOT "mousedown" which fires before the browser
-// finishes processing the file input, causing the displayed filename to reset.
 const runPredictionButton = document.getElementById("run-prediction");
 if (runPredictionButton) {
     runPredictionButton.addEventListener("click", function(e) {
@@ -288,73 +271,92 @@ if (runPredictionButton) {
     });
 }
 
-document.querySelectorAll("[data-surge-mode]").forEach((button) => {
-    button.addEventListener("click", () => {
-        surgeMode = button.dataset.surgeMode;
-        document.querySelectorAll("[data-surge-mode]").forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
-    });
-});
+// ─── SURGE SIMULATION ────────────────────────────────────────────────────────
 
 const simulateSurgeButton = document.getElementById("simulate-surge");
+
 if (simulateSurgeButton) {
-    simulateSurgeButton.addEventListener("click", (e) => {
+    simulateSurgeButton.addEventListener("click", async (e) => {
         e.preventDefault();
-        const icuCapacity = Number(document.getElementById("icu-capacity")?.value || 0);
-        const wardPressure = Number(document.getElementById("ward-pressure")?.value || 0);
-        const incoming = Number(document.getElementById("incoming-patients")?.value || 0);
-        const highRisk = Number(document.getElementById("high-risk-proportion")?.value || 0);
-        const framework = document.getElementById("triage-framework")?.value || "";
 
-        const pressureScore = Math.round(
-            (100 - icuCapacity) * 0.35 +
-            wardPressure * 0.30 +
-            (incoming / 100) * 0.20 * 100 +
-            highRisk * 0.15
-        );
+        simulateSurgeButton.disabled = true;
+        simulateSurgeButton.textContent = "Running...";
 
-        let band;
-        let action;
-        let explanation;
+        const p4 = Number(document.getElementById("priority4")?.value) || 0;
+        const p3 = Number(document.getElementById("priority3")?.value) || 0;
+        const p2 = Number(document.getElementById("priority2")?.value) || 0;
+        const p1 = Number(document.getElementById("priority1")?.value) || 0;
+        const totalBeds = Number(document.getElementById("totalIcuBeds")?.value) || 0;
+        const occupiedBeds = Number(document.getElementById("occupiedIcuBeds")?.value) || 0;
+        const condition = document.getElementById("surgeCondition")?.value || "Severe Surge";
 
-        if (surgeMode === "recommend") {
-            band = "Recommended strategy";
-            action = "Use combined matrix allocation";
-            explanation = "The combined matrix allocation strategy is recommended because it uses both current severity and predicted deterioration risk. This supports patient-level prioritisation during surge conditions instead of relying only on current severity or only on predicted decline.";
-        } else {
-            if (framework === "severity-first") {
-                band = "Severity-first framework tested";
-                action = "Useful for immediate severe cases";
-                explanation = "Severity-first allocation prioritises patients who are already severe. It is simple and clinically intuitive, but may miss non-severe patients likely to deteriorate.";
-            } else if (framework === "deterioration-first") {
-                band = "Deterioration-risk-first framework tested";
-                action = "Useful for early escalation";
-                explanation = "Deterioration-risk-first allocation prioritises patients predicted to decline. It can support early intervention, but may under-prioritise patients already classified as severe.";
-            } else {
-                band = "Combined matrix framework tested";
-                action = "Best aligned with this project";
-                explanation = "Combined matrix allocation integrates Model 1 binary severity and Model 2 deterioration risk, making it the most aligned with the project aim of linking patient-level prediction to ICU escalation decisions.";
+        const payload = {
+            priority_4_patients: p4,
+            priority_3_patients: p3,
+            priority_2_patients: p2,
+            priority_1_patients: p1,
+            total_icu_beds: totalBeds,
+            occupied_icu_beds: occupiedBeds,
+            surge_condition: condition
+        };
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/surge", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Backend returned ${response.status}`);
             }
 
-            if (pressureScore >= 70) {
-                explanation += " Under severe surge pressure, this framework should be applied with strict escalation thresholds.";
-            } else if (pressureScore >= 40) {
-                explanation += " Under moderate surge pressure, high-risk patients should be reviewed early.";
-            } else {
-                explanation += " Under manageable surge pressure, standard escalation workflow remains feasible.";
+            const data = await response.json();
+
+            const recommended = data.recommended_strategy || "Unknown";
+
+            safeSetText("surge-band", "Simulation Complete");
+            safeSetText("surge-action", recommended);
+            safeSetText("surge-mode-label", "Decision-support output");
+            safeSetText("surge-explanation", "Lowest expected mortality strategy under current surge conditions.");
+
+            const ringScore = recommended.includes("Combined") ? 4 : recommended.includes("Severity") ? 3 : 2;
+            safeSetText("surge-score", ringScore);
+            updateRingColour("surge-risk-ring", ringScore);
+
+            // Build new content first, then swap in one atomic operation — no blank frame shown
+            const tableDiv = document.getElementById("surge-results-table");
+            if (tableDiv && data.results && data.results.length > 0) {
+                const grid = document.createElement("div");
+                grid.className = "surge-results-grid";
+
+                data.results.forEach((row, index) => {
+                    const card = document.createElement("div");
+                    card.className = "surge-result-card" + (index === 0 ? " recommended-card" : "");
+                    card.innerHTML = `
+                        <h4>${row.strategy}</h4>
+                        <div class="surge-metric"><span>ICU Used</span><strong>${row.icu_used}</strong></div>
+                        <div class="surge-metric"><span>Under-triage</span><strong>${row.under_triage_count}</strong></div>
+                        <div class="surge-metric"><span>Expected Deaths</span><strong>${row.expected_preventable_deaths}</strong></div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                // replaceChildren swaps old for new in one operation — no flicker
+                tableDiv.replaceChildren(grid);
             }
+
+        } catch (error) {
+            console.error("SURGE ERROR:", error);
+            alert("Surge simulation failed: " + error.message);
+        } finally {
+            simulateSurgeButton.disabled = false;
+            simulateSurgeButton.textContent = "Run Surge Simulation";
         }
-
-        safeSetText("surge-score", `${pressureScore}%`);
-        safeSetText("surge-band", band);
-        safeSetText("surge-action", action);
-        safeSetText("surge-explanation", explanation);
-        safeSetText("surge-mode-label", surgeMode === "recommend" ? "Strategy recommendation" : "Framework test");
-
-        const colourScore = pressureScore < 40 ? 1 : pressureScore < 70 ? 3 : 4;
-        updateRingColour("surge-risk-ring", colourScore);
     });
 }
+
+// ─── SIDEBAR TOGGLE ──────────────────────────────────────────────────────────
 
 const sidebarToggle = document.getElementById("sidebar-toggle");
 const appShell = document.querySelector(".app-shell");
@@ -372,4 +374,5 @@ if (sidebarToggle && appShell) {
     });
 }
 
-safeSetText("backend-status", "Backend: connecting...");
+// Initialize status indicator
+safeSetText("backend-status", "Backend: Ready to connect");

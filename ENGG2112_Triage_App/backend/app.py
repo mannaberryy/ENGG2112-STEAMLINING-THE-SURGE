@@ -5,13 +5,16 @@ import tempfile
 import pandas as pd
 
 from backend.predict import generate_prediction
+from backend.triage import run_hospital_decision_support
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "backend is working"})
+
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -20,12 +23,8 @@ def predict():
 
     file = request.files["file"]
 
-    # FIX: Save the uploaded CSV to the system temp directory instead of the
-    # project folder. VS Code Live Server watches the project folder for changes
-    # and reloads the browser page whenever any file inside it is created or
-    # modified — including the uploaded CSV. Saving to the OS temp directory
-    # (e.g. C:\Users\...\AppData\Local\Temp) is completely outside the project,
-    # so Live Server never sees the write and the page is not reloaded.
+    # Save to system temp directory so Live Server never sees the file
+    # and does not reload the page
     tmp_fd, tmp_path = tempfile.mkstemp(suffix=".csv")
     os.close(tmp_fd)
 
@@ -40,11 +39,40 @@ def predict():
             records = [results.to_dict()]
 
     finally:
-        # Always clean up the temp file, even if prediction fails
         if os.path.exists(tmp_path):
             os.remove(tmp_path)
 
     return jsonify(records), 200
+
+
+@app.route("/surge", methods=["POST"])
+def surge():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No JSON body received"}), 400
+
+    results = run_hospital_decision_support(
+        priority_4_patients=int(data.get("priority_4_patients", 0)),
+        priority_3_patients=int(data.get("priority_3_patients", 0)),
+        priority_2_patients=int(data.get("priority_2_patients", 0)),
+        priority_1_patients=int(data.get("priority_1_patients", 0)),
+        total_icu_beds=int(data.get("total_icu_beds", 0)),
+        occupied_icu_beds=int(data.get("occupied_icu_beds", 0)),
+        surge_condition=data.get("surge_condition", "Custom")
+    )
+
+    # Convert all numpy int64/float64 columns to native Python float so
+    # Flask's jsonify does not throw a TypeError on serialisation.
+    # This is the cause of the silent failure on the second button click.
+    results_clean = results.copy()
+    for col in results_clean.select_dtypes(include=["number"]).columns:
+        results_clean[col] = results_clean[col].astype(float)
+
+    return jsonify({
+        "recommended_strategy": str(results_clean.iloc[0]["strategy"]),
+        "results": results_clean.to_dict(orient="records")
+    }), 200
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000, threaded=False)
