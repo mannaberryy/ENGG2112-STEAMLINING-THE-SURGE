@@ -185,12 +185,11 @@ async function runPrediction(event) {
     const formData = new FormData();
     formData.append("file", file);
 
-    try {
-        const response = await fetch("http://127.0.0.1:5000/predict", {
-            method: "POST",
-            body: formData,
-            mode: "cors"
-        });
+    const response = await fetch("/predict", {
+    method: "POST",
+    body: formData,
+    mode: "cors"
+});
 
         if (!response.ok) {
             throw new Error(`Backend returned status ${response.status}`);
@@ -300,12 +299,11 @@ if (simulateSurgeButton) {
             surge_condition: condition
         };
 
-        try {
-            const response = await fetch("http://127.0.0.1:5000/surge", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+        const response = await fetch("/surge", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+});
 
             if (!response.ok) {
                 throw new Error(`Backend returned ${response.status}`);
