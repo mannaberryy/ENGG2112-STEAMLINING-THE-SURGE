@@ -345,7 +345,8 @@ if (simulateSurgeButton) {
                         <h4>${row.strategy}</h4>
                         <div class="surge-metric"><span>ICU Used</span><strong>${row.icu_used}</strong></div>
                         <div class="surge-metric"><span>Under-triage</span><strong>${row.under_triage_count}</strong></div>
-                        <div class="surge-metric"><span>Expected Deaths</span><strong>${row.expected_preventable_deaths}</strong></div>
+                        <div class="surge-metric"><span>Expected Deaths</span><strong>${Math.round(row.expected_preventable_deaths)}</strong></div>
+
                     `;
                     grid.appendChild(card);
                 });
