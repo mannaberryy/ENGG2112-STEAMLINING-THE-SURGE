@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import tempfile
@@ -7,24 +7,20 @@ import pandas as pd
 from backend.predict import generate_prediction
 from backend.triage import run_hospital_decision_support
 
-
-import os
-from flask import Flask, request, jsonify, send_from_directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
 app = Flask(
     __name__,
-    static_folder="../frontend",
+    static_folder=FRONTEND_DIR,
     static_url_path=""
 )
 
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/")
 def serve_frontend():
-    return send_from_directory(app.static_folder, "index.html")
-
-
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+    return send_from_directory(FRONTEND_DIR, "index.html")
 
 
 @app.route("/health", methods=["GET"])
