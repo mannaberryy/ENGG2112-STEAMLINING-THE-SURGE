@@ -7,6 +7,22 @@ import pandas as pd
 from backend.predict import generate_prediction
 from backend.triage import run_hospital_decision_support
 
+
+import os
+from flask import Flask, request, jsonify, send_from_directory
+
+app = Flask(
+    __name__,
+    static_folder="../frontend",
+    static_url_path=""
+)
+
+
+@app.route("/")
+def serve_frontend():
+    return send_from_directory(app.static_folder, "index.html")
+
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
