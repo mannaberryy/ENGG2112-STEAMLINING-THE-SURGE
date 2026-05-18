@@ -2,7 +2,6 @@ const navItems = document.querySelectorAll(".nav-item");
 const tabPanels = document.querySelectorAll(".tab-panel");
 
 let inputMode = "full";
-let surgeMode = "test";
 
 const demoPatients = {
     "demo-1": { severity: "Non-severe", deterioration: "Low Risk", confidence: 78 },
@@ -17,6 +16,8 @@ function safeSetText(id, value) {
         el.textContent = value;
     }
 }
+
+// ─── NAV TABS ────────────────────────────────────────────────────────────────
 
 navItems.forEach((item) => {
     item.addEventListener("click", () => {
@@ -54,6 +55,8 @@ function updatePageTitle(tab) {
     safeSetText("page-subtitle", subtitles[tab] || "");
 }
 
+// ─── SLIDERS ─────────────────────────────────────────────────────────────────
+
 function connectSlider(sliderId, outputId, suffix = "") {
     const slider = document.getElementById(sliderId);
     const output = document.getElementById(outputId);
@@ -70,6 +73,8 @@ connectSlider("icu-capacity", "icu-capacity-value", "%");
 connectSlider("ward-pressure", "ward-pressure-value", "%");
 connectSlider("incoming-patients", "incoming-patients-value");
 connectSlider("high-risk-proportion", "high-risk-proportion-value", "%");
+
+// ─── INPUT MODE TOGGLE ───────────────────────────────────────────────────────
 
 document.querySelectorAll("[data-input-mode]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -92,7 +97,8 @@ function updateCsvFormat() {
     }
 }
 
-// Store the file reference before the button is clicked so it is never lost
+// ─── FILE UPLOAD ─────────────────────────────────────────────────────────────
+
 let storedFile = null;
 
 const upload = document.getElementById("biomarker-upload");
@@ -109,6 +115,8 @@ if (upload && uploadName) {
         }
     });
 }
+
+// ─── TRIAGE MATRIX ───────────────────────────────────────────────────────────
 
 function getRecommendation(severity, deterioration) {
     const matrix = {
@@ -148,7 +156,6 @@ function riskColour(score) {
 
 function updateRingColour(ringId, score) {
     const ring = document.getElementById(ringId);
-
     if (!ring) return;
 
     ring.style.setProperty("--ring-colour", riskColour(score));
@@ -162,6 +169,8 @@ function cleanProbability(val) {
     const num = Number(val);
     return isNaN(num) ? 0 : num;
 }
+
+// ─── PATIENT RISK PREDICTION ─────────────────────────────────────────────────
 
 async function runPrediction(event) {
     if (event) {
@@ -182,14 +191,15 @@ async function runPrediction(event) {
         runButton.textContent = "Generating...";
     }
 
-    const formData = new FormData();
-    formData.append("file", file);
+    try {
+        const formData = new FormData();
+        formData.append("file", file);
 
-    const response = await fetch("/predict", {
-    method: "POST",
-    body: formData,
-    mode: "cors"
-});
+        const response = await fetch("/predict", {
+            method: "POST",
+            body: formData,
+            mode: "cors"
+        });
 
         if (!response.ok) {
             throw new Error(`Backend returned status ${response.status}`);
@@ -252,7 +262,7 @@ async function runPrediction(event) {
 
     } catch (error) {
         console.error("FRONTEND ERROR:", error);
-        alert("Frontend layout update failed: " + error.message);
+        alert("Prediction failed: " + error.message);
     } finally {
         if (runButton) {
             runButton.disabled = false;
@@ -281,29 +291,30 @@ if (simulateSurgeButton) {
         simulateSurgeButton.disabled = true;
         simulateSurgeButton.textContent = "Running...";
 
-        const p4 = Number(document.getElementById("priority4")?.value) || 0;
-        const p3 = Number(document.getElementById("priority3")?.value) || 0;
-        const p2 = Number(document.getElementById("priority2")?.value) || 0;
-        const p1 = Number(document.getElementById("priority1")?.value) || 0;
-        const totalBeds = Number(document.getElementById("totalIcuBeds")?.value) || 0;
-        const occupiedBeds = Number(document.getElementById("occupiedIcuBeds")?.value) || 0;
-        const condition = document.getElementById("surgeCondition")?.value || "Severe Surge";
+        try {
+            const p4 = Number(document.getElementById("priority4")?.value) || 0;
+            const p3 = Number(document.getElementById("priority3")?.value) || 0;
+            const p2 = Number(document.getElementById("priority2")?.value) || 0;
+            const p1 = Number(document.getElementById("priority1")?.value) || 0;
+            const totalBeds = Number(document.getElementById("totalIcuBeds")?.value) || 0;
+            const occupiedBeds = Number(document.getElementById("occupiedIcuBeds")?.value) || 0;
+            const condition = document.getElementById("surgeCondition")?.value || "Severe Surge";
 
-        const payload = {
-            priority_4_patients: p4,
-            priority_3_patients: p3,
-            priority_2_patients: p2,
-            priority_1_patients: p1,
-            total_icu_beds: totalBeds,
-            occupied_icu_beds: occupiedBeds,
-            surge_condition: condition
-        };
+            const payload = {
+                priority_4_patients: p4,
+                priority_3_patients: p3,
+                priority_2_patients: p2,
+                priority_1_patients: p1,
+                total_icu_beds: totalBeds,
+                occupied_icu_beds: occupiedBeds,
+                surge_condition: condition
+            };
 
-        const response = await fetch("/surge", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-});
+            const response = await fetch("/surge", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
 
             if (!response.ok) {
                 throw new Error(`Backend returned ${response.status}`);
@@ -322,7 +333,6 @@ if (simulateSurgeButton) {
             safeSetText("surge-score", ringScore);
             updateRingColour("surge-risk-ring", ringScore);
 
-            // Build new content first, then swap in one atomic operation — no blank frame shown
             const tableDiv = document.getElementById("surge-results-table");
             if (tableDiv && data.results && data.results.length > 0) {
                 const grid = document.createElement("div");
@@ -340,7 +350,6 @@ if (simulateSurgeButton) {
                     grid.appendChild(card);
                 });
 
-                // replaceChildren swaps old for new in one operation — no flicker
                 tableDiv.replaceChildren(grid);
             }
 
@@ -372,5 +381,6 @@ if (sidebarToggle && appShell) {
     });
 }
 
-// Initialize status indicator
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+
 safeSetText("backend-status", "Backend: Ready to connect");
