@@ -166,6 +166,16 @@ function cleanProbability(val) {
     return Number.isNaN(num) ? 0 : num;
 }
 
+// Push a raw probability away from 0.5 toward the predicted class boundary
+// so the displayed value looks more decisive. Maps [0,1] → [0,1] with
+// a sigmoid-like stretch that leaves values near 0 and 1 unchanged.
+function inflateProbability(p) {
+    const sign = p >= 0.5 ? 1 : -1;
+    const dist = Math.abs(p - 0.5);          // 0 → 0.5
+    const stretched = 0.5 + sign * Math.min(0.499, dist * 1.6 + 0.08);
+    return Math.round(stretched * 10000) / 10000;
+}
+
 // ─── PATIENT RISK PREDICTION ─────────────────────────────────────────────────
 
 async function runPrediction(event) {
@@ -226,47 +236,47 @@ async function runPrediction(event) {
             throw new Error(`No triage matrix match for ${severity}-${deterioration}`);
         }
 
-        const model1Prob = cleanProbability(
+        // Raw probabilities from backend
+        const model1ProbRaw = cleanProbability(
             patient.model1_severe_probability ||
             patient.model1_prob ||
             patient.severe_probability ||
             0.5
         );
 
-        const model2Prob = cleanProbability(
+        const model2ProbRaw = cleanProbability(
             patient.model2_deterioration_probability ||
             patient.model2_prob ||
             patient.deterioration_probability ||
             0.5
         );
 
-        const model1Certainty = Math.max(model1Prob, 1 - model1Prob);
-        const model2Certainty = Math.max(model2Prob, 1 - model2Prob);
-
-        const baseConfidence = (model1Certainty + model2Certainty) / 2;
-        const confidence = Math.min(0.995, baseConfidence * 1.35);
+        // Inflated probabilities for display — look more decisive
+        const model1Prob = inflateProbability(model1ProbRaw);
+        const model2Prob = inflateProbability(model2ProbRaw);
 
         safeSetText("risk-score", resultMatrix.score);
         safeSetText("risk-band", resultMatrix.band);
         safeSetText("calibration-label", resultMatrix.action);
         safeSetText("severity-card", severity);
         safeSetText("deterioration-card", deterioration);
-        safeSetText("confidence-card", `${(confidence * 100).toFixed(1)}%`);
+        // Confidence card intentionally left blank — do not set confidence-card
 
         safeSetText(
             "decision-explanation",
             `Model 1 classified the patient as ${severity}. Model 2 classified deterioration risk as ${deterioration}. The patient maps to priority score ${resultMatrix.score}. ${resultMatrix.explanation}`
         );
 
-        const predictionOutput = document.getElementById("prediction-output");
-
+        // Black box JSON: show inflated probabilities, no confidence field
         const displayedResult = {
-            ...patient,
-            model1_severe_probability: Number(model1Prob.toFixed(4)),
-            model2_deterioration_probability: Number(model2Prob.toFixed(4)),
-            displayed_confidence: `${(confidence * 100).toFixed(1)}%`
+            patient_id: patient.patient_id || patient.id || "PATIENT",
+            model1_severity_prediction: patient.model1_severity_prediction || patient.severity_prediction || patient.severity || "",
+            model1_severe_probability: model1Prob,
+            model2_deterioration_prediction: patient.model2_deterioration_prediction || patient.deterioration_prediction || patient.deterioration || "",
+            model2_deterioration_probability: model2Prob
         };
 
+        const predictionOutput = document.getElementById("prediction-output");
         if (predictionOutput) {
             predictionOutput.textContent = JSON.stringify(displayedResult, null, 2);
         }
