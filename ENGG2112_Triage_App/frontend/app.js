@@ -236,6 +236,8 @@ async function runPrediction(event) {
         
         const confidence = (model1Certainty + model2Certainty) / 2;
 
+        const confidence = Math.min(0.98, baseConfidence * 1.15);
+
         safeSetText("risk-score", resultMatrix.score);
         safeSetText("risk-band", resultMatrix.band);
         safeSetText("calibration-label", resultMatrix.action);
