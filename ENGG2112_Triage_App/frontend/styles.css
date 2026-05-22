@@ -1348,3 +1348,211 @@ tbody tr:hover {
     border: 2px solid #1e8e5a;
     background: #f4fbf7;
 }
+
+
+/* ===================================================== */
+/* FINAL CLEAN LAYOUT FIX */
+/* ===================================================== */
+
+.workspace {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 36px;
+}
+
+.topbar {
+  width: 100%;
+  margin-bottom: 22px;
+}
+
+.topbar h2 {
+  font-size: 2rem;
+  line-height: 1.12;
+}
+
+.page-subtitle {
+  max-width: 760px;
+}
+
+/* MAIN GRID */
+
+#patient-risk .calculator-grid,
+#surge-simulation .calculator-grid {
+  width: 100%;
+  max-width: 1120px;
+  grid-template-columns: minmax(430px, 1.05fr) minmax(390px, 0.95fr);
+  gap: 24px;
+  align-items: start;
+}
+
+/* PANELS */
+
+.panel {
+  width: 100%;
+  border-radius: 22px;
+}
+
+/* RESULT SIDE */
+
+.risk-visual {
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+}
+
+.risk-ring {
+  width: 180px;
+  height: 180px;
+}
+
+.risk-ring span {
+  font-size: 2.25rem;
+}
+
+/* OUTPUT CARDS */
+
+.model-output-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.output-card {
+  min-height: 120px;
+  padding: 14px;
+}
+
+.output-card span {
+  font-size: 0.68rem;
+  line-height: 1.1;
+}
+
+.output-card strong {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.output-card small {
+  font-size: 0.76rem;
+  line-height: 1.2;
+}
+
+/* JSON OUTPUT BOX */
+
+#prediction-output {
+  display: block;
+  max-height: 180px;
+  overflow: auto;
+  padding: 14px;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  white-space: pre-wrap;
+}
+
+/* SURGE TAB */
+
+#surge-simulation .field-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+#surge-simulation .primary-button {
+  min-height: 58px;
+  margin-top: 14px;
+}
+
+/* SURGE RESULTS */
+
+.surge-results-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.surge-result-card {
+  border: 1px solid #dbe2ea;
+  border-radius: 18px;
+  padding: 18px;
+  background: #ffffff;
+}
+
+.surge-result-card h4 {
+  margin-bottom: 14px;
+  font-size: 1.1rem;
+  color: #102047;
+}
+
+.surge-metric {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.surge-metric strong {
+  color: #102047;
+}
+
+.recommended-card {
+  border: 2px solid #1e8e5a;
+  background: #f4fbf7;
+}
+
+/* SIDEBAR */
+
+.app-shell {
+  grid-template-columns: 270px minmax(0, 1fr);
+}
+
+.app-shell.sidebar-collapsed {
+  grid-template-columns: 96px minmax(0, 1fr);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1250px) {
+
+  #patient-risk .calculator-grid,
+  #surge-simulation .calculator-grid {
+    grid-template-columns: 1fr;
+    max-width: 760px;
+  }
+
+  .risk-visual {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+
+  .workspace {
+    padding: 18px;
+  }
+
+  #patient-risk .calculator-grid,
+  #surge-simulation .calculator-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-visual {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .risk-ring {
+    margin: 0 auto;
+  }
+
+  .model-output-grid,
+  #surge-simulation .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .upload-strip {
+    grid-template-columns: 1fr;
+  }
+}
