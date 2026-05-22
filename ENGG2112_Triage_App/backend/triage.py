@@ -30,10 +30,7 @@ SCENARIOS = {
     "Crisis": {
         "description": "ICU overwhelmed; deterioration risk becomes the dominant mortality driver.",
         "mortality_multiplier": 1.50,
-        "deterioration_bonus": 2.0,   # Under crisis, high-deterioration-risk patients
-                                       # face a 2x mortality uplift — they are far more
-                                       # likely to crash without ICU when the system is
-                                       # overwhelmed and HDU monitoring degrades.
+        "deterioration_bonus": 2.0,
         "bed_buffer_fraction": 0.30,
         "exclude_priority_1": True,
     },
@@ -65,42 +62,61 @@ TRIAGE_MATRIX = {
 def triage_decision(severity: str, deterioration: str) -> Tuple[int, str]:
     return TRIAGE_MATRIX.get((severity, deterioration), (1, "Routine ward monitoring"))
 
+
 # =============================================================================
 # MORTALITY WEIGHTS
 #
-# Base weights represent probability of a preventable death if a patient is
-# denied ICU admission.
+# Untreated mortality = expected mortality if ICU escalation is denied.
+# Treated mortality = residual expected mortality even if ICU escalation is provided.
 #
-# Under Moderate and Severe Surge:
-#   P3 (severe+low_risk) weight (0.40) > P2 (non_severe+high_risk) weight (0.25)
-#   → Severity Only wins: denying P2 patients costs fewer deaths than denying P3
-#
-# Under Crisis:
-#   P2 receives a 2x deterioration bonus → effective weight = 0.25 * 1.5 * 2.0 = 0.75
-#   P3 effective weight = 0.40 * 1.5 = 0.60
-#   → Deterioration Only wins: when the system is overwhelmed, high-deterioration-risk
-#     patients face catastrophic outcomes without ICU, making their prioritisation
-#     the mortality-minimising strategy.
+# Treated mortality is lower than untreated mortality, but not zero.
+# This avoids assuming ICU treatment makes all patients completely safe.
 # =============================================================================
 
 BASE_UNTREATED_MORTALITY = {
     ("severe", "high_risk"):     0.75,
-    ("severe", "low_risk"):      0.40,   # P3 — severe but stable
-    ("non_severe", "high_risk"): 0.25,   # P2 — high deterioration risk
-    ("non_severe", "low_risk"):  0.05,   # P1 — routine monitoring sufficient
+    ("severe", "low_risk"):      0.40,
+    ("non_severe", "high_risk"): 0.25,
+    ("non_severe", "low_risk"):  0.05,
 }
 
-def get_mortality_weights(surge_condition: str) -> dict:
-    sc = SCENARIOS.get(surge_condition, SCENARIOS["Custom"])
-    mult = sc["mortality_multiplier"]
-    det_bonus = sc["deterioration_bonus"]
-    weights = {}
-    for (sev, det), base in BASE_UNTREATED_MORTALITY.items():
-        m = mult
-        if det == "high_risk":
-            m = mult * det_bonus
-        weights[(sev, det)] = min(base * m, 1.0)
-    return weights
+BASE_TREATED_MORTALITY = {
+    ("severe", "high_risk"):     0.30,
+    ("severe", "low_risk"):      0.14,
+    ("non_severe", "high_risk"): 0.10,
+    ("non_severe", "low_risk"):  0.02,
+}
+
+def get_adjusted_mortality_weights(surge_condition: str) -> Tuple[dict, dict]:
+    scenario = SCENARIOS.get(surge_condition, SCENARIOS["Custom"])
+    mult = scenario["mortality_multiplier"]
+    det_bonus = scenario["deterioration_bonus"]
+
+    untreated_weights = {}
+    treated_weights = {}
+
+    for key, base in BASE_UNTREATED_MORTALITY.items():
+        severity, deterioration = key
+
+        multiplier = mult
+        if deterioration == "high_risk":
+            multiplier *= det_bonus
+
+        untreated_weights[key] = min(base * multiplier, 1.0)
+
+    for key, base in BASE_TREATED_MORTALITY.items():
+        severity, deterioration = key
+
+        multiplier = mult
+
+        # ICU treatment reduces, but does not remove, deterioration-related risk.
+        if deterioration == "high_risk":
+            multiplier *= (1 + 0.35 * (det_bonus - 1))
+
+        treated_weights[key] = min(base * multiplier, 1.0)
+
+    return untreated_weights, treated_weights
+
 
 def needs_icu(patient: Patient, exclude_priority_1: bool) -> bool:
     if exclude_priority_1 and patient.priority_score == 1:
@@ -110,27 +126,16 @@ def needs_icu(patient: Patient, exclude_priority_1: bool) -> bool:
 
 # =============================================================================
 # STRATEGY DEFINITIONS
-#
-# Strategy 1 — Severity Only (Model 1 driven):
-#   Allocation order: P4 → P3 → P2 → P1
-#   Severe patients always precede non-severe patients regardless of
-#   deterioration risk. Optimal under Moderate and Severe Surge conditions
-#   where P3 base mortality (0.40) exceeds P2 base mortality (0.25).
-#
-# Strategy 2 — Deterioration Risk Only (Model 2 driven):
-#   Allocation order: P4 → P2 → P3 → P1
-#   High deterioration risk patients precede severe-but-stable patients.
-#   Non-severe+high-risk (P2) jump ahead of severe+low-risk (P3).
-#   Optimal under Crisis conditions where the deterioration bonus raises
-#   effective P2 mortality above P3, making their prioritisation life-saving.
 # =============================================================================
 
 def strategy_severity_only(patients: List[Patient]) -> List[Patient]:
+    # P4 -> P3 -> P2 -> P1
     priority_order = {4: 0, 3: 1, 2: 2, 1: 3}
     return sorted(patients, key=lambda p: priority_order[p.priority_score])
 
 
 def strategy_deterioration_only(patients: List[Patient]) -> List[Patient]:
+    # P4 -> P2 -> P3 -> P1
     priority_order = {4: 0, 2: 1, 3: 2, 1: 3}
     return sorted(patients, key=lambda p: priority_order[p.priority_score])
 
@@ -148,11 +153,14 @@ def generate_patients_from_priority_counts(priority_counts: dict) -> List[Patien
         2: ("non_severe", "high_risk"),
         1: ("non_severe", "low_risk"),
     }
+
     patients = []
     patient_id = 0
+
     for priority in [4, 3, 2, 1]:
         count = int(priority_counts.get(priority, 0))
         severity, deterioration = priority_map[priority]
+
         for _ in range(count):
             patients.append(
                 Patient(
@@ -163,6 +171,7 @@ def generate_patients_from_priority_counts(priority_counts: dict) -> List[Patien
                 )
             )
             patient_id += 1
+
     return patients
 
 
@@ -172,9 +181,11 @@ def evaluate_triage_strategy(
     available_icu_beds: int,
     surge_condition: str = "Custom",
 ) -> dict:
+
     scenario = SCENARIOS.get(surge_condition, SCENARIOS["Custom"])
     exclude_priority_1 = scenario["exclude_priority_1"]
-    mortality_weights = get_mortality_weights(surge_condition)
+
+    untreated_weights, treated_weights = get_adjusted_mortality_weights(surge_condition)
 
     bed_buffer = int(available_icu_beds * scenario["bed_buffer_fraction"])
     effective_beds = max(available_icu_beds - bed_buffer, 0)
@@ -183,28 +194,42 @@ def evaluate_triage_strategy(
 
     icu_used = 0
     under_triage_count = 0
-    expected_preventable_deaths = 0.0
+
+    expected_deaths_treated = 0.0
+    expected_deaths_untreated = 0.0
 
     allocated_priority_counts = {1: 0, 2: 0, 3: 0, 4: 0}
     denied_priority_counts = {1: 0, 2: 0, 3: 0, 4: 0}
 
     for patient in ordered_patients:
+        key = (patient.severity, patient.deterioration)
+
         if needs_icu(patient, exclude_priority_1):
             if icu_used < effective_beds:
                 icu_used += 1
                 patient.icu_allocated = True
                 patient.outcome = "ICU allocated"
                 allocated_priority_counts[patient.priority_score] += 1
+
+                # Treated patients still carry some residual mortality risk.
+                expected_deaths_treated += treated_weights[key]
+
             else:
                 patient.icu_allocated = False
                 patient.outcome = "ICU denied"
                 under_triage_count += 1
                 denied_priority_counts[patient.priority_score] += 1
-                expected_preventable_deaths += mortality_weights[
-                    (patient.severity, patient.deterioration)
-                ]
+
+                # Denied patients carry higher untreated mortality risk.
+                expected_deaths_untreated += untreated_weights[key]
+
         else:
             patient.outcome = "No ICU required"
+
+            # Routine ward patients still carry low baseline mortality.
+            expected_deaths_treated += treated_weights[key]
+
+    total_expected_deaths = expected_deaths_treated + expected_deaths_untreated
 
     return {
         "strategy": strategy_name,
@@ -215,10 +240,15 @@ def evaluate_triage_strategy(
         "icu_used": icu_used,
         "icu_remaining": max(effective_beds - icu_used, 0),
         "under_triage_count": under_triage_count,
-        "expected_preventable_deaths": round(expected_preventable_deaths, 2),
+
+        "expected_deaths_treated": round(expected_deaths_treated, 2),
+        "expected_deaths_untreated": round(expected_deaths_untreated, 2),
+        "total_expected_deaths": round(total_expected_deaths, 2),
+
         "priority_4_allocated": allocated_priority_counts[4],
         "priority_3_allocated": allocated_priority_counts[3],
         "priority_2_allocated": allocated_priority_counts[2],
+
         "priority_4_denied": denied_priority_counts[4],
         "priority_3_denied": denied_priority_counts[3],
         "priority_2_denied": denied_priority_counts[2],
@@ -248,6 +278,7 @@ def run_hospital_decision_support(
     scenario = SCENARIOS.get(surge_condition, SCENARIOS["Custom"])
 
     results = []
+
     for strategy_name in STRATEGIES:
         result = evaluate_triage_strategy(
             patients=generate_patients_from_priority_counts(priority_counts),
@@ -255,16 +286,19 @@ def run_hospital_decision_support(
             available_icu_beds=available_icu_beds,
             surge_condition=surge_condition,
         )
+
         result["total_patients"] = len(patients)
         result["priority_4_patients"] = priority_4_patients
         result["priority_3_patients"] = priority_3_patients
         result["priority_2_patients"] = priority_2_patients
         result["priority_1_patients"] = priority_1_patients
+
         results.append(result)
 
     df = pd.DataFrame(results)
+
     df = df.sort_values(
-        by=["expected_preventable_deaths", "under_triage_count"],
+        by=["total_expected_deaths", "under_triage_count"],
         ascending=[True, True],
     ).reset_index(drop=True)
 
@@ -273,26 +307,41 @@ def run_hospital_decision_support(
     print("\n" + "=" * 80)
     print("HOSPITAL TRIAGE DECISION-SUPPORT RESULTS")
     print("=" * 80)
+
     print(f"Surge condition:      {surge_condition}")
     print(f"Description:          {scenario['description']}")
     print(f"Mortality multiplier: {scenario['mortality_multiplier']}x")
-    print(f"Deterioration bonus:  {scenario['deterioration_bonus']}x (applied to P2 patients)")
+    print(f"Deterioration bonus:  {scenario['deterioration_bonus']}x")
     print(f"Bed buffer:           {int(scenario['bed_buffer_fraction'] * 100)}% held in reserve")
     print(f"Priority 1 excluded:  {scenario['exclude_priority_1']}")
     print(f"Total patients:       {len(patients)}")
     print(f"Total ICU beds:       {total_icu_beds}")
     print(f"Occupied ICU beds:    {occupied_icu_beds}")
     print(f"Available ICU beds:   {available_icu_beds}")
+
     print("\nStrategy comparison:")
-    print(df[["strategy", "effective_icu_beds", "icu_used", "under_triage_count",
-              "expected_preventable_deaths"]].to_string(index=False))
+    print(
+        df[
+            [
+                "strategy",
+                "effective_icu_beds",
+                "icu_used",
+                "under_triage_count",
+                "expected_deaths_treated",
+                "expected_deaths_untreated",
+                "total_expected_deaths",
+            ]
+        ].to_string(index=False)
+    )
+
     print(f"\nRECOMMENDED TRIAGE METHOD: {recommended_strategy}")
 
     return df
 
 
 if __name__ == "__main__":
-    print("\n--- TEST 1: Moderate Surge (Severity Only should win) ---")
+
+    print("\n--- TEST 1: Moderate Surge ---")
     run_hospital_decision_support(
         priority_4_patients=80,
         priority_3_patients=120,
@@ -303,7 +352,7 @@ if __name__ == "__main__":
         surge_condition="Moderate Surge",
     )
 
-    print("\n--- TEST 2: Severe Surge (Severity Only should win) ---")
+    print("\n--- TEST 2: Severe Surge ---")
     run_hospital_decision_support(
         priority_4_patients=80,
         priority_3_patients=120,
@@ -314,7 +363,7 @@ if __name__ == "__main__":
         surge_condition="Severe Surge",
     )
 
-    print("\n--- TEST 3: Crisis (Deterioration Only should win) ---")
+    print("\n--- TEST 3: Crisis ---")
     run_hospital_decision_support(
         priority_4_patients=80,
         priority_3_patients=120,
