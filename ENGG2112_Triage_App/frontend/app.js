@@ -231,10 +231,10 @@ async function runPrediction(event) {
         const model1Prob = cleanProbability(patient.model1_severe_probability || patient.model1_prob || patient.severe_probability || 0.5);
         const model2Prob = cleanProbability(patient.model2_deterioration_probability || patient.model2_prob || patient.deterioration_probability || 0.5);
 
-        const confidence = (
-            Math.abs(model1Prob - 0.5) * 2 +
-            Math.abs(model2Prob - 0.5) * 2
-        ) / 2;
+       const model1Certainty = Math.max(model1Prob, 1 - model1Prob);
+        const model2Certainty = Math.max(model2Prob, 1 - model2Prob);
+        
+        const confidence = (model1Certainty + model2Certainty) / 2;
 
         safeSetText("risk-score", resultMatrix.score);
         safeSetText("risk-band", resultMatrix.band);
