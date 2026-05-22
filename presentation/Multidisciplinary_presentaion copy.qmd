@@ -763,7 +763,7 @@ strong{font-weight:600;color:var(--navy)}
 <section class="slide nv" id="s7">
   <div class="hd a1">
     <div class="ey">MVP · Live demonstration</div>
-    <h2>Streamlining the Surge — <em>live decision support. (not complete)</em></h2>
+    <h2>Streamlining the Surge — <em>live decision support.</em></h2>
     <div class="rule"></div>
   </div>
   <div class="body a2">
@@ -782,11 +782,72 @@ strong{font-weight:600;color:var(--navy)}
         <div class="mvp-row"><span class="mvp-k">Confidence</span><span class="mvp-v" style="color:var(--blue-m)">91.4%</span></div>
         <div class="mvp-row"><span class="mvp-k">Surge strategy</span><span class="mvp-v" style="color:var(--blue-m)">DETERIORATION-FIRST</span></div>
       </div>
-      <div class="mvp-out" style="min-width:230px">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--blue-m);margin-bottom:6px">Deployment</div>
-        <p style="font-size:12.5px">HTML/CSS/JS · Python Flask · Render</p>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--blue-m);margin-top:6px">engg2112-steamlining-the-surge.onrender.com</div>
-      </div>
+<a 
+  href="https://engg2112-steamlining-the-surge.onrender.com/"
+  target="_blank"
+  class="mvp-out"
+  style="
+    min-width:260px;
+    text-decoration:none;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:10px;
+    transition:all .2s ease;
+    cursor:pointer;
+    background:linear-gradient(135deg,var(--navy),var(--blue));
+    color:white;
+    border:none;
+    box-shadow:0 12px 32px rgba(0,0,0,.16);
+  "
+  onmouseenter="
+    this.style.transform='translateY(-3px)';
+    this.style.boxShadow='0 18px 42px rgba(0,0,0,.22)';
+  "
+  onmouseleave="
+    this.style.transform='translateY(0)';
+    this.style.boxShadow='0 12px 32px rgba(0,0,0,.16)';
+  "
+>
+
+  <div style="
+    font-family:'JetBrains Mono',monospace;
+    font-size:8px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.72);
+  ">
+    Live deployment
+  </div>
+
+  <div style="
+    font-size:22px;
+    font-weight:700;
+    line-height:1.2;
+    color:white;
+  ">
+    Launch MVP →
+  </div>
+
+  <p style="
+    font-size:12.5px;
+    line-height:1.6;
+    color:rgba(255,255,255,.82);
+    margin:0;
+  ">
+    Interactive Flask dashboard with biomarker upload, deterioration prediction, and surge triage simulation.
+  </p>
+
+  <div style="
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:rgba(255,255,255,.7);
+    margin-top:2px;
+  ">
+    engg2112-steamlining-the-surge.onrender.com
+  </div>
+
+</a>
     </div>
   </div>
 </section>
