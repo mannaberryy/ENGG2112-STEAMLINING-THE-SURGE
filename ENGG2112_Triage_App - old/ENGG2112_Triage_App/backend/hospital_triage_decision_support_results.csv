@@ -1,0 +1,4 @@
+strategy,available_icu_beds,icu_used,icu_remaining,under_triage_count,expected_preventable_deaths,priority_4_allocated,priority_3_allocated,priority_2_allocated,priority_4_denied,priority_3_denied,priority_2_denied,surge_condition,total_patients,priority_4_patients,priority_3_patients,priority_2_patients,priority_1_patients
+Severity Only (Baseline),200,200,0,160,40.0,80,120,0,0,0,160,Severe Surge,600,80,120,160,240
+Combined Matrix,200,200,0,160,40.0,80,120,0,0,0,160,Severe Surge,600,80,120,160,240
+Deterioration Only,200,200,0,160,58.0,80,0,120,0,120,40,Severe Surge,600,80,120,160,240
