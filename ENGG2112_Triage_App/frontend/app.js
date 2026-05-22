@@ -9,12 +9,9 @@ const demoPatients = {
     "demo-3": { severity: "Severe", deterioration: "High Risk", confidence: 88 }
 };
 
-// Helper function to safely update textContent if an element exists
 function safeSetText(id, value) {
     const el = document.getElementById(id);
-    if (el) {
-        el.textContent = value;
-    }
+    if (el) el.textContent = value;
 }
 
 // ─── NAV TABS ────────────────────────────────────────────────────────────────
@@ -30,9 +27,7 @@ navItems.forEach((item) => {
         item.classList.add("active");
 
         const targetPanel = document.getElementById(target);
-        if (targetPanel) {
-            targetPanel.classList.add("active");
-        }
+        if (targetPanel) targetPanel.classList.add("active");
 
         updatePageTitle(target);
     });
@@ -145,6 +140,7 @@ function getRecommendation(severity, deterioration) {
             explanation: "The patient is severe and has high predicted deterioration risk, giving the highest escalation priority in the final binary matrix."
         }
     };
+
     return matrix[`${severity}-${deterioration}`];
 }
 
@@ -167,7 +163,7 @@ function updateRingColour(ringId, score) {
 function cleanProbability(val) {
     if (Array.isArray(val)) return cleanProbability(val[0]);
     const num = Number(val);
-    return isNaN(num) ? 0 : num;
+    return Number.isNaN(num) ? 0 : num;
 }
 
 // ─── PATIENT RISK PREDICTION ─────────────────────────────────────────────────
@@ -214,9 +210,11 @@ async function runPrediction(event) {
         }
 
         const rawSeverity = patient.model1_severity_prediction || patient.severity_prediction || patient.severity || "";
-        const severity = String(rawSeverity).toLowerCase().includes("severe") && !String(rawSeverity).toLowerCase().includes("non")
-            ? "Severe"
-            : "Non-severe";
+        const severity =
+            String(rawSeverity).toLowerCase().includes("severe") &&
+            !String(rawSeverity).toLowerCase().includes("non")
+                ? "Severe"
+                : "Non-severe";
 
         const rawDeterioration = patient.model2_deterioration_prediction || patient.deterioration_prediction || patient.deterioration || "";
         const deterioration = String(rawDeterioration).toLowerCase().includes("high")
@@ -228,12 +226,23 @@ async function runPrediction(event) {
             throw new Error(`No triage matrix match for ${severity}-${deterioration}`);
         }
 
-        const model1Prob = cleanProbability(patient.model1_severe_probability || patient.model1_prob || patient.severe_probability || 0.5);
-        const model2Prob = cleanProbability(patient.model2_deterioration_probability || patient.model2_prob || patient.deterioration_probability || 0.5);
+        const model1Prob = cleanProbability(
+            patient.model1_severe_probability ||
+            patient.model1_prob ||
+            patient.severe_probability ||
+            0.5
+        );
 
-       const model1Certainty = Math.max(model1Prob, 1 - model1Prob);
+        const model2Prob = cleanProbability(
+            patient.model2_deterioration_probability ||
+            patient.model2_prob ||
+            patient.deterioration_probability ||
+            0.5
+        );
+
+        const model1Certainty = Math.max(model1Prob, 1 - model1Prob);
         const model2Certainty = Math.max(model2Prob, 1 - model2Prob);
-        
+
         const baseConfidence = (model1Certainty + model2Certainty) / 2;
         const confidence = Math.min(0.995, baseConfidence * 1.35);
 
@@ -250,8 +259,16 @@ async function runPrediction(event) {
         );
 
         const predictionOutput = document.getElementById("prediction-output");
+
+        const displayedResult = {
+            ...patient,
+            model1_severe_probability: Number(model1Prob.toFixed(4)),
+            model2_deterioration_probability: Number(model2Prob.toFixed(4)),
+            displayed_confidence: `${(confidence * 100).toFixed(1)}%`
+        };
+
         if (predictionOutput) {
-            predictionOutput.textContent = JSON.stringify(result, null, 2);
+            predictionOutput.textContent = JSON.stringify(displayedResult, null, 2);
         }
 
         updateRingColour("patient-risk-ring", resultMatrix.score);
@@ -274,7 +291,7 @@ async function runPrediction(event) {
 
 const runPredictionButton = document.getElementById("run-prediction");
 if (runPredictionButton) {
-    runPredictionButton.addEventListener("click", function(e) {
+    runPredictionButton.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
         runPrediction(e);
@@ -347,7 +364,6 @@ if (simulateSurgeButton) {
                         <div class="surge-metric"><span>ICU Used</span><strong>${row.icu_used}</strong></div>
                         <div class="surge-metric"><span>Under-triage</span><strong>${row.under_triage_count}</strong></div>
                         <div class="surge-metric"><span>Expected Deaths</span><strong>${Math.round(row.expected_preventable_deaths)}</strong></div>
-
                     `;
                     grid.appendChild(card);
                 });
