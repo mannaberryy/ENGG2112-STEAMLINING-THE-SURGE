@@ -379,7 +379,7 @@ button {
   display: grid;
   grid-template-columns: minmax(400px, 1.05fr) minmax(360px, 0.95fr);
   gap: 24px;
-  align-items: start;
+  align-items: stretch;   /* panels grow to equal height */
 }
 
 .lower-grid,
@@ -913,12 +913,28 @@ tbody tr:hover {
 /* RESPONSIVE                                           */
 /* ===================================================== */
 
-/* Very wide screens (>1800px): cap workspace width */
+/* Very wide screens (>1800px): use full width, just add a little extra padding */
 @media (min-width: 1800px) {
   .workspace {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 36px 48px;
+    padding: 40px 60px;
+  }
+
+  .calculator-grid {
+    grid-template-columns: minmax(480px, 1.1fr) minmax(440px, 0.9fr);
+    gap: 32px;
+  }
+
+  .risk-ring {
+    width: 210px;
+    height: 210px;
+  }
+
+  .risk-ring span {
+    font-size: 2.6rem;
+  }
+
+  .surge-results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
