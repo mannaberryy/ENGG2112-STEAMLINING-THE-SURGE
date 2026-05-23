@@ -1,0 +1,244 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.deck{width:100%;font-family:var(--font-sans)}
+.slide{display:none;width:100%;background:#f0f2f0;position:relative;overflow:hidden;flex-direction:column}
+.slide.active{display:flex}
+.dot-bg{position:absolute;inset:0;background-image:radial-gradient(circle,#b8c8c0 1px,transparent 1px);background-size:26px 26px;opacity:.5;pointer-events:none}
+.z1{position:relative;z-index:1}
+.pad{padding:2% 3.5% 0}
+.slabel{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#1a7a6e;margin-bottom:.2rem}
+.stitle{font-size:clamp(14px,2vw,24px);font-weight:700;color:#0d1f1d;line-height:1.1;margin-bottom:.5rem}
+.sh{background:#1a3a36;color:#e8f5f2;font-size:8px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:4px 8px;border:1.5px dashed #2d6b62;margin-bottom:5px}
+.card{background:#fff;border:1px solid #cdd9d5;padding:8px 10px}
+.cardtxt{font-size:clamp(7.5px,.88vw,10.5px);color:#2a3d3a;line-height:1.45}
+.stat-row{display:flex;gap:5px;margin-bottom:5px}
+.chip{background:#e8f5f2;border:1px solid #1a7a6e;border-radius:3px;padding:4px 7px;flex:1;text-align:center}
+.chipn{font-size:clamp(12px,1.7vw,19px);font-weight:700;color:#0d1f1d;display:block;line-height:1}
+.chipd{font-size:7px;color:#3d5450;margin-top:2px;display:block;line-height:1.3}
+.scard{background:#fff;border:1px solid #cdd9d5;border-left:3px solid;padding:6px 9px;margin-bottom:4px}
+.sl{font-size:8.5px;font-weight:700;color:#0d1f1d;margin-bottom:2px}
+.sb{font-size:7.5px;color:#3d5450;line-height:1.4}
+.ap{background:#f0f2f0;border:1px dashed #9ab5b0;padding:6px 9px}
+.wchip{background:#fce8e8;border:1px solid #c85050;padding:2px 6px;border-radius:2px;font-size:7.5px;color:#8b2020;font-weight:600;display:inline-block;margin-bottom:2px}
+.surge-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+.sg-box{padding:5px 6px;border-radius:2px;text-align:center}
+.sg-label{font-size:7.5px;font-weight:700;margin-bottom:2px}
+.sg-val{font-size:9px;font-weight:700;margin-bottom:2px}
+.sg-sub{font-size:7px;line-height:1.3}
+.eth-item{display:flex;gap:7px;align-items:flex-start;padding:6px 8px;background:#fff;border:1px solid #cdd9d5;margin-bottom:4px}
+.edot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.eh{font-size:9px;font-weight:700;color:#0d1f1d;margin-bottom:2px}
+.eb{font-size:7.5px;color:#3d5450;line-height:1.4}
+.etag{font-size:7px;font-weight:600;padding:1px 5px;border-radius:2px;display:inline-block;margin-left:4px;vertical-align:middle}
+.foot-bar{display:flex;justify-content:space-between;padding:.2rem 3.5%;border-top:.5px solid #c5cfc5;position:relative;z-index:1}
+.foot-txt{font-size:7.5px;color:#6b8580}
+.bot-bar{background:#0d3d36;padding:6px 3.5%;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.bot-main{font-size:clamp(9px,1.2vw,13px);font-weight:700;color:#e8f5f2}
+.bot-sub{font-size:7.5px;color:#7ab5ab;text-align:right;max-width:45%}
+.nav-row{display:flex;justify-content:center;align-items:center;gap:16px;padding:.5rem 0}
+.nav-ct{font-size:12px;color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">Discussion slides 9.2 Clinical Implications and 9.3 Limitations and Ethics</h2>
+<div class="deck">
+
+<!-- SLIDE 9.2 -->
+<div class="slide active" id="sl1">
+  <div class="dot-bg"></div>
+  <div class="pad z1">
+    <p class="slabel">Discussion · 9.2</p>
+    <p class="stitle">Clinical and operational implications</p>
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:9px">
+
+      <div style="display:flex;flex-direction:column;gap:6px">
+
+        <div>
+          <div class="sh">Model performance — interpreted operationally</div>
+          <div class="card">
+            <div class="stat-row">
+              <div class="chip"><span class="chipn">0.96</span><span class="chipd">Severe recall — 1 missed per 25<br>severe patients under surge</span></div>
+              <div class="chip"><span class="chipn">179/240</span><span class="chipd">Deteriorating presentations identified<br>before physiological visibility</span></div>
+            </div>
+            <p class="cardtxt">NEWS2 scored moderate accuracy at 3 days and poor-to-moderate at 14 days. SOFA induced substantial survival misclassification. This pipeline provides a deterioration signal <strong>before</strong> observable decline — directly closing the temporal gap from Section 1.1.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="sh">Surge simulation — design and clinical implication</div>
+          <div class="card">
+            <div class="surge-grid" style="margin-bottom:5px">
+              <div class="sg-box" style="background:#e8f5f2;border:1px solid #1a7a6e">
+                <div class="sg-label" style="color:#0d3d36">Moderate / Severe</div>
+                <div class="sg-val" style="color:#0d6b5a">Severity Only</div>
+                <div class="sg-sub" style="color:#3d5450">Severity classification is the decisive triage input</div>
+              </div>
+              <div class="sg-box" style="background:#fce8e8;border:1px solid #c85050">
+                <div class="sg-label" style="color:#6b1a1a">Crisis</div>
+                <div class="sg-val" style="color:#8b2020">Deterioration Only</div>
+                <div class="sg-sub" style="color:#3d5450">2.0× deterioration bonus makes Model 2 decisive</div>
+              </div>
+              <div class="sg-box" style="background:#fff;border:1px solid #cdd9d5">
+                <div class="sg-label" style="color:#0d1f1d">Key implication</div>
+                <div class="sg-sub" style="color:#3d5450;margin-top:2px">Model 2 matters most when cognitive load is highest and the system is most overwhelmed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sh">Financial efficiency + MVP feasibility</div>
+          <div class="card">
+            <p class="cardtxt">Model 1 precision of 0.882 constrains over-escalation and unnecessary ICU referrals — downstream efficiency gains in clinical time and resource cost under sustained surge. Rapid-test variant AUROC 0.890 with 18 accessible biomarkers demonstrates cross-institutional deployment without full metabolomic infrastructure, as evidenced by the deployed MVP.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div>
+          <div class="sh">Users and stakeholders</div>
+          <div class="scard" style="border-left-color:#1a7a6e">
+            <div class="sl">Direct users — Front-line triage clinicians</div>
+            <div class="sb">Input biomarker measurements. Receive severity, deterioration, confidence scores, and priority category to inform escalation.</div>
+          </div>
+          <div class="scard" style="border-left-color:#1a56a0">
+            <div class="sl">Operational stakeholders — Hospital administrators</div>
+            <div class="sb">Input real-time ICU capacity into surge simulation. Receive allocation strategy recommendations for their resource constraints.</div>
+          </div>
+          <div class="scard" style="border-left-color:#9a6e1a">
+            <div class="sl">Institutional stakeholders — Governing health bodies</div>
+            <div class="sb">Interpret aggregate capacity and demand data to inform critical care funding and policy decisions.</div>
+          </div>
+          <div class="ap">
+            <div class="sl" style="color:#3d5450">Affected population — Admitted patients</div>
+            <div class="sb">Not users of the tool. Escalation outcomes and survival are directly determined by the quality of triage decisions made through the framework.</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sh">Unintended consequences</div>
+          <div class="card" style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;gap:5px;align-items:flex-start">
+              <span class="wchip">Alert fatigue</span>
+              <p class="cardtxt" style="margin-top:1px">64 false positive flags may condition clinicians to discount alerts, eroding tool value over time.</p>
+            </div>
+            <div style="display:flex;gap:5px;align-items:flex-start">
+              <span class="wchip">Latency risk</span>
+              <p class="cardtxt" style="margin-top:1px">Under-24hr biomarker window introduces delay risk where deterioration precedes the result.</p>
+            </div>
+            <div style="display:flex;gap:5px;align-items:flex-start">
+              <span class="wchip">Deskilling</span>
+              <p class="cardtxt" style="margin-top:1px">Progressive reliance on priority scores may erode triage capacity without algorithmic support.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;min-height:3px"></div>
+  <div class="foot-bar"><span class="foot-txt">Streamlining the Surge | Discussion 9.2</span><span class="foot-txt">ENGG2112 Project Presentation</span></div>
+  <div class="bot-bar">
+    <span class="bot-main">Model 2's deterioration signal becomes decisive exactly when existing frameworks fail most — at crisis surge.</span>
+    <span class="bot-sub">Report §4, §5, §6, §7, §8 · Kiekkas et al. 2021</span>
+  </div>
+</div>
+
+<!-- SLIDE 9.3 -->
+<div class="slide" id="sl2">
+  <div class="dot-bg"></div>
+  <div class="pad z1">
+    <p class="slabel">Discussion · 9.3</p>
+    <p class="stitle">Limitations and ethical considerations</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+
+      <div>
+        <div class="sh">Data, consent and legal</div>
+        <div class="eth-item">
+          <span class="edot" style="background:#1a7a6e"></span>
+          <div>
+            <div class="eh">Informed consent — secondary data use <span class="etag" style="background:#e8f5f2;color:#0d6b5a">Moulaei 2025</span></div>
+            <div class="eb">CBD and CLD collected for research. Clinical deployment and rolling retraining both constitute secondary use — requiring separate consent governance beyond treatment consent.</div>
+          </div>
+        </div>
+        <div class="eth-item">
+          <span class="edot" style="background:#1a56a0"></span>
+          <div>
+            <div class="eh">Patient transparency — no contestability <span class="etag" style="background:#e6f0fb;color:#1a4a8a">Webb 2024</span></div>
+            <div class="eb">Patients receive a priority score determining ICU access with no mechanism to query it. Limited contestation leads operators to infer equitable functionality — reinforcing bias rather than identifying it. Binary matrix limits review granularity.</div>
+          </div>
+        </div>
+        <div class="eth-item">
+          <span class="edot" style="background:#8b1a1a"></span>
+          <div>
+            <div class="eh">Legal accountability gap <span class="etag" style="background:#fce8e8;color:#8b2020">Basu 2020</span></div>
+            <div class="eb">No regulatory framework assigns liability for probabilistic ML outputs in clinical settings. Responsibility between institution, clinician, and developer is unresolved and unaddressed in the prototype.</div>
+          </div>
+        </div>
+        <div class="eth-item" style="margin-bottom:0">
+          <span class="edot" style="background:#6b1a8a"></span>
+          <div>
+            <div class="eh">Automation bias — clinician over-reliance <span class="etag" style="background:#f5f0ff;color:#4a2d8a">Elhaddad 2024</span></div>
+            <div class="eb">Systematic dependence on algorithmic outputs may suppress situational expertise. Clinicians may adjust engagement to recommendations, de-prioritising independent contextual assessment.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sh">Model performance, bias and equity</div>
+        <div class="eth-item">
+          <span class="edot" style="background:#9a1a1a"></span>
+          <div>
+            <div class="eh">False negative patient safety risk <span class="etag" style="background:#fce8e8;color:#8b2020">Kiekkas 2021</span></div>
+            <div class="eb">61 deteriorating patients misclassified as stable — assigned lower escalation priority. Delayed ICU admission independently associated with 61% increase in mortality odds.</div>
+          </div>
+        </div>
+        <div class="eth-item">
+          <span class="edot" style="background:#5a1a8a"></span>
+          <div>
+            <div class="eh">Demographic bias — limited generalisation</div>
+            <div class="eb">Model 1 trained on 43 Mexican patients (Delta + Omicron). Without cross-validation on non-Mexican populations, the CDSS risks biasing toward learned physiological profiles across diverse cohorts.</div>
+          </div>
+        </div>
+        <div class="eth-item">
+          <span class="edot" style="background:#c47a35"></span>
+          <div>
+            <div class="eh">Socioeconomic equity — compounding marginalisation <span class="etag" style="background:#fdf0e0;color:#7a4a10">Juhn 2022</span></div>
+            <div class="eb">30% missingness threshold excludes under-resourced patients from training. At inference, same institutions use the weaker rapid-test variant — 78 vs 61 false negatives. Highest undetected deterioration risk attributed to patients with the least institutional protection.</div>
+          </div>
+        </div>
+        <div class="eth-item" style="margin-bottom:0">
+          <span class="edot" style="background:#3d5450"></span>
+          <div>
+            <div class="eh">Deployment readiness — prototype gaps</div>
+            <div class="eb">Section 8 does not describe encrypted data transport, access control, or audit logging for patient biomarker data. No EMR or laboratory system integration is implemented. Current state is a functional prototype, not a clinically deployable system.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;min-height:3px"></div>
+  <div class="foot-bar"><span class="foot-txt">Streamlining the Surge | Discussion 9.3</span><span class="foot-txt">ENGG2112 Project Presentation</span></div>
+  <div class="bot-bar">
+    <span class="bot-main">Governance, demographic validation, and contestability pathways are prerequisites for clinical deployment.</span>
+    <span class="bot-sub">Webb 2024 · Moulaei 2025 · Juhn 2022 · Basu 2020 · Kiekkas 2021</span>
+  </div>
+</div>
+
+<div class="nav-row">
+  <button onclick="nav(-1)" id="pb" disabled>← 9.2</button>
+  <span class="nav-ct" id="ct">9.2 of 2</span>
+  <button onclick="nav(1)" id="nb">9.3 →</button>
+</div>
+</div>
+
+<script>
+let c=1;
+function nav(d){
+  document.getElementById(c===1?'sl1':'sl2').classList.remove('active');
+  c=Math.max(1,Math.min(2,c+d));
+  document.getElementById(c===1?'sl1':'sl2').classList.add('active');
+  document.getElementById('ct').textContent=c===1?'9.2 of 2':'9.3 of 2';
+  document.getElementById('pb').disabled=c===1;
+  document.getElementById('nb').disabled=c===2;
+}
+</script>
