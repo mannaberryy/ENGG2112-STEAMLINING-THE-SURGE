@@ -1,0 +1,107 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.frame { background: #f0f2f5; padding: 20px; display: flex; align-items: center; justify-content: center; }
+.slide { background: #ffffff; width: 720px; border-radius: 4px; overflow: hidden; }
+.slide-top { background: #0f1f3d; padding: 18px 28px 14px; }
+.slide-top-nav { font-size: 9px; letter-spacing: 0.12em; color: #4a6a90; text-transform: uppercase; margin-bottom: 6px; }
+.slide-top-title { font-size: 20px; font-weight: 500; color: #ffffff; margin-bottom: 2px; }
+.slide-top-sub { font-size: 11px; color: #7a93b8; }
+.slide-body { display: flex; }
+.primary { display: grid; grid-template-columns: 1fr 1fr; flex: 2; border-right: 1.5px solid #e2e8f0; }
+.half { padding: 18px 20px; }
+.half:first-child { border-right: 1px solid #e2e8f0; }
+.col-label { font-size: 8px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #7a93b8; margin-bottom: 8px; }
+.sh-title { font-size: 13px; font-weight: 500; color: #0f1f3d; margin-bottom: 8px; }
+.tag { display: inline-block; font-size: 8px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; margin-bottom: 5px; }
+.tb { background: #e1f5ee; color: #085041; }
+.tu { background: #fce8e8; color: #791F1F; }
+ul { list-style: none; padding: 0; margin: 0; }
+li { font-size: 11.5px; color: #1e3050; line-height: 1.6; padding-left: 10px; position: relative; margin-bottom: 1px; }
+li::before { content: "—"; position: absolute; left: 0; color: #9ab0c8; }
+.stat { display: inline-block; font-size: 9px; font-weight: 500; padding: 2px 7px; border-radius: 20px; margin-top: 6px; }
+.sg { background: #e1f5ee; color: #085041; border: 0.5px solid #1D9E75; }
+.sr { background: #fce8e8; color: #791F1F; border: 0.5px solid #e24b4a; }
+.sep { height: 1px; background: #e8eef5; margin: 10px 0; }
+.secondary { flex: 1; padding: 18px 18px; background: #f8fafc; display: flex; flex-direction: column; gap: 14px; border-left: 1px solid #e2e8f0; }
+.sec-col-label { font-size: 8px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #7a93b8; margin-bottom: 6px; }
+.foot { background: #0f1f3d; padding: 6px 28px; display: flex; justify-content: space-between; }
+.foot-t { font-size: 9px; color: #4a6a90; }
+.foot-ti { font-style: italic; }
+</style>
+
+<div class="frame">
+<div class="slide">
+
+  <div class="slide-top">
+    <div class="slide-top-nav">Discussion · Clinical and operational implications</div>
+    <div class="slide-top-title">What the findings mean in practice</div>
+    <div class="slide-top-sub">Benefits and unintended consequences by stakeholder</div>
+  </div>
+
+  <div class="slide-body">
+
+    <div class="primary">
+      <div class="half">
+        <div class="col-label">Primary stakeholder</div>
+        <div class="sh-title">Admitted patients</div>
+        <div class="tag tb">Benefit</div>
+        <ul>
+          <li>Deterioration detected before physiological decline</li>
+          <li>Lead time existing frameworks cannot provide</li>
+        </ul>
+        <div class="stat sg">179 / 240 deteriorating cases detected</div>
+        <div class="sep"></div>
+        <div class="tag tu">Unintended consequence</div>
+        <ul>
+          <li>Miss rate → lower priority for patients who will deteriorate</li>
+          <li>Delayed ICU linked to +61% mortality odds</li>
+        </ul>
+        <div class="stat sr">61 false negatives remain</div>
+      </div>
+
+      <div class="half">
+        <div class="col-label">Users</div>
+        <div class="sh-title">Triage clinicians</div>
+        <div class="tag tb">Benefit</div>
+        <ul>
+          <li>Severity, deterioration, confidence &amp; priority at admission</li>
+          <li>Reduces cognitive burden under surge volumes</li>
+        </ul>
+        <div class="sep"></div>
+        <div class="tag tu">Unintended consequences</div>
+        <ul>
+          <li><span style="color:#0f1f3d;font-weight:500">Alert fatigue</span> — 64 false positives erode prediction trust</li>
+          <li><span style="color:#0f1f3d;font-weight:500">Latency</span> — deterioration may precede &lt;24hr result</li>
+          <li><span style="color:#0f1f3d;font-weight:500">Deskilling</span> — deference reduces independent triage capacity</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="secondary">
+      <div class="sec-col-label">Secondary stakeholders</div>
+      <div>
+        <div class="sh-title" style="font-size:12px; margin-bottom:6px">Hospital administrators</div>
+        <div class="tag tb" style="margin-bottom:4px">Benefit</div>
+        <ul><li>ICU capacity-calibrated allocation strategy</li></ul>
+        <div class="tag tu" style="margin-top:6px; margin-bottom:4px">Unintended consequence</div>
+        <ul><li>Inaccurate capacity inputs corrupt output</li></ul>
+      </div>
+      <div>
+        <div class="sh-title" style="font-size:12px; margin-bottom:6px">Governing bodies</div>
+        <div class="tag tb" style="margin-bottom:4px">Benefit</div>
+        <ul><li>Evidence base for critical care funding</li></ul>
+        <div class="tag tu" style="margin-top:6px; margin-bottom:4px">Unintended consequence</div>
+        <ul><li>Single-disease cohort risks policy-scale bias</li></ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <div class="foot-t">Streamlining the Surge · Discussion</div>
+    <div class="foot-t foot-ti">Advance the clinical decision point — before deterioration is physiologically visible</div>
+  </div>
+
+</div>
+</div>
