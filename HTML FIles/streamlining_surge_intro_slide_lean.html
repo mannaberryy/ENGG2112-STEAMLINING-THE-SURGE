@@ -1,0 +1,125 @@
+
+<style>
+  .slide-root{width:100%;background:#0f1f3d;border-radius:10px;overflow:hidden;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;box-sizing:border-box}
+  .top-label{padding:7px 26px;background:#091529;font-size:10px;letter-spacing:1.6px;color:#6e9ec4;text-transform:uppercase;font-weight:600}
+  .title-area{padding:16px 26px 12px}
+  .slide-title{color:#fff;font-size:24px;font-weight:700;margin:0 0 5px;line-height:1.25}
+  .slide-sub{color:#9cb8d0;font-size:12.5px;margin:0;line-height:1.5}
+  .col-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 14px 12px}
+  .card{background:#fff;border-radius:8px;padding:13px 14px}
+  .card-label{font-size:9.5px;letter-spacing:1.4px;color:#1a5fa8;text-transform:uppercase;font-weight:700;margin-bottom:7px}
+  .card-body{font-size:11.5px;color:#333;line-height:1.5;margin:0}
+  .stat-box{background:#eef4fb;border-radius:6px;padding:10px 12px;text-align:center;margin-top:10px}
+  .stat-num{font-size:32px;font-weight:700;color:#1a5fa8;line-height:1;display:block}
+  .stat-desc{font-size:10.5px;color:#3a5a7a;margin-top:3px;line-height:1.3}
+  .fw-item{border-left:3px solid #c4620a;padding:5px 9px;background:#fef9f5;border-radius:0 4px 4px 0;margin-bottom:6px}
+  .fw-title{font-size:10.5px;font-weight:700;color:#a84e00;margin-bottom:2px}
+  .fw-body{font-size:11px;color:#555;line-height:1.4}
+  .ctx-row{margin-bottom:8px}
+  .ctx-key{font-size:10.5px;font-weight:700;color:#0f1f3d;margin-bottom:2px}
+  .ctx-val{font-size:11.5px;color:#444}
+  .gap-bar{margin:0 14px 12px;background:rgba(0,0,0,0.25);border-radius:8px;padding:10px 14px}
+  .gap-label{font-size:9.5px;letter-spacing:1.4px;color:#6e9ec4;text-transform:uppercase;font-weight:600;margin-bottom:7px}
+  .gap-flow{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .gap-node{border-radius:5px;padding:5px 11px;font-size:11px;font-weight:600;color:#fff;white-space:nowrap}
+  .gap-arrow{color:#6e9ec4;font-size:13px}
+  .gap-note{flex:1;min-width:160px;font-size:11px;color:#9cb8d0;font-style:italic;text-align:right}
+  .response-band{background:#091529;padding:12px 26px}
+  .response-label{font-size:9.5px;letter-spacing:1.4px;color:#6e9ec4;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+  .model-row{display:flex;align-items:stretch;gap:8px}
+  .model-card{background:#1a3a6b;border-radius:6px;padding:9px 13px;flex:1}
+  .model-tag{font-size:9.5px;color:#6e9ec4;font-weight:700;letter-spacing:0.8px;margin-bottom:3px}
+  .model-title{font-size:12.5px;color:#fff;font-weight:700;line-height:1.3}
+  .model-sub{font-size:10.5px;color:#9cb8d0;margin-top:3px;line-height:1.3}
+  .connector{color:#6e9ec4;font-size:17px;align-self:center;flex-shrink:0}
+  .footer-bar{padding:6px 26px;background:#091529;display:flex;justify-content:space-between;align-items:center}
+  .footer-l{font-size:9.5px;color:#4a7aaa}
+  .footer-r{font-size:10px;color:#4a7aaa;font-style:italic}
+</style>
+
+<div class="slide-root">
+  <div class="top-label">Introduction &nbsp;·&nbsp; Background &amp; Motivation &nbsp;·&nbsp; Project Objectives</div>
+
+  <div class="title-area">
+    <h1 class="slide-title">Surge triage fails when risk is only visible late</h1>
+    <p class="slide-sub">Existing frameworks respond only after physiological decline is observable — missing the clinically actionable window.</p>
+  </div>
+
+  <div class="col-grid">
+    <div class="card">
+      <div class="card-label">The Problem</div>
+      <p class="card-body">During surge conditions like COVID-19, patient volume exceeded ICU capacity — demanding effective allocation to treat all admitted at-risk patients.</p>
+      <div class="stat-box">
+        <span class="stat-num">61%</span>
+        <div class="stat-desc">increase in mortality odds from delayed ICU admission</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Existing Frameworks Fail</div>
+      <p class="card-body" style="margin-bottom:9px">NEWS2 and SOFA assess physiological vitals — lagging indicators of the underlying disease process.</p>
+      <div class="fw-item">
+        <div class="fw-title">NEWS2</div>
+        <div class="fw-body">Moderate 3-day accuracy; poor-to-moderate at 14 days. Deteriorating patients can show unchanged scores.</div>
+      </div>
+      <div class="fw-item" style="margin-bottom:0">
+        <div class="fw-title">SOFA (NYC guidelines)</div>
+        <div class="fw-body">57% denied ventilators — 24% would have survived.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Context</div>
+      <div class="ctx-row">
+        <div class="ctx-key">Users</div>
+        <div class="ctx-val">Front-line triage clinicians &amp; hospital administrators</div>
+      </div>
+      <div class="ctx-row" style="margin-bottom:0">
+        <div class="ctx-key">Primary Stakeholders</div>
+        <div class="ctx-val">Admitted patients whose outcomes depend on timely, accurate escalation decisions</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap-bar">
+    <div class="gap-label">The Delay We Target</div>
+    <div class="gap-flow">
+      <div class="gap-node" style="background:#1a5fa8">Biochemical disruption</div>
+      <span class="gap-arrow">→</span>
+      <div class="gap-node" style="background:#1a5fa8">Vital signs change</div>
+      <span class="gap-arrow">→</span>
+      <div class="gap-node" style="background:#1a5fa8">Visible deterioration</div>
+      <span class="gap-arrow">→</span>
+      <div class="gap-node" style="background:#c4620a">ICU escalation</div>
+      <div class="gap-note">Metabolomic biomarkers detect disruption at stage one — before physiology changes</div>
+    </div>
+  </div>
+
+  <div class="response-band">
+    <div class="response-label">Project Response</div>
+    <div class="model-row">
+      <div class="model-card">
+        <div class="model-tag">MODEL 1 · SEVERITY</div>
+        <div class="model-title">Classify severity at admission</div>
+        <div class="model-sub">43 patients · 587 features</div>
+      </div>
+      <div class="connector">+</div>
+      <div class="model-card">
+        <div class="model-tag">MODEL 2 · DETERIORATION</div>
+        <div class="model-title">Predict deterioration trajectory</div>
+        <div class="model-sub">339 patients · 6 timepoints</div>
+      </div>
+      <div class="connector">→</div>
+      <div class="model-card">
+        <div class="model-tag">TRIAGE MATRIX + SURGE SIMULATION</div>
+        <div class="model-title">Operationalise outputs with ICU capacity</div>
+        <div class="model-sub">Recommend the mortality-minimising allocation strategy</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span class="footer-l">Streamlining the Surge &nbsp;|&nbsp; Introduction</span>
+    <span class="footer-r">Design implication: predict earlier — not only measure later</span>
+  </div>
+</div>
