@@ -78,8 +78,8 @@ strong{font-weight:600;color:var(--navy)}
 
 /* BODY (row 2 — fills remaining space) */
 .body{display:flex;flex-direction:column;gap:12px;flex-shrink:0}
-#s2,#s3,#s4,#s5,#s6,#s7{justify-content:flex-start}
-#s2 .body,#s3 .body,#s4 .body,#s5 .body,#s6 .body,#s7 .body{flex:1;min-height:0}
+#s2,#s3,#s3b,#s4,#s5,#s6,#s7{justify-content:flex-start}
+#s2 .body,#s3 .body,#s3b .body,#s4 .body,#s5 .body,#s6 .body,#s7 .body{flex:1;min-height:0}
 .row{display:flex;gap:12px;flex:1;min-height:0}
 .col{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .col-r{flex:0 0 44%;min-width:0;display:flex;flex-direction:column;gap:10px}
@@ -221,6 +221,56 @@ strong{font-weight:600;color:var(--navy)}
 .m-sel{margin-top:12px;background:var(--blue-l);border:1px solid var(--blue-m);
   border-radius:7px;padding:11px 13px;font-size:11.5px;color:var(--muted)}
 .m-sel strong{color:var(--navy)}
+/* PIPELINE REDESIGN */
+.pip2-wrap{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0}
+.pip2-top{display:flex;gap:8px;flex-shrink:0}
+.pip2-col{flex:1;display:flex;flex-direction:column;gap:0}
+.pip2-header{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:8px;text-align:center;padding:6px 10px;border-radius:5px}
+.pip2-header.full{color:var(--muted);background:var(--off)}
+.pip2-header.rapid{color:var(--blue);background:var(--blue-l)}
+.pip2-node{border:1px solid var(--border);border-radius:6px;padding:9px 11px;
+  display:flex;align-items:center;gap:9px;flex-shrink:0;background:var(--white);
+  transition:border-color .2s,box-shadow .2s,background .2s;cursor:pointer}
+.pip2-node:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(26,46,74,.08)}
+.pip2-node.full-only{border-left:3px solid var(--navy)}
+.pip2-node.rapid-only{border-left:3px solid var(--blue);background:#fafcff}
+.pip2-node.shared{border-left:3px solid var(--border);background:var(--off)}
+.pip2-node.active-node{border-color:var(--navy)!important;box-shadow:0 0 0 2px rgba(37,99,235,.15);background:#f0f6ff!important}
+.pip2-num{font-family:'JetBrains Mono',monospace;font-weight:600;
+  width:20px;height:20px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;font-size:8px}
+.pip2-num.full{background:var(--navy);color:var(--white)}
+.pip2-num.rapid{background:var(--blue);color:var(--white)}
+.pip2-num.shared{background:var(--border);color:var(--muted)}
+.pip2-t{font-size:11px;font-weight:600;color:var(--navy);line-height:1.2}
+.pip2-s{font-size:9.5px;color:var(--muted);line-height:1.4;margin-top:1px}
+.pip2-arr{text-align:center;color:var(--border);font-size:14px;line-height:1.1;flex-shrink:0;padding:1px 0}
+.pip2-shared-band{display:flex;flex-direction:column;gap:0;flex-shrink:0}
+.pip2-shared-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:6px;
+  display:flex;align-items:center;gap:8px}
+.pip2-shared-label::before,.pip2-shared-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.pip2-detail{flex:1;min-height:0;background:var(--white);border:1px solid var(--blue-m);
+  border-radius:7px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;
+  transition:opacity .25s ease,transform .25s ease}
+.pip2-detail.fade{opacity:0;transform:translateY(4px)}
+.pip2-detail-ey{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--blue);flex-shrink:0}
+.pip2-detail-title{font-family:'EB Garamond',serif;font-size:1.3rem;color:var(--navy);
+  line-height:1.2;flex-shrink:0}
+.pip2-detail-body{font-size:12px;color:var(--muted);line-height:1.65;flex:1}
+.pip2-detail-body strong{color:var(--navy)}
+.pip2-detail-diff{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.pip2-diff-box{border-radius:5px;padding:8px 10px}
+.pip2-diff-box.full{background:var(--off);border:1px solid var(--border)}
+.pip2-diff-box.rapid{background:var(--blue-l);border:1px solid var(--blue-m)}
+.pip2-diff-lbl{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--dim);margin-bottom:3px}
+.pip2-diff-lbl.rapid{color:var(--blue)}
+.pip2-diff-val{font-size:11.5px;font-weight:600;color:var(--navy)}
+#s2,#s3,#s3b,#s4,#s5,#s6,#s7{justify-content:flex-start}
+#s2 .body,#s3 .body,#s3b .body,#s4 .body,#s5 .body,#s6 .body,#s7 .body{flex:1;min-height:0}
 
 /* MISC */
 .tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;
@@ -252,6 +302,19 @@ strong{font-weight:600;color:var(--navy)}
 .pp-badge{display:inline-flex;align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:8.5px;
   letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:20px;
   border:1px solid var(--border);color:var(--dim);background:var(--off)}
+/* RAPID-TEST TOGGLE */
+.rt-toggle{display:flex;gap:6px;background:var(--off);border-radius:30px;padding:4px;flex-shrink:0;align-self:flex-start}
+.rt-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 14px;border-radius:24px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .18s}
+.rt-btn.on{background:var(--navy);color:var(--white)}
+.rt-panel{display:none}.rt-panel.on{display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
+.cmp-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
+.cmp-row:last-child{border-bottom:none}
+.cmp-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);width:80px;flex-shrink:0}
+.cmp-bar-wrap{flex:1;height:14px;background:var(--off);border-radius:3px;overflow:hidden;position:relative}
+.cmp-bar{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.16,1,.3,1)}
+.cmp-val{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--navy);width:36px;flex-shrink:0;text-align:right}
+.cmp-delta{font-family:'JetBrains Mono',monospace;font-size:8px;width:40px;flex-shrink:0;text-align:right}
 
 </style>
 </head>
@@ -304,11 +367,10 @@ strong{font-weight:600;color:var(--navy)}
     <div class="col" style="justify-content:space-between;gap:6px">
 <div class="card nt" style="flex:1;display:flex;flex-direction:column;padding:10px 12px">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-  <div class="ey" style="color:var(--navy);margin-bottom:0">Dataset 1 · CBD · Severity model</div>
+  <div class="ey" style="color:var(--navy);margin-bottom:0">Dataset 1 · CBD · Severity model · Mendeley Data · Mexico</div>
   <div class="see" style="font-size:10px" onclick="openModal('ds1')">See pipeline →</div>
 </div>
 <div style="font-family:'EB Garamond',serif;font-size:1.6rem;color:var(--navy);margin-bottom:10px;line-height:1.1">COVID Biomarker Dataset</div>
-          <div style="margin-bottom:10px"><span class="tag">Mendeley Data</span><span class="tag">TMIC MEGA Assay</span><span class="tag">Mexico</span></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
             <div style="background:var(--off);border-radius:6px;padding:10px;text-align:center">
               <div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--navy);line-height:1">43</div>
@@ -339,11 +401,10 @@ strong{font-weight:600;color:var(--navy)}
         </div>
 <div class="card bt" style="flex:1;display:flex;flex-direction:column;padding:10px 12px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-  <div class="ey" style="color:var(--blue);margin-bottom:0">Dataset 2 · CLD · Deterioration model</div>
+  <div class="ey" style="color:var(--blue);margin-bottom:0">Dataset 2 · CLD · Deterioration model · Metabolomics Workbench · ST001849</div>
   <div class="see" style="font-size:10px;color:var(--blue)" onclick="openModal('ds2')">See pipeline →</div>
 </div>
 <div style="font-family:'EB Garamond',serif;font-size:1.6rem;color:var(--navy);margin-bottom:10px;line-height:1.1">COVID Longitudinal Dataset</div>
-          <div style="margin-bottom:10px"><span class="tag">Metabolomics Workbench</span><span class="tag">ST001849</span><span class="tag">Grouped 5-fold CV</span></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
             <div style="background:var(--off);border-radius:6px;padding:10px;text-align:center">
               <div style="font-family:'EB Garamond',serif;font-size:1.8rem;color:var(--navy);line-height:1">339</div>
@@ -436,16 +497,22 @@ strong{font-weight:600;color:var(--navy)}
           </div>
           <div class="pp-step" id="pp4">
             <div class="pp-num">05 / 05</div>
-            <div class="pp-title">Grouped 5-fold CV</div>
-            <div class="pp-body">All samples from one patient stay in the same fold — prevents learning patient-specific patterns instead of generalisable deterioration signals.
-              <div style="background:var(--navy);border-radius:6px;padding:12px 14px;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#93c5fd;line-height:1.7">
-                <span style="color:#64748b"># group by patient ID, not row</span><br>
-                cv = GroupKFold(n_splits=<span style="color:#fca5a5">5</span>)<br>
-                for train, test in cv.split(X, y, groups=patient_ids):<br>
-                &nbsp;&nbsp;model.fit(X[train], y[train])
-              </div>
-            </div>
-            <div class="pp-badge" style="background:#e8f0f8;color:var(--navy);border-color:var(--navy)">CLD only</div>
+            <div class="pp-title">5-fold CV</div>
+<div class="pp-body">
+  Models were evaluated using 5-fold cross-validation to assess performance on unseen data and reduce overfitting.
+
+  <br><br>
+
+  For each iteration, the model was trained on 4 folds and evaluated on the remaining fold, with results averaged across all splits.
+
+  <div style="background:var(--navy);border-radius:6px;padding:12px 14px;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#93c5fd;line-height:1.7">
+    cv = KFold(n_splits=<span style="color:#fca5a5">5</span>, shuffle=<span style="color:#86efac">True</span>, random_state=<span style="color:#fcd34d">42</span>)<br><br>
+
+    for train, test in cv.split(X):<br>
+    &nbsp;&nbsp;model.fit(X[train], y[train])
+  </div>
+</div>
+            <div class="pp-badge" style="background:#e8f0f8;color:var(--navy);border-color:var(--navy)">Both</div>
           </div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-shrink:0">
@@ -458,42 +525,297 @@ strong{font-weight:600;color:var(--navy)}
   </div>
 </section>
 
+<style>
+.mstep{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  margin-bottom:20px;
+}
+
+.mstep-n{
+  width:40px;
+  height:40px;
+  min-width:40px;
+  border-radius:50%;
+
+  background:#1e3a8a; /* dark blue (visible on grey) */
+  border:1px solid rgba(255,255,255,0.15);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:700;
+  font-size:13px;
+  color:#ffffff; /* ONLY numbers white */
+}
+</style>
 <div class="mo" id="modal-ds1" onclick="coOut(event,'modal-ds1')">
   <div class="modal">
     <button class="mx" onclick="closeModal('modal-ds1')">×</button>
-    <div class="m-ey">Dataset 1 · CBD · Severity model</div>
+
+    <div class="m-ey">Dataset 1 · CBD · Severity model · Mendeley Data · Mexico</div>
+
     <h3>From raw metabolomics to severity classification.</h3>
-    <div class="m-sub">How 587 raw features become a binary severity prediction.</div>
+
     <div>
-      <div class="mstep"><div class="mstep-n">01</div><div><div class="mstep-t">Raw data · 587 features</div><div class="mstep-b">43 hospitalised COVID-19 patients · 529 metabolites + 58 clinical variables from the TMIC MEGA Assay. Three severity labels binarised → <strong>non-severe (n=14) vs severe+critical (n=25)</strong>.</div></div></div>
-      <div class="mstep"><div class="mstep-n">02</div><div><div class="mstep-t">Missing value handling</div><div class="mstep-b">Placeholder entries standardised to NaN. Features exceeding <strong>30% missingness</strong> removed. Remaining values imputed with training-fold medians — no test leakage. Continuous features z-score normalised.</div></div></div>
-      <div class="mstep"><div class="mstep-n">03</div><div><div class="mstep-t">Feature selection · 568 → 30</div><div class="mstep-b">ExtraTreesClassifier fitted inside training folds generates importance scores. SelectFromModel retains top features. <strong>k evaluated:</strong> [5, 10, 20, 30, 50, 75, 100]. <strong>Final: 30 features</strong> selected from 568 candidates.</div></div></div>
-      <div class="mstep"><div class="mstep-n">04</div><div><div class="mstep-t">Model training · stratified 5-fold CV</div><div class="mstep-b">Six candidates trained — Elastic Net, Extra Trees, XGBoost, SVM (RBF), Gaussian NB, MLP. GridSearchCV tunes hyperparameters inside training folds only. <strong>Primary metric: macro F1</strong> to handle class imbalance.</div></div></div>
-      <div class="mstep"><div class="mstep-n">05</div><div><div class="mstep-t">Threshold tuning · 0.05 → 0.95</div><div class="mstep-b">Classification threshold evaluated at step 0.01, optimising macro F1 on CV predictions. <strong>Default 0.50 confirmed optimal.</strong></div></div></div>
-      <div class="mstep"><div class="mstep-n">06</div><div><div class="mstep-t">Output · binary severity prediction</div><div class="mstep-b">Gaussian NB selected — highest macro F1 (0.810) and precision (0.882). <strong>24 of 25</strong> severe patients correctly identified. Severity score + confidence fed into triage allocation framework.</div></div></div>
+
+      <div class="mstep">
+        <div class="mstep-n">01</div>
+        <div>
+          <div class="mstep-t">Raw data · 587 features</div>
+          <div class="mstep-b">
+            43 COVID-19 patients · 529 metabolites + 58 clinical variables.
+            Severity grouped into <strong>non-severe vs severe/critical</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">02</div>
+        <div>
+          <div class="mstep-t">Missing value handling</div>
+          <div class="mstep-b">
+            Features with <strong>>30% missingness</strong> removed.
+            Remaining values median-imputed and z-score normalised.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">03</div>
+        <div>
+          <div class="mstep-t">Feature selection · 568 → 30</div>
+          <div class="mstep-b">
+            ExtraTreesClassifier ranked importance.
+            Final model retained <strong>30 features</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">04</div>
+        <div>
+          <div class="mstep-t">Model training · 5-fold CV</div>
+          <div class="mstep-b">
+            Six models evaluated using GridSearchCV.
+            <strong>Macro F1</strong> used to address class imbalance.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">05</div>
+        <div>
+          <div class="mstep-t">Threshold tuning · 0.05 → 0.95</div>
+          <div class="mstep-b">
+            Thresholds tested in 0.01 increments.
+            <strong>0.50</strong> achieved the best macro F1.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">06</div>
+        <div>
+          <div class="mstep-t">Output · severity prediction</div>
+          <div class="mstep-b">
+            Gaussian NB achieved the best performance:
+            <strong>macro F1 = 0.810</strong>.
+            Correctly identified <strong>24/25</strong> severe patients.
+          </div>
+        </div>
+      </div>
+
     </div>
-<div class="m-sel"><strong>Class definition:</strong> Original 3-class labels (moderate, severe, critical) binarised → non-severe vs severe+critical. Small sample size (n=43) made reliable 3-class modelling infeasible — insufficient samples per class for cross-validation.</div>
   </div>
 </div>
 
 <div class="mo" id="modal-ds2" onclick="coOut(event,'modal-ds2')">
   <div class="modal">
+    
     <button class="mx" onclick="closeModal('modal-ds2')">×</button>
-    <div class="m-ey">Dataset 2 · CLD · Deterioration model</div>
-    <h3>From longitudinal metabolomics to deterioration prediction.</h3>
-    <div class="m-sub">How repeated patient measurements become a binary deterioration prediction.</div>
-    <div>
-      <div class="mstep"><div class="mstep-n">01</div><div><div class="mstep-t">Raw data · longitudinal structure</div><div class="mstep-b">339 patients · plasma metabolomics at day 0, 3, 7, 14, 28, 84 · Metabolomics Workbench ST001849. Each timepoint treated as an independent presentation — 593 total observations.</div></div></div>
-      <div class="mstep"><div class="mstep-n">02</div><div><div class="mstep-t">Label construction · leakage prevention</div><div class="mstep-b"><strong>Deteriorating:</strong> ICU admission after sample OR death within 30 days. Samples post-ICU excluded. <strong>Grouped CV</strong> by patient ID — all samples from one patient stay in the same fold.</div></div></div>
-      <div class="mstep"><div class="mstep-n">03</div><div><div class="mstep-t">Missing value handling</div><div class="mstep-b">Features exceeding <strong>50% missingness</strong> removed. Remaining values imputed with training-fold medians. Categorical variables encoded. All preprocessing inside CV folds — no test data seen during fitting.</div></div></div>
-      <div class="mstep"><div class="mstep-n">04</div><div><div class="mstep-t">Feature selection · → 100 features</div><div class="mstep-b">ExtraTrees → SelectFromModel pipeline. <strong>k evaluated:</strong> [50, 75, 100]. <strong>Final: 100 features.</strong> C=0.05 further reduces effective dimensionality through sparse regularisation.</div></div></div>
-      <div class="mstep"><div class="mstep-n">05</div><div><div class="mstep-t">Model training · grouped 5-fold CV</div><div class="mstep-b">Six candidates trained with patient-grouped CV. Elastic Net achieved AUROC 0.863, F1 0.778, bal-acc 0.784. Gaussian NB weakest — conditional independence assumption violated by correlated metabolomics.</div></div></div>
-      <div class="mstep"><div class="mstep-n">06</div><div><div class="mstep-t">Output · binary deterioration prediction</div><div class="mstep-b">Threshold tuned to <strong>0.52</strong>. Final: 179 TP · 289 TN · 64 FP · 61 FN. Deterioration risk + confidence fed into surge simulation alongside severity score.</div></div></div>
-    </div>
-<div class="m-sel"><strong>Class definition:</strong> Deteriorating = ICU admission after sample collection OR death within 30 days. Stable = all other presentations. 3-class distribution binarised due to overlapping biological signals in the middle class and substantial class imbalance.</div>
-</div>
-</div>
 
+    <div class="m-ey">
+      Dataset 2 · CLD · Deterioration model · Metabolomics Workbench · ST001849
+    </div>
+
+    <h3>From longitudinal metabolomics to deterioration prediction.</h3>
+
+    <div>
+
+      <div class="mstep">
+        <div class="mstep-n">01</div>
+        <div>
+          <div class="mstep-t">Raw data</div>
+          <div class="mstep-b">
+            339 patients · 593 metabolomic observations across 6 timepoints.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">02</div>
+        <div>
+          <div class="mstep-t">Label construction</div>
+          <div class="mstep-b">
+            Deterioration defined as ICU admission or death within 30 days.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">03</div>
+        <div>
+          <div class="mstep-t">Cross-validation</div>
+          <div class="mstep-b">
+            5-fold CV with shuffled splits to reduce overfitting.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">04</div>
+        <div>
+          <div class="mstep-t">Preprocessing</div>
+          <div class="mstep-b">
+            >50% missing features removed · median imputation within CV folds.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">05</div>
+        <div>
+          <div class="mstep-t">Feature selection</div>
+          <div class="mstep-b">
+            ExtraTrees → SelectFromModel · final model retained 100 features.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">06</div>
+        <div>
+          <div class="mstep-t">Best model</div>
+          <div class="mstep-b">
+            Elastic Net · AUROC 0.863 · F1 0.778 · balanced accuracy 0.784.
+          </div>
+        </div>
+      </div>
+
+      <div class="mstep">
+        <div class="mstep-n">07</div>
+        <div>
+          <div class="mstep-t">Output</div>
+          <div class="mstep-b">
+            Binary deterioration risk integrated into surge simulation.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- ================================================================ SLIDE 3b · RAPID-TEST MODELS ================================================================ -->
+<section class="slide" id="s3b">
+  <div class="hd a1">
+    <div class="ey">Methods · Rapid-test variants</div>
+    <h2>Models 1.2 &amp; 2.2 — <em>rapid-test.</em></h2>
+    <div class="rule"></div>
+  </div>
+  <div class="body a2">
+    <div class="row">
+
+      <!-- LEFT: pipeline -->
+      <div class="col">
+
+        <!-- top distinct rows -->
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:start;flex-shrink:0">
+          <!-- full col header -->
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--off);border-radius:5px;padding:5px 8px;text-align:center">Full model</div>
+          <div></div>
+          <!-- rapid col header -->
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:var(--blue-l);border-radius:5px;padding:5px 8px;text-align:center">Rapid-test</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;flex-shrink:0">
+          <div class="pip2-node full-only" id="pn-f1" onclick="pipDetail('f1')">
+            <div class="pip2-num full">01</div>
+            <div><div class="pip2-t">All features</div><div class="pip2-s">568 · CBD &nbsp;/&nbsp; 593 · CLD</div></div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);text-align:center">vs</div>
+          <div class="pip2-node rapid-only" id="pn-r1" onclick="pipDetail('r1')">
+            <div class="pip2-num rapid">01</div>
+            <div><div class="pip2-t">Restricted panel</div><div class="pip2-s">57 · M1.2 &nbsp;/&nbsp; 42 · M2.2</div></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;flex-shrink:0">
+          <div class="pip2-node full-only" id="pn-f2" onclick="pipDetail('f2')">
+            <div class="pip2-num full">02</div>
+            <div><div class="pip2-t">Any lab turnaround</div><div class="pip2-s">Full metabolomic profiling</div></div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);text-align:center">vs</div>
+          <div class="pip2-node rapid-only" id="pn-r2" onclick="pipDetail('r2')">
+            <div class="pip2-num rapid">02</div>
+            <div><div class="pip2-t">&lt;24h turnaround only</div><div class="pip2-s">CBD ∩ CLD + no-lab vars</div></div>
+          </div>
+        </div>
+
+        <!-- shared band -->
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;margin:2px 0">
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)">shared pipeline</div>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+        </div>
+
+        <div class="pip2-node shared" id="pn-s3" onclick="pipDetail('s3')" style="flex-shrink:0">
+          <div class="pip2-num shared">03</div>
+          <div><div class="pip2-t">ExtraTrees feature selection</div><div class="pip2-s">M1/M1.2: k∈[5–100] &nbsp;·&nbsp; M2/M2.2: k∈[10–100]</div></div>
+        </div>
+        <div class="pip2-node shared" id="pn-s4" onclick="pipDetail('s4')" style="flex-shrink:0">
+          <div class="pip2-num shared">04</div>
+          <div><div class="pip2-t">5-fold CV + GridSearchCV</div><div class="pip2-s">Same 6 candidates · identical hyperparameter ranges</div></div>
+        </div>
+        <div class="pip2-node shared" id="pn-s5" onclick="pipDetail('s5')" style="flex-shrink:0">
+          <div class="pip2-num shared">05</div>
+          <div><div class="pip2-t">Threshold tuning + model selection</div><div class="pip2-s">0.05→0.95 grid · optimise macro F1</div></div>
+        </div>
+
+        <div style="margin-top:auto;padding:9px 12px;background:var(--blue-l);border:1px solid var(--blue-m);border-radius:7px;font-size:11.5px;color:var(--muted);flex-shrink:0">
+          <strong style="color:var(--navy)">Same methodology, smaller input.</strong> Steps 03–05 identical — only the input feature space differs.
+        </div>
+
+      </div>
+
+      <!-- RIGHT: click-to-explore detail -->
+      <div class="col-r" style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);flex-shrink:0">Click any step to explore ↗</div>
+
+        <div id="pip2-detail-box" style="flex:1;min-height:0;background:var(--white);border:1px solid var(--blue-m);border-radius:7px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;transition:opacity .2s ease">
+          <div class="pip2-detail-ey" id="pd-ey">Full model · Step 01</div>
+          <div class="pip2-detail-title" id="pd-title">All features</div>
+          <div class="pip2-detail-body" id="pd-body">The full-feature models use the entire available feature space after missingness filtering — <strong>568 variables for CBD</strong> (severity) and <strong>593 for CLD</strong> (deterioration). Includes all metabolites and clinical variables.</div>
+          <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px" id="pd-diff">
+            <div class="pip2-diff-box full">
+              <div class="pip2-diff-lbl">Full model</div>
+              <div class="pip2-diff-val">568 / 593 features</div>
+            </div>
+            <div class="pip2-diff-box rapid">
+              <div class="pip2-diff-lbl rapid">Rapid-test</div>
+              <div class="pip2-diff-val">57 / 42 features</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 <!-- ================================================================ SLIDE 4 · METHODS — ML MODELS ================================================================ -->
 <section class="slide" id="s3">
   <div class="hd a1">
@@ -761,97 +1083,175 @@ strong{font-weight:600;color:var(--navy)}
 
 <!-- ================================================================ SLIDE 8 · MVP ================================================================ -->
 <section class="slide nv" id="s7">
+
   <div class="hd a1">
     <div class="ey">MVP · Live demonstration</div>
     <h2>Streamlining the Surge — <em>live decision support.</em></h2>
     <div class="rule"></div>
   </div>
-  <div class="body a2">
-    <div class="mvp-g">
-      <div class="mvp-s"><div class="mvp-n">01</div><h3>Upload</h3><p>Clinician uploads standardised CSV of biomarker + clinical measurements at admission</p></div>
-      <div class="mvp-s"><div class="mvp-n">02</div><h3>Score</h3><p>Pipeline outputs severity risk, deterioration risk, confidence, and triage priority category</p></div>
-      <div class="mvp-s"><div class="mvp-n">03</div><h3>Simulate</h3><p>Admin inputs ICU capacity + surge parameters → recommends optimal strategy minimising expected deaths</p></div>
-      <div class="mvp-s"><div class="mvp-n">04</div><h3>Review</h3><p>&lt;80% confidence → additional clinical review. All outputs subject to clinician oversight</p></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr auto;gap:10px;flex-shrink:0">
-      <div class="mvp-out">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--blue-m);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Illustrative output</div>
-        <div class="mvp-row"><span class="mvp-k">Severity</span><span class="mvp-v" style="color:#fca5a5">SEVERE</span></div>
-        <div class="mvp-row"><span class="mvp-k">Deterioration risk</span><span class="mvp-v" style="color:#fca5a5">DETERIORATING</span></div>
-        <div class="mvp-row"><span class="mvp-k">Triage priority</span><span class="mvp-v" style="color:var(--blue-m)">P4 · ESCALATE</span></div>
-        <div class="mvp-row"><span class="mvp-k">Confidence</span><span class="mvp-v" style="color:var(--blue-m)">91.4%</span></div>
-        <div class="mvp-row"><span class="mvp-k">Surge strategy</span><span class="mvp-v" style="color:var(--blue-m)">DETERIORATION-FIRST</span></div>
+
+  <!-- BODY -->
+  <div class="body a2" style="display:flex;">
+
+    <div style="display:flex;gap:18px;width:100%;align-items:stretch;">
+
+      <!-- ================================================= LEFT (2/3) ================================================= -->
+      <div style="flex:2;display:flex;flex-direction:column;">
+
+        <div class="mvp-g" style="
+          display:flex;
+          flex-direction:column;
+          gap:12px;
+          height:100%;
+        ">
+
+          <div class="mvp-s" style="flex:1;padding:12px;">
+            <div class="mvp-n">01</div>
+            <h3>Upload</h3>
+            <p>Clinician uploads standardised CSV of biomarker + clinical measurements at admission</p>
+          </div>
+
+          <div class="mvp-s" style="flex:1;padding:12px;">
+            <div class="mvp-n">02</div>
+            <h3>Score</h3>
+            <p>Pipeline outputs severity risk, deterioration risk, confidence, and triage priority category</p>
+          </div>
+
+          <div class="mvp-s" style="flex:1;padding:12px;">
+            <div class="mvp-n">03</div>
+            <h3>Simulate</h3>
+            <p>Admin inputs ICU capacity + surge parameters → recommends optimal allocation strategy</p>
+          </div>
+
+          <div class="mvp-s" style="flex:1;padding:12px;">
+            <div class="mvp-n">04</div>
+            <h3>Review</h3>
+            <p>&lt;80% confidence → triggers clinician review. All outputs remain decision support only</p>
+          </div>
+
+        </div>
+
       </div>
-<a 
-  href="https://engg2112-steamlining-the-surge.onrender.com/"
-  target="_blank"
-  class="mvp-out"
-  style="
-    min-width:260px;
-    text-decoration:none;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:10px;
-    transition:all .2s ease;
-    cursor:pointer;
-    background:linear-gradient(135deg,var(--navy),var(--blue));
-    color:white;
-    border:none;
-    box-shadow:0 12px 32px rgba(0,0,0,.16);
-  "
-  onmouseenter="
-    this.style.transform='translateY(-3px)';
-    this.style.boxShadow='0 18px 42px rgba(0,0,0,.22)';
-  "
-  onmouseleave="
-    this.style.transform='translateY(0)';
-    this.style.boxShadow='0 12px 32px rgba(0,0,0,.16)';
-  "
->
 
-  <div style="
-    font-family:'JetBrains Mono',monospace;
-    font-size:8px;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,.72);
-  ">
-    Live deployment
-  </div>
+<!-- ================================================= RIGHT (1/3) ================================================= -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
 
-  <div style="
-    font-size:22px;
-    font-weight:700;
-    line-height:1.2;
-    color:white;
-  ">
-    Launch MVP →
-  </div>
+        <!-- LAUNCH -->
+        <a href="https://engg2112-steamlining-the-surge.onrender.com/" target="_blank"
+          style="flex-shrink:0;display:flex;flex-direction:column;justify-content:center;padding:14px 16px;
+            border-radius:14px;text-decoration:none;color:white;
+            background:linear-gradient(135deg,var(--navy),var(--blue));
+            box-shadow:0 12px 28px rgba(0,0,0,.16);transition:all .2s ease;"
+          onmouseenter="this.style.transform='translateY(-3px)'"
+          onmouseleave="this.style.transform='translateY(0)'">
+          <div style="font-size:9px;opacity:.75;letter-spacing:.12em;text-transform:uppercase;">Live deployment</div>
+          <div style="font-size:20px;font-weight:800;margin-top:6px;">Launch MVP →</div>
+          <div style="font-size:12px;opacity:.85;margin-top:6px;">Flask dashboard · severity model · deterioration model · ICU simulation</div>
+        </a>
 
-  <p style="
-    font-size:12.5px;
-    line-height:1.6;
-    color:rgba(255,255,255,.82);
-    margin:0;
-  ">
-    Interactive Flask dashboard with biomarker upload, deterioration prediction, and surge triage simulation.
-  </p>
+        <!-- SCENARIO EXAMPLES -->
+        <div style="flex:1;min-height:0;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.13);
+          border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
 
-  <div style="
-    font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    color:rgba(255,255,255,.7);
-    margin-top:2px;
-  ">
-    engg2112-steamlining-the-surge.onrender.com
-  </div>
+          <!-- tab buttons -->
+          <div style="display:flex;gap:6px;flex-shrink:0">
+            <button id="mvp-tab-sev" onclick="mvpTab('sev')"
+              style="flex:1;padding:7px 10px;border-radius:8px;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;
+                font-size:9px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+                background:var(--white);color:var(--navy);transition:all .18s">
+              Severity wins
+            </button>
+            <button id="mvp-tab-det" onclick="mvpTab('det')"
+              style="flex:1;padding:7px 10px;border-radius:8px;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;
+                font-size:9px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+                background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);transition:all .18s">
+              Deterioration wins
+            </button>
+          </div>
 
-</a>
-    </div>
-  </div>
+          <!-- Severity panel -->
+          <div id="mvp-sev" style="flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;overflow:auto">
+            <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;flex-shrink:0">
+              Example 1 · Moderate surge
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:11px;flex-shrink:0">
+              <thead><tr style="border-bottom:1px solid rgba(255,255,255,.1)">
+                <th style="padding:5px 8px;text-align:left;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500">Field</th>
+                <th style="padding:5px 8px;text-align:right;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500">Value</th>
+              </tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 4 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--blue-m)">10</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 3 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--blue-m)">20</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 2 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--blue-m)">30</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 1 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--blue-m)">40</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Total ICU beds</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--blue-m)">80</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Occupied ICU beds</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--blue-m)">50</td></tr>
+                <tr><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Surge condition</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--blue-m)">Moderate</td></tr>
+              </tbody>
+            </table>
+            <div style="background:rgba(255,255,255,.06);border-radius:7px;padding:9px 11px;flex-shrink:0">
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">Why severity wins</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.75);line-height:1.6">
+                30 free beds. Severity Only: <strong style="color:var(--white)">7.5</strong> expected deaths.<br>
+                Deterioration Only: <strong style="color:var(--white)">8.0</strong> expected deaths.<br>
+                <span style="color:#86efac">Severity Only wins: 7.5 &lt; 8.0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deterioration panel -->
+          <div id="mvp-det" style="flex:1;min-height:0;display:none;flex-direction:column;gap:6px;overflow:auto">
+            <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;flex-shrink:0">
+              Example 2 · Crisis conditions
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:11px;flex-shrink:0">
+              <thead><tr style="border-bottom:1px solid rgba(255,255,255,.1)">
+                <th style="padding:5px 8px;text-align:left;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500">Field</th>
+                <th style="padding:5px 8px;text-align:right;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500">Value</th>
+              </tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 4 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:#f9a8d4">10</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 3 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:#f9a8d4">20</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 2 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:#f9a8d4">30</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Priority 1 patients</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:#f9a8d4">40</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Total ICU beds</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:#f9a8d4">80</td></tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Occupied ICU beds</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:#f9a8d4">50</td></tr>
+                <tr><td style="padding:5px 8px;color:rgba(255,255,255,.7)">Surge condition</td><td style="padding:5px 8px;text-align:right;font-family:'JetBrains Mono',monospace;color:#f9a8d4">Crisis</td></tr>
+              </tbody>
+            </table>
+            <div style="background:rgba(255,255,255,.06);border-radius:7px;padding:9px 11px;flex-shrink:0">
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">Why deterioration wins</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.75);line-height:1.6">
+                Same patients, crisis multiplier 1.5×. Severity Only: <strong style="color:var(--white)">27.9</strong> deaths.<br>
+                Deterioration Only: <strong style="color:var(--white)">26.25</strong> deaths.<br>
+                <span style="color:#86efac">Deterioration Only wins: 26.25 &lt; 27.9</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
 </section>
+<script>
+function downloadAllCSV(){
+  const files = [
+    "CSV files/prototype_patient_A_triage1.csv",
+    "CSV files/prototype_patient_B_triage2.csv",
+    "CSV files/prototype_patient_C_triage3.csv",
+    "CSV files/prototype_patient_D_triage4.csv"
+  ];
 
+  files.forEach(f=>{
+    const a = document.createElement("a");
+    a.href = f;
+    a.download = f.split("/").pop();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+}
+</script>
 </div>
 
 <!-- MODALS -->
@@ -910,10 +1310,10 @@ strong{font-weight:600;color:var(--navy)}
 <div class="snav">
   <button class="sp" data-slides="0" onclick="go(0)"><span class="sn">01</span> Title</button>
   <button class="sp" data-slides="1" onclick="go(1)"><span class="sn">02</span> Introduction</button>
-  <button class="sp" data-slides="2,3" onclick="go(2)"><span class="sn">03–04</span> Methods</button>
-  <button class="sp" data-slides="4,5" onclick="go(4)"><span class="sn">05–06</span> Results</button>
-  <button class="sp" data-slides="6" onclick="go(6)"><span class="sn">07</span> Discussion</button>
-  <button class="sp" data-slides="7" onclick="go(7)"><span class="sn">08</span> MVP</button>
+  <button class="sp" data-slides="2,3,4" onclick="go(2)"><span class="sn">03–05</span> Methods</button>
+  <button class="sp" data-slides="5,6" onclick="go(5)"><span class="sn">06–07</span> Results</button>
+  <button class="sp" data-slides="7" onclick="go(7)"><span class="sn">08</span> Discussion</button>
+  <button class="sp" data-slides="8" onclick="go(8)"><span class="sn">09</span> MVP</button>
   <div class="narr">
     <button class="nb" id="pv">‹</button>
     <button class="nb" id="nx">›</button>
@@ -935,9 +1335,10 @@ function upd(){
 }
 
 function animBars(i){
+  if(i===3) animPipeline();
   const map={
-    4:['b1_f1','b1_auroc'],
-    5:['b2_f1','b2_auroc']
+    5:['b1_f1','b1_auroc'],
+    6:['b2_f1','b2_auroc']
   };
   if(map[i]) map[i].forEach(id=>{
     document.querySelectorAll('#'+id+' .bf').forEach(b=>{
@@ -994,6 +1395,80 @@ function ppGo(n){
   document.getElementById('pp'+ppCur).classList.add('active');
   document.querySelectorAll('.pp-dot')[ppCur].classList.add('active');
   document.getElementById('pp-hint').textContent=ppCur===4?'all done':'click to advance';
+}
+function rtSwitch(panel){
+  document.querySelectorAll('.rt-panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.rt-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('rt-'+panel).classList.add('on');
+  event.target.classList.add('on');
+}
+const pipData = {
+  f1:{ey:'Full model · Step 01',title:'All features',
+    body:'The full-feature models use the entire available feature space after missingness filtering — <strong>568 variables for CBD</strong> (severity) and <strong>593 for CLD</strong> (deterioration). Includes all metabolites and clinical variables.',
+    diff:[{lbl:'Full model',val:'568 (CBD) / 593 (CLD)',cls:'full'},{lbl:'Rapid-test',val:'57 (M1.2) / 42 (M2.2)',cls:'rapid'}]},
+  f2:{ey:'Full model · Step 02',title:'Any lab turnaround',
+    body:'Full models place no constraint on lab turnaround time — all metabolites from specialist assays are eligible, regardless of how long results take. This requires dedicated metabolomics infrastructure not available in all hospitals.',
+    diff:[{lbl:'Full model',val:'No turnaround limit',cls:'full'},{lbl:'Rapid-test',val:'<24h only',cls:'rapid'}]},
+  r1:{ey:'Rapid-test · Step 01',title:'Restricted panel',
+    body:'The rapid-test panel is the intersection of variables present in <strong>both CBD and CLD</strong>, supplemented by clinical variables requiring no lab testing at all. This produces a deployable feature set obtainable at admission in any hospital.',
+    diff:[{lbl:'Full model',val:'568 / 593 features',cls:'full'},{lbl:'Rapid-test',val:'57 (M1.2) / 42 (M2.2)',cls:'rapid'}]},
+  r2:{ey:'Rapid-test · Step 02',title:'<24h turnaround + no-lab variables',
+    body:'Features are restricted to metabolites with a clinical turnaround of <strong>under 24 hours</strong>, plus variables obtainable directly from patient history — age, sex, comorbidities. No specialist equipment required.',
+    diff:[{lbl:'No-lab variables',val:'From patient history',cls:'full'},{lbl:'Metabolite panel',val:'CBD ∩ CLD, <24h',cls:'rapid'}]},
+  s3:{ey:'Shared · Step 03',title:'ExtraTrees feature selection',
+    body:'<strong>ExtraTreesClassifier</strong> is fitted inside each training fold to score predictor importance. <strong>SelectFromModel</strong> then retains the top k features — k is tuned via GridSearchCV. This step is identical across full and rapid-test variants; only the candidate pool differs.',
+    diff:[{lbl:'Full model k range',val:'M1: [5–100] · M2: [50–100]',cls:'full'},{lbl:'Rapid-test k range',val:'M1.2: [5–60] · M2.2: [10–40]',cls:'rapid'}]},
+  s4:{ey:'Shared · Step 04',title:'5-fold CV + GridSearchCV',
+    body:'All six candidate models are evaluated using <strong>5-fold cross-validation</strong> with GridSearchCV for hyperparameter tuning — performed entirely on training folds. For Model 2, folds are grouped by patient ID to prevent data leakage across timepoints.',
+    diff:[{lbl:'M1 / M1.2 CV',val:'Stratified 5-fold',cls:'full'},{lbl:'M2 / M2.2 CV',val:'Grouped by patient ID',cls:'rapid'}]},
+  s5:{ey:'Shared · Step 05',title:'Threshold tuning + model selection',
+    body:'Classification threshold is swept from <strong>0.05 to 0.95</strong> in 0.01 increments on CV predictions, optimising macro F1. The model with the highest macro F1 across folds is selected. This process is identical for full and rapid-test models.',
+    diff:[{lbl:'M1 / M1.2 selected',val:'Gaussian NB / Elastic Net',cls:'full'},{lbl:'M2 / M2.2 selected',val:'Elastic Net / MLP',cls:'rapid'}]},
+};
+
+let activePipNode = 'pn-f1';
+function pipDetail(key){
+  // clear active
+  document.querySelectorAll('.pip2-node').forEach(n=>n.classList.remove('active-node'));
+  const nodeId = key==='f1'?'pn-f1':key==='f2'?'pn-f2':key==='r1'?'pn-r1':key==='r2'?'pn-r2':key==='s3'?'pn-s3':key==='s4'?'pn-s4':'pn-s5';
+  const node = document.getElementById(nodeId);
+  if(node) node.classList.add('active-node');
+  activePipNode = nodeId;
+  const d = pipData[key];
+  if(!d) return;
+  const box = document.getElementById('pip2-detail-box');
+  box.classList.remove('vis');
+  setTimeout(()=>{
+    document.getElementById('pd-ey').textContent = d.ey;
+    document.getElementById('pd-title').textContent = d.title;
+    document.getElementById('pd-body').innerHTML = d.body;
+    const diff = document.getElementById('pd-diff');
+    diff.innerHTML = d.diff.map(x=>`
+      <div class="pip2-diff-box ${x.cls}">
+        <div class="pip2-diff-lbl ${x.cls==='rapid'?'rapid':''}">${x.lbl}</div>
+        <div class="pip2-diff-val">${x.val}</div>
+      </div>`).join('');
+    box.classList.add('vis');
+  },150);
+}
+
+function animPipeline(){
+  document.querySelectorAll('.pip2-node').forEach(n=>n.classList.remove('active-node'));
+  setTimeout(()=>{
+    const first=document.getElementById('pn-f1');
+    if(first){first.classList.add('active-node');pipDetail('f1');}
+  },300);
+}
+function mvpTab(t){
+  const isSev = t==='sev';
+  document.getElementById('mvp-sev').style.display = isSev ? 'flex' : 'none';
+  document.getElementById('mvp-det').style.display = isSev ? 'none' : 'flex';
+  const sevBtn = document.getElementById('mvp-tab-sev');
+  const detBtn = document.getElementById('mvp-tab-det');
+  sevBtn.style.background = isSev ? 'var(--white)' : 'rgba(255,255,255,.08)';
+  sevBtn.style.color = isSev ? 'var(--navy)' : 'rgba(255,255,255,.5)';
+  detBtn.style.background = isSev ? 'rgba(255,255,255,.08)' : 'var(--white)';
+  detBtn.style.color = isSev ? 'rgba(255,255,255,.5)' : 'var(--navy)';
 }
 </script>
 ```
