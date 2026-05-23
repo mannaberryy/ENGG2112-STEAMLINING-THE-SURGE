@@ -231,7 +231,9 @@ strong{font-weight:600;color:var(--navy)}
 .pip2-header.rapid{color:var(--blue);background:var(--blue-l)}
 .pip2-node{border:1px solid var(--border);border-radius:6px;padding:9px 11px;
   display:flex;align-items:center;gap:9px;flex-shrink:0;background:var(--white);
-  transition:border-color .2s,box-shadow .2s,background .2s;cursor:pointer}
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s ease,transform .35s ease,border-color .2s,box-shadow .2s,background .2s;
+  cursor:pointer}
 .pip2-node:hover{border-color:var(--navy);box-shadow:0 2px 8px rgba(26,46,74,.08)}
 .pip2-node.full-only{border-left:3px solid var(--navy)}
 .pip2-node.rapid-only{border-left:3px solid var(--blue);background:#fafcff}
@@ -732,90 +734,148 @@ strong{font-weight:600;color:var(--navy)}
 
       <!-- LEFT: pipeline -->
       <div class="col">
+        <div style="display:flex;gap:10px;flex:1;min-height:0">
 
-        <!-- top distinct rows -->
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:start;flex-shrink:0">
-          <!-- full col header -->
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--off);border-radius:5px;padding:5px 8px;text-align:center">Full model</div>
-          <div></div>
-          <!-- rapid col header -->
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:var(--blue-l);border-radius:5px;padding:5px 8px;text-align:center">Rapid-test</div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;flex-shrink:0">
-          <div class="pip2-node full-only" id="pn-f1" onclick="pipDetail('f1')">
-            <div class="pip2-num full">01</div>
-            <div><div class="pip2-t">All features</div><div class="pip2-s">568 · CBD &nbsp;/&nbsp; 593 · CLD</div></div>
+          <!-- Full pipeline -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--off);border-radius:5px;padding:5px 8px;text-align:center;margin-bottom:8px">Full model</div>
+            <div class="pip2-node full-only" id="pn-f1" onclick="pipDetail('f1')">
+              <div class="pip2-num full">01</div>
+              <div><div class="pip2-t">All features</div><div class="pip2-s">568 variables · CBD<br>593 · CLD</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-f1">↓</div>
+            <div class="pip2-node full-only" id="pn-f2" onclick="pipDetail('f2')">
+              <div class="pip2-num full">02</div>
+              <div><div class="pip2-t">Any lab turnaround</div><div class="pip2-s">Full metabolomic profiling — specialist equipment required</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-f2">↓</div>
+            <div class="pip2-node shared" id="pn-f3" onclick="pipDetail('s3')">
+              <div class="pip2-num shared">03</div>
+              <div><div class="pip2-t">ExtraTrees selection</div><div class="pip2-s">k tuned via GridSearchCV</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-f3">↓</div>
+            <div class="pip2-node shared" id="pn-f4" onclick="pipDetail('s4')">
+              <div class="pip2-num shared">04</div>
+              <div><div class="pip2-t">5-fold CV + GridSearch</div><div class="pip2-s">6 candidate models evaluated</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-f4">↓</div>
+            <div class="pip2-node shared" id="pn-f5" onclick="pipDetail('s5')">
+              <div class="pip2-num shared">05</div>
+              <div><div class="pip2-t">Selected model</div><div class="pip2-s">M1: Gaussian NB · M2: Elastic Net</div></div>
+            </div>
           </div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);text-align:center">vs</div>
-          <div class="pip2-node rapid-only" id="pn-r1" onclick="pipDetail('r1')">
-            <div class="pip2-num rapid">01</div>
-            <div><div class="pip2-t">Restricted panel</div><div class="pip2-s">57 · M1.2 &nbsp;/&nbsp; 42 · M2.2</div></div>
+
+          <!-- divider -->
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0 4px">
+            <div style="width:1px;flex:1;background:var(--border)"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);writing-mode:vertical-rl;letter-spacing:.1em;text-transform:uppercase;padding:8px 0">vs</div>
+            <div style="width:1px;flex:1;background:var(--border)"></div>
+          </div>
+
+          <!-- Rapid-test pipeline -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:var(--blue-l);border-radius:5px;padding:5px 8px;text-align:center;margin-bottom:8px">Rapid-test variant</div>
+            <div class="pip2-node rapid-only" id="pn-r1" onclick="pipDetail('r1')">
+              <div class="pip2-num rapid">01</div>
+              <div><div class="pip2-t">Restricted panel</div><div class="pip2-s">57 features · M1.2<br>42 features · M2.2</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-r1" style="color:var(--blue)">↓</div>
+            <div class="pip2-node rapid-only" id="pn-r2" onclick="pipDetail('r2')">
+              <div class="pip2-num rapid">02</div>
+              <div><div class="pip2-t">&lt;24h turnaround only</div><div class="pip2-s">CBD ∩ CLD + no-lab clinical variables</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-r2" style="color:var(--blue)">↓</div>
+            <div class="pip2-node shared" id="pn-r3" onclick="pipDetail('s3')">
+              <div class="pip2-num shared">03</div>
+              <div><div class="pip2-t">ExtraTrees selection</div><div class="pip2-s">Same process — different input pool</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-r3">↓</div>
+            <div class="pip2-node shared" id="pn-r4" onclick="pipDetail('s4')">
+              <div class="pip2-num shared">04</div>
+              <div><div class="pip2-t">5-fold CV + GridSearch</div><div class="pip2-s">Same 6 candidates — identical process</div></div>
+            </div>
+            <div class="pip2-arr" id="pa-r4">↓</div>
+            <div class="pip2-node shared" id="pn-r5" onclick="pipDetail('s5')">
+              <div class="pip2-num shared">05</div>
+              <div><div class="pip2-t">Selected model</div><div class="pip2-s">M1.2: Elastic Net · M2.2: MLP</div></div>
+            </div>
           </div>
         </div>
-
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;flex-shrink:0">
-          <div class="pip2-node full-only" id="pn-f2" onclick="pipDetail('f2')">
-            <div class="pip2-num full">02</div>
-            <div><div class="pip2-t">Any lab turnaround</div><div class="pip2-s">Full metabolomic profiling</div></div>
-          </div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);text-align:center">vs</div>
-          <div class="pip2-node rapid-only" id="pn-r2" onclick="pipDetail('r2')">
-            <div class="pip2-num rapid">02</div>
-            <div><div class="pip2-t">&lt;24h turnaround only</div><div class="pip2-s">CBD ∩ CLD + no-lab vars</div></div>
-          </div>
-        </div>
-
-        <!-- shared band -->
-        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;margin:2px 0">
-          <div style="flex:1;height:1px;background:var(--border)"></div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)">shared pipeline</div>
-          <div style="flex:1;height:1px;background:var(--border)"></div>
-        </div>
-
-        <div class="pip2-node shared" id="pn-s3" onclick="pipDetail('s3')" style="flex-shrink:0">
-          <div class="pip2-num shared">03</div>
-          <div><div class="pip2-t">ExtraTrees feature selection</div><div class="pip2-s">M1/M1.2: k∈[5–100] &nbsp;·&nbsp; M2/M2.2: k∈[10–100]</div></div>
-        </div>
-        <div class="pip2-node shared" id="pn-s4" onclick="pipDetail('s4')" style="flex-shrink:0">
-          <div class="pip2-num shared">04</div>
-          <div><div class="pip2-t">5-fold CV + GridSearchCV</div><div class="pip2-s">Same 6 candidates · identical hyperparameter ranges</div></div>
-        </div>
-        <div class="pip2-node shared" id="pn-s5" onclick="pipDetail('s5')" style="flex-shrink:0">
-          <div class="pip2-num shared">05</div>
-          <div><div class="pip2-t">Threshold tuning + model selection</div><div class="pip2-s">0.05→0.95 grid · optimise macro F1</div></div>
-        </div>
-
-        <div style="margin-top:auto;padding:9px 12px;background:var(--blue-l);border:1px solid var(--blue-m);border-radius:7px;font-size:11.5px;color:var(--muted);flex-shrink:0">
-          <strong style="color:var(--navy)">Same methodology, smaller input.</strong> Steps 03–05 identical — only the input feature space differs.
-        </div>
-
       </div>
 
-      <!-- RIGHT: click-to-explore detail -->
-      <div class="col-r" style="display:flex;flex-direction:column;gap:8px">
+      <!-- RIGHT: detail panel -->
+      <div class="col-r" style="display:flex;flex-direction:column;gap:10px">
         <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);flex-shrink:0">Click any step to explore ↗</div>
 
         <div id="pip2-detail-box" style="flex:1;min-height:0;background:var(--white);border:1px solid var(--blue-m);border-radius:7px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;transition:opacity .2s ease">
-          <div class="pip2-detail-ey" id="pd-ey">Full model · Step 01</div>
-          <div class="pip2-detail-title" id="pd-title">All features</div>
-          <div class="pip2-detail-body" id="pd-body">The full-feature models use the entire available feature space after missingness filtering — <strong>568 variables for CBD</strong> (severity) and <strong>593 for CLD</strong> (deterioration). Includes all metabolites and clinical variables.</div>
-          <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px" id="pd-diff">
-            <div class="pip2-diff-box full">
-              <div class="pip2-diff-lbl">Full model</div>
-              <div class="pip2-diff-val">568 / 593 features</div>
-            </div>
-            <div class="pip2-diff-box rapid">
-              <div class="pip2-diff-lbl rapid">Rapid-test</div>
-              <div class="pip2-diff-val">57 / 42 features</div>
-            </div>
+
+          <!-- eyebrow + title -->
+          <div style="flex-shrink:0">
+            <div class="pip2-detail-ey" id="pd-ey">Full model · Step 01</div>
+            <div style="font-family:'EB Garamond',serif;font-size:1.6rem;color:var(--navy);line-height:1.2;margin-top:4px" id="pd-title">All features</div>
           </div>
+
+          <!-- viz area -->
+          <div id="pd-viz" style="flex:1;min-height:0;display:flex;flex-direction:column;gap:8px">
+
+            <!-- STAT VIEW (default) -->
+            <div id="pd-stat" style="display:flex;gap:8px;flex-shrink:0">
+              <div style="flex:1;background:var(--off);border-radius:8px;padding:14px 16px;text-align:center">
+                <div style="font-family:'EB Garamond',serif;font-size:2.8rem;color:var(--navy);line-height:1" id="pd-stat-full">568</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);margin-top:4px;letter-spacing:.08em;text-transform:uppercase" id="pd-stat-full-lbl">full features</div>
+              </div>
+              <div style="display:flex;align-items:center;color:var(--border);font-size:20px;padding:0 4px">→</div>
+              <div style="flex:1;background:var(--blue-l);border:1px solid var(--blue-m);border-radius:8px;padding:14px 16px;text-align:center">
+                <div style="font-family:'EB Garamond',serif;font-size:2.8rem;color:var(--blue);line-height:1" id="pd-stat-rapid">57</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--blue);margin-top:4px;letter-spacing:.08em;text-transform:uppercase;opacity:.8" id="pd-stat-rapid-lbl">rapid-test</div>
+              </div>
+            </div>
+
+            <!-- ANIMATED DOT VIEW (r1 only) -->
+            <div id="pd-venn" style="display:none;flex-direction:column;gap:6px;flex:1;min-height:0">
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+                <div id="venn-step-label" style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)">Step 1 of 5</div>
+                <button id="venn-next-btn" onclick="vennNext()" style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:5px 14px;border:1px solid var(--border);border-radius:20px;background:var(--navy);color:var(--white);cursor:pointer">next →</button>
+              </div>
+              <svg id="venn-svg" viewBox="0 0 400 165" style="width:100%;flex:1;min-height:0;overflow:visible">
+                <g id="vd-cbd"></g>
+                <g id="vd-cld"></g>
+                <g id="vd-shared"></g>
+                <g id="vd-m1only"></g>
+                <g id="vd-m2only"></g>
+                <text id="vl-cbd" x="75" y="14" font-family="JetBrains Mono,monospace" font-size="8" fill="#2563eb" opacity="0" text-anchor="middle" letter-spacing="1">CBD · 568</text>
+                <text id="vl-cld" x="325" y="14" font-family="JetBrains Mono,monospace" font-size="8" fill="#0ea5e9" opacity="0" text-anchor="middle" letter-spacing="1">CLD · 593</text>
+                <text id="vl-shared" x="200" y="14" font-family="JetBrains Mono,monospace" font-size="8" fill="#1a2e4a" opacity="0" text-anchor="middle" font-weight="600">47 overlapping metabolites</text>
+                <text id="vl-removed" x="200" y="14" font-family="JetBrains Mono,monospace" font-size="8" fill="#c0392b" opacity="0" text-anchor="middle">−12 slow turnaround · 35 remain</text>
+                <text id="vl-m12" x="95" y="14" font-family="JetBrains Mono,monospace" font-size="8" fill="#2563eb" opacity="0" text-anchor="middle" font-weight="600">M1.2 · 57 features</text>
+                <text id="vl-m22" x="305" y="14" font-family="JetBrains Mono,monospace" font-size="8" fill="#0ea5e9" opacity="0" text-anchor="middle" font-weight="600">M2.2 · 42 features</text>
+              </svg>
+              <div id="venn-desc" style="flex-shrink:0;background:var(--off);border-radius:6px;padding:8px 12px;font-size:11px;color:var(--muted);line-height:1.6">
+                Two separate feature pools from each dataset. Shared metabolites highlighted in dark blue within each cloud.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- body + why always at bottom -->
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;flex-shrink:0" id="pd-body">The full-feature models use all available variables after missingness filtering.</div>
+
+          <div id="pd-why" style="border-radius:7px;padding:11px 14px;flex-shrink:0;border-left:3px solid var(--blue);background:var(--blue-l)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:4px" id="pd-why-label">Why this matters</div>
+            <div id="pd-why-body" style="font-size:12px;color:var(--navy);line-height:1.6;font-weight:500">High dimensionality relative to sample size increases overfitting risk.</div>
+          </div>
+
         </div>
 
+        <div style="padding:10px 14px;background:var(--blue-l);border:1px solid var(--blue-m);border-radius:7px;font-size:11.5px;color:var(--muted);flex-shrink:0">
+          <strong style="color:var(--navy)">Same methodology, smaller input.</strong> Steps 03–05 run identically — only the feature space entering step 03 differs.
+        </div>
       </div>
+
     </div>
   </div>
 </section>
+
 <!-- ================================================================ SLIDE 4 · METHODS — ML MODELS ================================================================ -->
 <section class="slide" id="s3">
   <div class="hd a1">
@@ -942,6 +1002,7 @@ strong{font-weight:600;color:var(--navy)}
     <div class="m-sel">Threshold swept <strong>0.05 → 0.95</strong> (step 0.01) on CV predictions, optimising macro F1. Default 0.50 confirmed optimal for M1 · 0.52 optimal for M2.</div>
   </div>
 </div>
+</section>
 <!-- ================================================================ SLIDE 5 · RESULTS — SEVERITY ======================================================= -->
 <section class="slide" id="s4">
   <div class="hd a1">
@@ -1335,11 +1396,14 @@ function upd(){
 }
 
 function animBars(i){
-  if(i===3) animPipeline();
-  const map={
-    5:['b1_f1','b1_auroc'],
-    6:['b2_f1','b2_auroc']
-  };
+  if(i!==3){
+    document.querySelectorAll('#s3b .pip2-node').forEach(n=>{
+      n.classList.remove('vis','active-node');n.style.opacity='0';n.style.transform='translateY(8px)';
+    });
+    document.querySelectorAll('#s3b .pip2-arr').forEach(a=>a.style.opacity='0');
+  }
+  if(i===3) setTimeout(animPipeline,100);
+  const map={5:['b1_f1','b1_auroc'],6:['b2_f1','b2_auroc']};
   if(map[i]) map[i].forEach(id=>{
     document.querySelectorAll('#'+id+' .bf').forEach(b=>{
       b.style.width='0%';
@@ -1402,63 +1466,7 @@ function rtSwitch(panel){
   document.getElementById('rt-'+panel).classList.add('on');
   event.target.classList.add('on');
 }
-const pipData = {
-  f1:{ey:'Full model · Step 01',title:'All features',
-    body:'The full-feature models use the entire available feature space after missingness filtering — <strong>568 variables for CBD</strong> (severity) and <strong>593 for CLD</strong> (deterioration). Includes all metabolites and clinical variables.',
-    diff:[{lbl:'Full model',val:'568 (CBD) / 593 (CLD)',cls:'full'},{lbl:'Rapid-test',val:'57 (M1.2) / 42 (M2.2)',cls:'rapid'}]},
-  f2:{ey:'Full model · Step 02',title:'Any lab turnaround',
-    body:'Full models place no constraint on lab turnaround time — all metabolites from specialist assays are eligible, regardless of how long results take. This requires dedicated metabolomics infrastructure not available in all hospitals.',
-    diff:[{lbl:'Full model',val:'No turnaround limit',cls:'full'},{lbl:'Rapid-test',val:'<24h only',cls:'rapid'}]},
-  r1:{ey:'Rapid-test · Step 01',title:'Restricted panel',
-    body:'The rapid-test panel is the intersection of variables present in <strong>both CBD and CLD</strong>, supplemented by clinical variables requiring no lab testing at all. This produces a deployable feature set obtainable at admission in any hospital.',
-    diff:[{lbl:'Full model',val:'568 / 593 features',cls:'full'},{lbl:'Rapid-test',val:'57 (M1.2) / 42 (M2.2)',cls:'rapid'}]},
-  r2:{ey:'Rapid-test · Step 02',title:'<24h turnaround + no-lab variables',
-    body:'Features are restricted to metabolites with a clinical turnaround of <strong>under 24 hours</strong>, plus variables obtainable directly from patient history — age, sex, comorbidities. No specialist equipment required.',
-    diff:[{lbl:'No-lab variables',val:'From patient history',cls:'full'},{lbl:'Metabolite panel',val:'CBD ∩ CLD, <24h',cls:'rapid'}]},
-  s3:{ey:'Shared · Step 03',title:'ExtraTrees feature selection',
-    body:'<strong>ExtraTreesClassifier</strong> is fitted inside each training fold to score predictor importance. <strong>SelectFromModel</strong> then retains the top k features — k is tuned via GridSearchCV. This step is identical across full and rapid-test variants; only the candidate pool differs.',
-    diff:[{lbl:'Full model k range',val:'M1: [5–100] · M2: [50–100]',cls:'full'},{lbl:'Rapid-test k range',val:'M1.2: [5–60] · M2.2: [10–40]',cls:'rapid'}]},
-  s4:{ey:'Shared · Step 04',title:'5-fold CV + GridSearchCV',
-    body:'All six candidate models are evaluated using <strong>5-fold cross-validation</strong> with GridSearchCV for hyperparameter tuning — performed entirely on training folds. For Model 2, folds are grouped by patient ID to prevent data leakage across timepoints.',
-    diff:[{lbl:'M1 / M1.2 CV',val:'Stratified 5-fold',cls:'full'},{lbl:'M2 / M2.2 CV',val:'Grouped by patient ID',cls:'rapid'}]},
-  s5:{ey:'Shared · Step 05',title:'Threshold tuning + model selection',
-    body:'Classification threshold is swept from <strong>0.05 to 0.95</strong> in 0.01 increments on CV predictions, optimising macro F1. The model with the highest macro F1 across folds is selected. This process is identical for full and rapid-test models.',
-    diff:[{lbl:'M1 / M1.2 selected',val:'Gaussian NB / Elastic Net',cls:'full'},{lbl:'M2 / M2.2 selected',val:'Elastic Net / MLP',cls:'rapid'}]},
-};
 
-let activePipNode = 'pn-f1';
-function pipDetail(key){
-  // clear active
-  document.querySelectorAll('.pip2-node').forEach(n=>n.classList.remove('active-node'));
-  const nodeId = key==='f1'?'pn-f1':key==='f2'?'pn-f2':key==='r1'?'pn-r1':key==='r2'?'pn-r2':key==='s3'?'pn-s3':key==='s4'?'pn-s4':'pn-s5';
-  const node = document.getElementById(nodeId);
-  if(node) node.classList.add('active-node');
-  activePipNode = nodeId;
-  const d = pipData[key];
-  if(!d) return;
-  const box = document.getElementById('pip2-detail-box');
-  box.classList.remove('vis');
-  setTimeout(()=>{
-    document.getElementById('pd-ey').textContent = d.ey;
-    document.getElementById('pd-title').textContent = d.title;
-    document.getElementById('pd-body').innerHTML = d.body;
-    const diff = document.getElementById('pd-diff');
-    diff.innerHTML = d.diff.map(x=>`
-      <div class="pip2-diff-box ${x.cls}">
-        <div class="pip2-diff-lbl ${x.cls==='rapid'?'rapid':''}">${x.lbl}</div>
-        <div class="pip2-diff-val">${x.val}</div>
-      </div>`).join('');
-    box.classList.add('vis');
-  },150);
-}
-
-function animPipeline(){
-  document.querySelectorAll('.pip2-node').forEach(n=>n.classList.remove('active-node'));
-  setTimeout(()=>{
-    const first=document.getElementById('pn-f1');
-    if(first){first.classList.add('active-node');pipDetail('f1');}
-  },300);
-}
 function mvpTab(t){
   const isSev = t==='sev';
   document.getElementById('mvp-sev').style.display = isSev ? 'flex' : 'none';
@@ -1469,6 +1477,327 @@ function mvpTab(t){
   sevBtn.style.color = isSev ? 'var(--navy)' : 'rgba(255,255,255,.5)';
   detBtn.style.background = isSev ? 'rgba(255,255,255,.08)' : 'var(--white)';
   detBtn.style.color = isSev ? 'rgba(255,255,255,.5)' : 'var(--navy)';
+}
+
+
+const pipData = {
+  f1:{ey:'Full model · Step 01',title:'All features',
+    statFull:'568',statFullLbl:'CBD features',statRapid:'593',statRapidLbl:'CLD features',
+    body:'All metabolites and clinical variables retained after missingness filtering. Both datasets enter with full dimensionality — no feature constraints at this stage.',
+    why:'568 features · 39 patients. The ratio alone makes overfitting a serious risk without downstream selection.',
+    whyColor:'var(--blue)'},
+  f2:{ey:'Full model · Step 02',title:'Any lab turnaround',
+    statFull:'529',statFullLbl:'metabolites eligible',statRapid:'∞',statRapidLbl:'turnaround limit',
+    body:'No constraint on how long lab results take. Full metabolomic profiling via targeted assays — specialist LC-MS equipment required. Rich signal, limited deployability.',
+    why:'Specialist infrastructure is unavailable in most ED settings, especially during a surge.',
+    whyColor:'var(--red)'},
+  r1:{ey:'Rapid-test · Step 01',title:'Restricted panel',
+    body:'CBD ∩ CLD intersection — 47 overlapping metabolites found. 12 removed for >24h turnaround. 35 remain, split into two panels with model-specific clinical variables added.',
+    why:'Fewer features forced the most generalisable signals. M1.2 AUROC 0.890 vs full model 0.772.',
+    whyColor:'var(--green)'},
+  r2:{ey:'Rapid-test · Step 02',title:'<24h turnaround only',
+    statFull:'42',statFullLbl:'M2.2 panel features',statRapid:'<24h',statRapidLbl:'max turnaround',
+    body:'Metabolites with clinical turnaround under 24 hours only — routine blood panels and point-of-care assays — plus patient history variables requiring zero testing.',
+    why:'Triage decisions are made within hours of admission. A 72h assay provides no actionable lead time.',
+    whyColor:'var(--blue)'},
+  s3:{ey:'Shared · Step 03',title:'ExtraTrees selection',
+    statFull:'30',statFullLbl:'final k · M1',statRapid:'100',statRapidLbl:'final k · M2',
+    body:'ExtraTreesClassifier scores importance inside each training fold. SelectFromModel retains top k — k itself tuned via GridSearchCV. Both variants use identical logic; only the candidate pool differs.',
+    why:'Selection inside CV folds prevents leakage — a common source of inflated performance in metabolomics studies.',
+    whyColor:'var(--blue)'},
+  s4:{ey:'Shared · Step 04',title:'5-fold CV + GridSearchCV',
+    statFull:'Strat.',statFullLbl:'M1 / M1.2 folds',statRapid:'Grouped',statRapidLbl:'M2 / M2.2 folds',
+    body:'All six candidates evaluated under 5-fold CV with GridSearchCV tuning on training folds only. M1 uses stratified splits; M2 groups all timepoints from the same patient into the same fold.',
+    why:'Grouped CV prevents temporal leakage — the same patient\'s day-0 and day-14 samples must never span folds.',
+    whyColor:'var(--navy)'},
+  s5:{ey:'Shared · Step 05',title:'Threshold + model selection',
+    statFull:'0.50',statFullLbl:'M1 optimal threshold',statRapid:'0.52',statRapidLbl:'M2 optimal threshold',
+    body:'Threshold swept 0.05→0.95 in 0.01 steps on CV predictions, optimising macro F1. Best macro F1 model selected. Equally weights both classes — robust to class imbalance.',
+    why:'Default 0.50 assumes equal error cost. In triage, a missed severe case is far worse than a false alarm.',
+    whyColor:'var(--red)'},
+};
+
+function pipDetail(key){
+  document.querySelectorAll('.pip2-node').forEach(n=>n.classList.remove('active-node'));
+
+  const nodeMap={
+    f1:'pn-f1',f2:'pn-f2',
+    r1:'pn-r1',r2:'pn-r2',
+    s3:'pn-f3',s4:'pn-f4',s5:'pn-f5'
+  };
+
+  const mirrorMap={
+    s3:'pn-r3',
+    s4:'pn-r4',
+    s5:'pn-r5'
+  };
+
+  const node=document.getElementById(nodeMap[key]);
+  if(node) node.classList.add('active-node');
+
+  if(mirrorMap[key]){
+    const m=document.getElementById(mirrorMap[key]);
+    if(m) m.classList.add('active-node');
+  }
+
+  const d=pipData[key];
+  if(!d) return;
+
+  const box=document.getElementById('pip2-detail-box');
+  box.style.opacity='0';
+
+  setTimeout(()=>{
+
+    // update text content only
+    document.getElementById('pd-ey').textContent=d.ey;
+    document.getElementById('pd-title').textContent=d.title;
+    document.getElementById('pd-body').innerHTML=d.body;
+    document.getElementById('pd-why-body').textContent=d.why;
+
+    // IMPORTANT: stats always update, no branching logic that resets visuals
+    document.getElementById('pd-stat-full').textContent=d.statFull || '';
+    document.getElementById('pd-stat-full-lbl').textContent=d.statFullLbl || '';
+    document.getElementById('pd-stat-rapid').textContent=d.statRapid || '';
+    document.getElementById('pd-stat-rapid-lbl').textContent=d.statRapidLbl || '';
+
+    const why=document.getElementById('pd-why');
+    const whyLabel=document.getElementById('pd-why-label');
+    const col=d.whyColor;
+
+    why.style.borderLeftColor=col;
+    why.style.background=
+      col==='var(--green)' ? '#f0fdf4' :
+      col==='var(--red)' ? '#fef2f2' :
+      col==='var(--navy)' ? 'var(--off)' :
+      'var(--blue-l)';
+
+    if(whyLabel) whyLabel.style.color=col;
+
+    // ONLY toggle visibility of animation panel (no resets)
+    const isAnim = (key === 'r1');
+
+    document.getElementById('pd-stat').style.display = isAnim ? 'none' : 'flex';
+    document.getElementById('pd-venn').style.display = isAnim ? 'flex' : 'none';
+
+    box.style.opacity='1';
+
+    // IMPORTANT CHANGE:
+    // DO NOT reset dots, DO NOT call vennStep here anymore
+    // animation is controlled externally only
+
+  },150);
+}
+
+
+// dot coordinate pools
+const CBD_UNIQUE=[[30,50],[18,70],[28,90],[50,40],[56,100],[10,62],[42,108],[18,82],[38,30],[58,78],[22,55],[48,62],[30,82],[12,77],[44,37],[20,95],[54,48],[8,85],[36,115],[60,55],[14,40],[40,100],[24,68],[52,90],[16,115]];
+const CLD_UNIQUE=[[350,50],[362,70],[352,90],[340,40],[334,100],[380,62],[348,108],[375,82],[362,30],[330,78],[368,55],[342,62],[360,82],[380,77],[346,37],[370,95],[334,48],[382,85],[354,115],[330,55],[376,40],[340,100],[364,68],[352,90],[366,115]];
+const SHARED_IN_CBD=[[68,45],[75,62],[62,78],[80,55],[70,90],[58,68],[76,40],[65,85],[72,100],[60,52],[78,72],[55,88],[82,65],[68,110],[73,48],[57,75],[79,95],[63,58],[71,82],[66,42],[74,68],[59,95],[81,50],[67,78],[76,110],[62,40],[70,60],[78,85],[64,100],[72,30],[58,82],[80,45],[66,70],[74,92],[60,115]];
+const SHARED_IN_CLD=[[332,45],[325,62],[338,78],[320,55],[330,90],[342,68],[324,40],[335,85],[328,100],[340,52],[322,72],[345,88],[318,65],[332,110],[327,48],[343,75],[321,95],[337,58],[329,82],[334,42],[326,68],[341,95],[319,50],[333,78],[324,110],[338,40],[330,60],[322,85],[336,100],[328,30],[342,82],[320,45],[334,70],[326,92],[340,115]];
+const SHARED_CENTRE=Array.from({length:35},(_,i)=>{const c=6,r=Math.floor(i/c),col=i%c;return[170+col*12,30+r*22];});
+const REMOVED_CENTRE=Array.from({length:12},(_,i)=>{const c=6,r=Math.floor(i/c),col=i%c;return[170+col*12,138+r*18];});
+const M12_DOTS=Array.from({length:35},(_,i)=>{const c=5,r=Math.floor(i/c),col=i%c;return[28+col*18,28+r*22];});
+const M12_CLINICAL=Array.from({length:22},(_,i)=>{const c=5,r=Math.floor(i/c),col=i%c;return[28+col*18,138+r*14];});
+const M22_DOTS=Array.from({length:35},(_,i)=>{const c=5,r=Math.floor(i/c),col=i%c;return[228+col*18,28+r*22];});
+const M22_CLINICAL=Array.from({length:7},(_,i)=>[228+i*22,138]);
+
+const VENN_STEPS=[
+  {label:'Step 1 of 5 · Two feature pools',desc:'CBD (568 features) and CLD (593 features) as separate pools. Dark dots are the 47 metabolites present in both datasets.'},
+  {label:'Step 2 of 5 · Shared metabolites emerge',desc:'The 47 overlapping metabolites migrate to a shared centre zone — candidates for the rapid-test panel.'},
+  {label:'Step 3 of 5 · Remove slow-turnaround',desc:'12 metabolites with >24h lab turnaround are removed (faded red). 35 shared metabolites remain — all obtainable within 24 hours.'},
+  {label:'Step 4 of 5 · Split into two panels',desc:'The 35 shared metabolites are assigned to both models. M1.2 receives the left panel (blue), M2.2 the right (teal).'},
+  {label:'Step 5 of 5 · Add clinical variables',desc:'M1.2 receives 22 Model-1-only clinical variables (symptoms, comorbidities) → 57 total. M2.2 receives 7 variables (treatment, onset data) → 42 total.'},
+];
+
+let vennCurrentStep=0;
+
+function setText(id,opacity){
+  const el=document.getElementById(id);
+  if(el) el.setAttribute('opacity',opacity);
+}
+
+function makeDot(x,y,fill,r=2.5,opacity=0.5){
+  const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',r);
+  c.setAttribute('fill',fill);c.setAttribute('opacity',opacity);
+  c.style.transition='cx 0.7s cubic-bezier(.34,1.1,.64,1),cy 0.7s cubic-bezier(.34,1.1,.64,1),opacity 0.4s ease,fill 0.4s ease,r 0.3s ease';
+  return c;
+}
+
+function vennStep(step){
+  const label=document.getElementById('venn-step-label');
+  const desc=document.getElementById('venn-desc');
+  const btn=document.getElementById('venn-next-btn');
+  if(label) label.textContent=VENN_STEPS[step].label;
+  if(desc) desc.textContent=VENN_STEPS[step].desc;
+  if(btn) btn.textContent=step===4?'replay ↺':'next →';
+
+  ['vl-cbd','vl-cld','vl-shared','vl-removed','vl-m12','vl-m22'].forEach(id=>setText(id,0));
+
+  if(step===0){
+    ['vd-cbd','vd-cld','vd-shared','vd-m1only','vd-m2only'].forEach(id=>{document.getElementById(id).innerHTML='';});
+    const cbdG=document.getElementById('vd-cbd');
+    const cldG=document.getElementById('vd-cld');
+    CBD_UNIQUE.forEach(([x,y],i)=>{
+      setTimeout(()=>{
+        const c=makeDot(x,y,'#93c5fd',2.5,0);
+        cbdG.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>c.setAttribute('opacity','0.45')));
+      },i*15);
+    });
+    CLD_UNIQUE.forEach(([x,y],i)=>{
+      setTimeout(()=>{
+        const c=makeDot(x,y,'#7dd3fc',2.5,0);
+        cldG.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>c.setAttribute('opacity','0.45')));
+      },i*15);
+    });
+    SHARED_IN_CBD.forEach(([x,y],i)=>{
+      setTimeout(()=>{
+        const c=makeDot(x,y,'#1a2e4a',3,0);
+        cbdG.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>c.setAttribute('opacity','0.9')));
+      },i*15+200);
+    });
+    SHARED_IN_CLD.forEach(([x,y],i)=>{
+      setTimeout(()=>{
+        const c=makeDot(x,y,'#1a2e4a',3,0);
+        cldG.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>c.setAttribute('opacity','0.9')));
+      },i*15+200);
+    });
+    setTimeout(()=>{setText('vl-cbd',1);setText('vl-cld',1);},700);
+  }
+
+  if(step===1){
+    ['vd-cbd','vd-cld','vd-shared','vd-m1only','vd-m2only'].forEach(id=>{document.getElementById(id).innerHTML='';});
+    const cbdG=document.getElementById('vd-cbd');
+    const cldG=document.getElementById('vd-cld');
+    const sharedG=document.getElementById('vd-shared');
+    CBD_UNIQUE.forEach(([x,y])=>cbdG.appendChild(makeDot(x,y,'#93c5fd',2.5,0.45)));
+    CLD_UNIQUE.forEach(([x,y])=>cldG.appendChild(makeDot(x,y,'#7dd3fc',2.5,0.45)));
+    SHARED_CENTRE.forEach(([tx,ty],i)=>{
+      const [sx,sy]=i<25?SHARED_IN_CBD[i]:SHARED_IN_CLD[i-25]||SHARED_IN_CBD[i%25];
+      setTimeout(()=>{
+        const c=makeDot(sx,sy,'#1a2e4a',3,0.9);
+        sharedG.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>{
+          c.setAttribute('cx',tx);c.setAttribute('cy',ty);
+        }));
+      },i*22);
+    });
+    setTimeout(()=>{setText('vl-shared',1);setText('vl-cbd',1);setText('vl-cld',1);},900);
+  }
+
+  if(step===2){
+    document.getElementById('vd-shared').innerHTML='';
+    const sharedG=document.getElementById('vd-shared');
+    SHARED_CENTRE.forEach(([x,y],i)=>{
+      const removed=i>=23;
+      const c=makeDot(x,y,removed?'#c0392b':'#1a2e4a',removed?2:3,0.9);
+      sharedG.appendChild(c);
+      if(removed){
+        setTimeout(()=>{c.setAttribute('opacity','0.12');c.setAttribute('r','1.5');},350+i*28);
+      }
+    });
+    setTimeout(()=>setText('vl-removed',1),850);
+    setTimeout(()=>{setText('vl-cbd',1);setText('vl-cld',1);},100);
+  }
+
+  if(step===3){
+    ['vd-shared','vd-m1only','vd-m2only'].forEach(id=>{document.getElementById(id).innerHTML='';});
+    const sharedG=document.getElementById('vd-shared');
+    SHARED_CENTRE.slice(0,23).forEach(([sx,sy],i)=>{
+      const [tx,ty]=M12_DOTS[i];
+      const c=makeDot(sx,sy,'#1a2e4a',3,0.9);
+      sharedG.appendChild(c);
+      setTimeout(()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        c.setAttribute('cx',tx);c.setAttribute('cy',ty);c.setAttribute('fill','#2563eb');
+      })),i*20);
+    });
+    SHARED_CENTRE.slice(0,23).forEach(([sx,sy],i)=>{
+      const [tx,ty]=M22_DOTS[i];
+      const c=makeDot(sx,sy,'#1a2e4a',3,0.9);
+      sharedG.appendChild(c);
+      setTimeout(()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        c.setAttribute('cx',tx);c.setAttribute('cy',ty);c.setAttribute('fill','#0ea5e9');
+      })),i*20+80);
+    });
+    setTimeout(()=>{setText('vl-m12',1);setText('vl-m22',1);},750);
+  }
+
+  if(step===4){
+    const m1G=document.getElementById('vd-m1only');
+    const m2G=document.getElementById('vd-m2only');
+    m1G.innerHTML='';m2G.innerHTML='';
+    M12_CLINICAL.forEach(([x,y],i)=>{
+      setTimeout(()=>{
+        const c=makeDot(x,y,'#93c5fd',2.5,0);
+        m1G.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>c.setAttribute('opacity','0.75')));
+      },i*35);
+    });
+    M22_CLINICAL.forEach(([x,y],i)=>{
+      setTimeout(()=>{
+        const c=makeDot(x,y,'#7dd3fc',2.5,0);
+        m2G.appendChild(c);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>c.setAttribute('opacity','0.75')));
+      },i*35+150);
+    });
+    setTimeout(()=>{setText('vl-m12',1);setText('vl-m22',1);},500);
+  }
+}
+
+function vennNext(){
+  vennCurrentStep=vennCurrentStep===4?0:vennCurrentStep+1;
+  vennStep(vennCurrentStep);
+}
+
+function animVenn(){
+  vennCurrentStep=0;
+  ['vd-cbd','vd-cld','vd-shared','vd-m1only','vd-m2only'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.innerHTML='';
+  });
+  ['vl-cbd','vl-cld','vl-shared','vl-removed','vl-m12','vl-m22'].forEach(id=>setText(id,0));
+  setTimeout(()=>vennStep(0),100);
+}
+
+function animPipeline(){
+  const allNodes=document.querySelectorAll('#s3b .pip2-node');
+  const allArrs=document.querySelectorAll('#s3b .pip2-arr');
+  allNodes.forEach(n=>{n.classList.remove('vis','active-node');n.style.opacity='0';n.style.transform='translateY(8px)';});
+  allArrs.forEach(a=>{a.style.opacity='0';});
+  const pairs=[
+    ['pn-f1','pn-r1','pa-f1','pa-r1'],
+    ['pn-f2','pn-r2','pa-f2','pa-r2'],
+    ['pn-f3','pn-r3','pa-f3','pa-r3'],
+    ['pn-f4','pn-r4','pa-f4','pa-r4'],
+    ['pn-f5','pn-r5','pa-f5','pa-r5'],
+  ];
+  pairs.forEach((pair,i)=>{
+    setTimeout(()=>{
+      pair.forEach(id=>{
+        const el=document.getElementById(id);
+        if(!el) return;
+        if(el.classList.contains('pip2-node')){el.style.opacity='1';el.style.transform='translateY(0)';}
+        else el.style.opacity='1';
+      });
+    },i*110);
+  });
+  setTimeout(()=>{
+    const first=document.getElementById('pn-f1');
+    if(first){first.classList.add('active-node');pipDetail('f1');}
+  },pairs.length*110+100);
+}
+
+function animVenn(){
+  vennCurrentStep=0;
+  ['vd-cbd','vd-cld','vd-shared','vd-m1only','vd-m2only'].forEach(id=>{
+    document.getElementById(id).innerHTML='';
+  });
+  ['vl-cbd','vl-cld','vl-shared','vl-removed','vl-m12','vl-m22'].forEach(id=>setText(id,0));
+  setTimeout(()=>vennStep(0),100);
 }
 </script>
 ```
