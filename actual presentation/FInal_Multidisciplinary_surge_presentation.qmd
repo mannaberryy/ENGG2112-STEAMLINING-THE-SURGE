@@ -1340,6 +1340,134 @@ Consistent with minimalist editorial theme
   </div>
 </section>
 
+
+<!-- ===================================================== SLIDE 4 · METHODS — ML MODELS ================================================================ -->
+<section class="slide" id="s3">
+  <div class="hd a1">
+    <div class="ey">Methods · ML framework &amp; candidate models</div>
+    <h2>Chosen  <em>machine learning models</em></h2>
+    <div class="rule"></div>
+  </div>
+  <div class="body a2">
+    <div class="row">
+      <!-- LEFT: candidate model list -->
+      <div class="col">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">Candidate models</div>
+        <div style="display:flex;flex-direction:column;gap:6px;flex:1">
+          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">EN</div>
+            <div>
+              <div style="font-size:20px;font-weight:600;color:var(--navy)">Elastic Net Logistic Regression</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:2px">Sparse linear · L1+L2 regularisation</div>
+            </div>
+          </div>
+          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">ET</div>
+            <div>
+              <div style="font-size:20px;font-weight:600;color:var(--navy)">Extra Trees</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:2px">Ensemble · randomised decision trees</div>
+            </div>
+          </div>
+          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">XG</div>
+            <div>
+              <div style="font-size:20px;font-weight:600;color:var(--navy)">XGBoost</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:2px">Gradient boosting · sequential tree learning</div>
+            </div>
+          </div>
+          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">SV</div>
+            <div>
+              <div style="font-size:20px;font-weight:600;color:var(--navy)">Support Vector Machine (RBF)</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:2px">Kernel-based · non-linear boundaries</div>
+            </div>
+          </div>
+          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">NB</div>
+            <div>
+              <div style="font-size:20px;font-weight:600;color:var(--navy)">Gaussian Naive Bayes</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:2px">Probabilistic baseline · computationally efficient</div>
+            </div>
+          </div>
+          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">MLP</div>
+            <div>
+              <div style="font-size:20px;font-weight:600;color:var(--navy)">Multi-Layer Perceptron</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:2px">Neural network · non-linear feature interactions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: evaluation framework -->
+      <div class="col">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">Evaluation framework</div>
+        <div class="card" style="padding:0;overflow:hidden;flex-shrink:0">
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+  <thead>
+    <tr style="background:var(--navy)">
+      <th style="padding:10px 14px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--blue-m);letter-spacing:.08em">Metric</th>
+      <th style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--blue-m);letter-spacing:.08em">Model 1</th>
+      <th style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--blue-m);letter-spacing:.08em">Model 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:10px 14px;font-weight:600;color:var(--navy);font-size:20px">AUROC</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.85</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.80</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border);background:var(--off);font-size:20px">
+      <td style="padding:10px 14px;font-weight:600;color:var(--navy)">Macro F1</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.75</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.70</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:10px 14px;font-weight:600;color:var(--navy);font-size:20px">Precision</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.80</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.75</td>
+    </tr>
+    <tr>
+      <td style="padding:10px 14px;font-weight:600;color:var(--navy);font-size:20px">Recall</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.85</td>
+      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.85</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+        <div class="card bt" style="padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:center">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue);margin-bottom:15px">Selection rule</div>
+          <p style="font-size:20px;line-height:1.6">Best <strong>macro F1</strong> across CV folds. Ties by AUROC. Equally weights both classes — robust to class imbalance.</p>
+        </div>
+        <div class="card" style="padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:border-color .18s" onmouseenter="this.style.borderColor='var(--navy)'" onmouseleave="this.style.borderColor='var(--border)'" onclick="openModal('hptuning')">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--dim);margin-bottom:15px">Threshold + hyperparameter tuning</div>
+          <p style="font-size:20px;line-height:1.6">GridSearchCV inside CV folds — <strong>training data only</strong>. Threshold swept <strong>0.05 → 0.95</strong>, optimising macro F1.</p>
+          <div class="see" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">See parameters →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mo" id="modal-hptuning" onclick="coOut(event,'modal-hptuning')">
+  <div class="modal">
+    <button class="mx" onclick="closeModal('modal-hptuning')">×</button>
+    <div class="m-ey">Methods · Hyperparameter tuning</div>
+    <h3>GridSearchCV parameter ranges evaluated.</h3>
+    <div class="m-sub">All tuning performed inside CV training folds — no test data involved in selection.</div>
+    <div>
+      <div class="mstep"><div class="mstep-n">EN</div><div><div class="mstep-t">Elastic Net Logistic Regression</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">C = [0.05, 0.1, 0.5, 1.0]<br>l1_ratio = [0.25, 0.5, 0.75]</div></div></div>
+      <div class="mstep"><div class="mstep-n">ET</div><div><div class="mstep-t">Extra Trees</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">n_estimators = [250, 400]<br>max_features = ['sqrt', 0.3]<br>max_depth = [None, 8]<br>min_samples_leaf = [2, 3]</div></div></div>
+      <div class="mstep"><div class="mstep-n">XG</div><div><div class="mstep-t">XGBoost</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">learning_rate = [0.03, 0.05]<br>max_depth = [2, 3]<br>n_estimators = [150, 250]</div></div></div>
+      <div class="mstep"><div class="mstep-n">SV</div><div><div class="mstep-t">Support Vector Machine (RBF)</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">C = [0.5, 1.0, 2.0]<br>gamma = ['scale', 0.01]</div></div></div>
+      <div class="mstep"><div class="mstep-n">NB</div><div><div class="mstep-t">Gaussian Naive Bayes</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">var_smoothing = [1e-9, 1e-8, 1e-7, 1e-6]</div></div></div>
+      <div class="mstep"><div class="mstep-n">ML</div><div><div class="mstep-t">Multi-Layer Perceptron</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">hidden_layer_sizes = [(16,), (32,), (32,16), (64,32), (64,32,16)]<br>alpha = [0.001, 0.01, 0.05, 0.1]<br>learning_rate_init = [0.001, 0.0005, 0.0001]</div></div></div>
+      <div class="mstep"><div class="mstep-n">FS</div><div><div class="mstep-t">Feature Selection · max_features evaluated</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">M1.0: [5, 10, 20, 30, 50, 75, 100] → final: 30<br>M1.2: [5, 10, 20, 30, 40, 50, 60] → final: 18<br>M2.0: [50, 75, 100] → final: 100<br>M2.2: [10, 20, 30, 40] → final: 40</div></div></div>
+    </div>
+    <div class="m-sel">Threshold swept <strong>0.05 → 0.95</strong> (step 0.01) on CV predictions, optimising macro F1. Default 0.50 confirmed optimal for M1 · 0.52 optimal for M2.</div>
+  </div>
+</div>
+</section>
 <<!-- ================================================================ SLIDE 3c · triage matrix ================================================= -->
 
 <section class="slide" id="s3c">
@@ -1515,133 +1643,6 @@ Consistent with minimalist editorial theme
   </div>
 </section>
 
-<!-- ===================================================== SLIDE 4 · METHODS — ML MODELS ================================================================ -->
-<section class="slide" id="s3">
-  <div class="hd a1">
-    <div class="ey">Methods · ML framework &amp; candidate models</div>
-    <h2>Chosen  <em>machine learning models</em></h2>
-    <div class="rule"></div>
-  </div>
-  <div class="body a2">
-    <div class="row">
-      <!-- LEFT: candidate model list -->
-      <div class="col">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">Candidate models</div>
-        <div style="display:flex;flex-direction:column;gap:6px;flex:1">
-          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">EN</div>
-            <div>
-              <div style="font-size:20px;font-weight:600;color:var(--navy)">Elastic Net Logistic Regression</div>
-              <div style="font-size:15px;color:var(--muted);margin-top:2px">Sparse linear · L1+L2 regularisation</div>
-            </div>
-          </div>
-          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">ET</div>
-            <div>
-              <div style="font-size:20px;font-weight:600;color:var(--navy)">Extra Trees</div>
-              <div style="font-size:15px;color:var(--muted);margin-top:2px">Ensemble · randomised decision trees</div>
-            </div>
-          </div>
-          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">XG</div>
-            <div>
-              <div style="font-size:20px;font-weight:600;color:var(--navy)">XGBoost</div>
-              <div style="font-size:15px;color:var(--muted);margin-top:2px">Gradient boosting · sequential tree learning</div>
-            </div>
-          </div>
-          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">SV</div>
-            <div>
-              <div style="font-size:20px;font-weight:600;color:var(--navy)">Support Vector Machine (RBF)</div>
-              <div style="font-size:15px;color:var(--muted);margin-top:2px">Kernel-based · non-linear boundaries</div>
-            </div>
-          </div>
-          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">NB</div>
-            <div>
-              <div style="font-size:20px;font-weight:600;color:var(--navy)">Gaussian Naive Bayes</div>
-              <div style="font-size:15px;color:var(--muted);margin-top:2px">Probabilistic baseline · computationally efficient</div>
-            </div>
-          </div>
-          <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:16px;flex:1">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--white);font-weight:600;width:50px;height:50px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0">MLP</div>
-            <div>
-              <div style="font-size:20px;font-weight:600;color:var(--navy)">Multi-Layer Perceptron</div>
-              <div style="font-size:15px;color:var(--muted);margin-top:2px">Neural network · non-linear feature interactions</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: evaluation framework -->
-      <div class="col">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px">Evaluation framework</div>
-        <div class="card" style="padding:0;overflow:hidden;flex-shrink:0">
-          <table style="width:100%;border-collapse:collapse;font-size:13px">
-  <thead>
-    <tr style="background:var(--navy)">
-      <th style="padding:10px 14px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--blue-m);letter-spacing:.08em">Metric</th>
-      <th style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--blue-m);letter-spacing:.08em">Model 1</th>
-      <th style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--blue-m);letter-spacing:.08em">Model 2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom:1px solid var(--border)">
-      <td style="padding:10px 14px;font-weight:600;color:var(--navy);font-size:20px">AUROC</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.85</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.80</td>
-    </tr>
-    <tr style="border-bottom:1px solid var(--border);background:var(--off);font-size:20px">
-      <td style="padding:10px 14px;font-weight:600;color:var(--navy)">Macro F1</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.75</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue)">&gt; 0.70</td>
-    </tr>
-    <tr style="border-bottom:1px solid var(--border)">
-      <td style="padding:10px 14px;font-weight:600;color:var(--navy);font-size:20px">Precision</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.80</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.75</td>
-    </tr>
-    <tr>
-      <td style="padding:10px 14px;font-weight:600;color:var(--navy);font-size:20px">Recall</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.85</td>
-      <td style="padding:10px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted)">&gt; 0.85</td>
-    </tr>
-  </tbody>
-</table>
-        </div>
-        <div class="card bt" style="padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:center">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--blue);margin-bottom:15px">Selection rule</div>
-          <p style="font-size:20px;line-height:1.6">Best <strong>macro F1</strong> across CV folds. Ties by AUROC. Equally weights both classes — robust to class imbalance.</p>
-        </div>
-        <div class="card" style="padding:16px 18px;flex:1;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:border-color .18s" onmouseenter="this.style.borderColor='var(--navy)'" onmouseleave="this.style.borderColor='var(--border)'" onclick="openModal('hptuning')">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--dim);margin-bottom:15px">Threshold + hyperparameter tuning</div>
-          <p style="font-size:20px;line-height:1.6">GridSearchCV inside CV folds — <strong>training data only</strong>. Threshold swept <strong>0.05 → 0.95</strong>, optimising macro F1.</p>
-          <div class="see" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">See parameters →</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="mo" id="modal-hptuning" onclick="coOut(event,'modal-hptuning')">
-  <div class="modal">
-    <button class="mx" onclick="closeModal('modal-hptuning')">×</button>
-    <div class="m-ey">Methods · Hyperparameter tuning</div>
-    <h3>GridSearchCV parameter ranges evaluated.</h3>
-    <div class="m-sub">All tuning performed inside CV training folds — no test data involved in selection.</div>
-    <div>
-      <div class="mstep"><div class="mstep-n">EN</div><div><div class="mstep-t">Elastic Net Logistic Regression</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">C = [0.05, 0.1, 0.5, 1.0]<br>l1_ratio = [0.25, 0.5, 0.75]</div></div></div>
-      <div class="mstep"><div class="mstep-n">ET</div><div><div class="mstep-t">Extra Trees</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">n_estimators = [250, 400]<br>max_features = ['sqrt', 0.3]<br>max_depth = [None, 8]<br>min_samples_leaf = [2, 3]</div></div></div>
-      <div class="mstep"><div class="mstep-n">XG</div><div><div class="mstep-t">XGBoost</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">learning_rate = [0.03, 0.05]<br>max_depth = [2, 3]<br>n_estimators = [150, 250]</div></div></div>
-      <div class="mstep"><div class="mstep-n">SV</div><div><div class="mstep-t">Support Vector Machine (RBF)</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">C = [0.5, 1.0, 2.0]<br>gamma = ['scale', 0.01]</div></div></div>
-      <div class="mstep"><div class="mstep-n">NB</div><div><div class="mstep-t">Gaussian Naive Bayes</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">var_smoothing = [1e-9, 1e-8, 1e-7, 1e-6]</div></div></div>
-      <div class="mstep"><div class="mstep-n">ML</div><div><div class="mstep-t">Multi-Layer Perceptron</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">hidden_layer_sizes = [(16,), (32,), (32,16), (64,32), (64,32,16)]<br>alpha = [0.001, 0.01, 0.05, 0.1]<br>learning_rate_init = [0.001, 0.0005, 0.0001]</div></div></div>
-      <div class="mstep"><div class="mstep-n">FS</div><div><div class="mstep-t">Feature Selection · max_features evaluated</div><div class="mstep-b" style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9">M1.0: [5, 10, 20, 30, 50, 75, 100] → final: 30<br>M1.2: [5, 10, 20, 30, 40, 50, 60] → final: 18<br>M2.0: [50, 75, 100] → final: 100<br>M2.2: [10, 20, 30, 40] → final: 40</div></div></div>
-    </div>
-    <div class="m-sel">Threshold swept <strong>0.05 → 0.95</strong> (step 0.01) on CV predictions, optimising macro F1. Default 0.50 confirmed optimal for M1 · 0.52 optimal for M2.</div>
-  </div>
-</div>
-</section>
 <!-- ================================================================ SLIDE 5 · RESULTS — SEVERITY ======================================================= -->
 <section class="slide" id="s4">
   <div class="hd a1">
