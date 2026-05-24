@@ -2135,7 +2135,6 @@ Consistent with minimalist editorial theme
 </section>
 
 <script>
-<script>
 function downloadAllCSV(){
   const files = [
     {
@@ -2172,26 +2171,6 @@ function downloadAllCSV(){
 }
 </script>
 
-</script>
-<script>
-function downloadAllCSV(){
-  const files = [
-    "CSV files/prototype_patient_A_triage1.csv",
-    "CSV files/prototype_patient_B_triage2.csv",
-    "CSV files/prototype_patient_C_triage3.csv",
-    "CSV files/prototype_patient_D_triage4.csv"
-  ];
-
-  files.forEach(f=>{
-    const a = document.createElement("a");
-    a.href = f;
-    a.download = f.split("/").pop();
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  });
-}
-</script>
 </div>
 
 <!-- MODALS -->
