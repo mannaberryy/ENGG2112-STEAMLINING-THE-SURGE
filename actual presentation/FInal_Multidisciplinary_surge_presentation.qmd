@@ -1801,10 +1801,7 @@ Consistent with minimalist editorial theme
             <li style="font-size:20px;color:var(--muted);line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--dim)">-</span>Deterioration detected before physiological decline</li>
             <li style="font-size:20px;color:var(--muted);line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--dim)">-</span>Lead time existing frameworks cannot provide</li>
           </ul>
-          <div style="background:#e1f5ee;border:1px solid #1D9E75;border-radius:20px;padding:6px 14px;align-self:flex-start;display:flex;align-items:center;gap:8px;">
-            <div style="width:6px;height:6px;border-radius:50%;background:#1D9E75;"></div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#085041;">179 / 240 deteriorating cases detected</span>
-          </div>
+    
         </div>
 
         <div style="padding:20px 24px;flex:1;display:flex;flex-direction:column;gap:12px;">
@@ -1816,10 +1813,7 @@ Consistent with minimalist editorial theme
             <li style="font-size:20px;color:var(--muted);line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--dim)">-</span>Miss rate → lower priority for patients who will deteriorate</li>
             <li style="font-size:20px;color:var(--muted);line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;color:var(--dim)">-</span>Delayed ICU linked to <strong style="color:var(--navy)">+61%</strong> mortality odds</li>
           </ul>
-          <div style="background:#fce8e8;border:1px solid #e24b4a;border-radius:20px;padding:6px 14px;align-self:flex-start;display:flex;align-items:center;gap:8px;">
-            <div style="width:6px;height:6px;border-radius:50%;background:#e24b4a;"></div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#791F1F;">61 false negatives remain</span>
-          </div>
+          
         </div>
 
       </div>
