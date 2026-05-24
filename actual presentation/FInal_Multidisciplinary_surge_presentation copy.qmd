@@ -1915,7 +1915,7 @@ Consistent with minimalist editorial theme
       <div style="flex:0 0 52%;background:var(--navy);padding:22px 50px 22px 28px;display:flex;flex-direction:column;justify-content:center;gap:6px;border-radius:8px 0 0 8px;clip-path:polygon(0 0,calc(100% - 40px) 0,100% 50%,calc(100% - 40px) 100%,0 100%);z-index:1;filter:drop-shadow(5px 0 0 #b8cfe8);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-m);">Data limitation · Training set</div>
         <div style="font-family:'EB Garamond',serif;font-size:40px;color:var(--white);line-height:1.2;">Limited training data</div>
-        <div style="font-size:15px;color:rgba(255,255,255,.55);line-height:1.4;">43 patients · class imbalance · false negatives</div>
+        <div style="font-size:15px;color:rgba(255,255,255,.55);line-height:1.4;">Binary Matrix · Class Imbalance · False Negatives</div>
       </div>
       <div style="flex:1;background:var(--blue-l);padding:22px 28px 22px 44px;display:flex;align-items:center;border-radius:0 8px 8px 0;margin-left:-40px;">
         <div style="font-size:25px;color:var(--navy);line-height:1.5;font-weight:500;margin-left:30px">Cross-institutional anonymised data sharing across hospital networks</div>
@@ -1939,7 +1939,7 @@ Consistent with minimalist editorial theme
       <div style="flex:0 0 52%;background:var(--navy);padding:22px 50px 22px 28px;display:flex;flex-direction:column;justify-content:center;gap:6px;border-radius:8px 0 0 8px;clip-path:polygon(0 0,calc(100% - 40px) 0,100% 50%,calc(100% - 40px) 100%,0 100%);z-index:1;filter:drop-shadow(5px 0 0 #b8cfe8);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-m);">Data limitation · Cohort bias</div>
         <div style="font-family:'EB Garamond',serif;font-size:40px;color:var(--white);line-height:1.2;">Demographically constrained training data</div>
-        <div style="font-size:15px;color:rgba(255,255,255,.55);line-height:1.4;">Single cohort · limited diversity · variant-specific</div>
+        <div style="font-size:15px;color:rgba(255,255,255,.55);line-height:1.4;">Single cohort · Limited diversity </div>
       </div>
       <div style="flex:1;background:var(--blue-l);padding:22px 28px 22px 44px;display:flex;align-items:center;border-radius:0 8px 8px 0;margin-left:-40px;">
         <div style="font-size:25px;color:var(--navy);line-height:1.5;font-weight:500;margin-left:30px">Multi-site validation + ethnicity-stratified model development</div>
@@ -1951,7 +1951,7 @@ Consistent with minimalist editorial theme
       <div style="flex:0 0 52%;background:var(--navy);padding:22px 50px 22px 28px;display:flex;flex-direction:column;justify-content:center;gap:6px;border-radius:8px 0 0 8px;clip-path:polygon(0 0,calc(100% - 40px) 0,100% 50%,calc(100% - 40px) 100%,0 100%);z-index:1;filter:drop-shadow(20px 0 0 #b8cfe8);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-m);">Deployment limitation · Regulation</div>
         <div style="font-family:'EB Garamond',serif;font-size:40px;color:var(--white);line-height:1.2;">No consent protocols or regulatory approval</div>
-        <div style="font-size:15px;color:rgba(255,255,255,.55);line-height:1.4;">No validation trial · not yet SaMD compliant</div>
+        <div style="font-size:15px;color:rgba(255,255,255,.55);line-height:1.4;">Not TGA approved </div>
       </div>
       <div style="flex:1;background:var(--blue-l);padding:22px 28px 22px 44px;display:flex;align-items:center;border-radius:0 8px 8px 0;margin-left:-40px;">
         <div style="font-size:25px;color:var(--navy);line-height:1.5;font-weight:500;margin-left:30px">Governance frameworks + TGA SaMD regulatory approval pathway</div>
