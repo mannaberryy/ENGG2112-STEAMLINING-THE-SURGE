@@ -1961,6 +1961,8 @@ Consistent with minimalist editorial theme
   </div>
 </section>
 
+
+
 <!-- ================================================================ SLIDE 8 · MVP ================================================================ -->
 <section class="slide nv" id="s7">
 
