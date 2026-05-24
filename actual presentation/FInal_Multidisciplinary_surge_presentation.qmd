@@ -749,12 +749,7 @@ Consistent with minimalist editorial theme
   <div class="see" style="font-size:12px" onclick="openModal('ds1')">See pipeline →</div>
 </div>          
 <div style="font-family:'EB Garamond',serif;font-size:40px;color:var(--navy);margin-bottom:10px;line-height:1.1">COVID Biomarker Dataset</div>
-          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Small sample · n=43</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Class imbalance</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Mexican cohort only</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Delta &amp; Omicron specific</div>
-          </div>
+ 
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px">
             <div style="background:var(--off);border-radius:6px;padding:10px;text-align:center">
               <div style="font-family:'EB Garamond',serif;font-size:40px;color:var(--navy);line-height:1">43</div>
@@ -779,8 +774,8 @@ Consistent with minimalist editorial theme
               <div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--red);margin-top:4px;opacity:.8">severe+critical</div>
             </div>
           </div>
-          <div style="padding:8px 10px;background:var(--off);border-radius:6px;font-size:12.5px;color:var(--muted);margin-bottom:8px">
-  <strong style="color:var(--navy)">Binarised:</strong> 3-class → binary — small sample made multi-class unreliable. Severe+critical collapsed to retain clinical differentiation.
+          <div style="padding:20px 20px;background:var(--off);border-radius:6px;font-size:15px;color:var(--muted);margin-bottom:8px">
+  <strong style="color:var(--navy)">Binarised:</strong> 3-class → binary - small sample made multi-class unreliable. Severe+critical collapsed to retain clinical differentiation.
 </div>
          
         </div>
@@ -793,10 +788,6 @@ Consistent with minimalist editorial theme
 </div>           
 <div style="font-family:'EB Garamond',serif;font-size:40px;color:var(--navy);margin-bottom:10px;line-height:1.1">COVID Longitudinal Dataset</div>
           <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Timepoint imbalance</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Data leakage risk</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Independent obs. assumption</div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:10px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">No temporal modelling</div>
           </div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px">
             <div style="background:var(--off);border-radius:6px;padding:10px;text-align:center">
@@ -822,8 +813,8 @@ Consistent with minimalist editorial theme
               <div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--red);margin-top:4px;opacity:.8">deteriorating</div>
             </div>
           </div>
-         <div style="padding:8px 10px;background:var(--off);border-radius:6px;font-size:12.5px;color:var(--muted);margin-bottom:8px">
-  <strong style="color:var(--navy)">Binarised:</strong> 3-class → binary — overlapping biological signals in middle class. Stable vs deteriorating (ICU admission or death ≤30 days).
+         <div style="padding:20px 20px;background:var(--off);border-radius:6px;font-size:15px;color:var(--muted);margin-bottom:8px">
+  <strong style="color:var(--navy)">Binarised:</strong> 3-class → binary - overlapping biological signals in middle class. Stable vs deteriorating (ICU admission or death ≤30 days).
 </div>
           
         </div>
@@ -1028,7 +1019,14 @@ Consistent with minimalist editorial theme
   <div class="modal">
     <button class="mx" onclick="closeModal('modal-ds1')">×</button>
     <div class="m-ey">Dataset 1 · CBD · Severity model · Mendeley Data · Mexico</div>
-    <h3>From raw metabolomics to severity classification.</h3>
+    <h3 style="font-size:25px;margin-bottom: 10px">From raw metabolomics to severity classification.</h3>
+             <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Small sample · n=43</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Class imbalance</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Mexican cohort only</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;margin-bottom:10px ;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Delta &amp; Omicron specific</div>
+          </div>
+          
     <div>
       <div class="mstep">
         <div class="mstep-n">01</div>
@@ -1080,7 +1078,13 @@ Consistent with minimalist editorial theme
   <div class="modal">
     <button class="mx" onclick="closeModal('modal-ds2')">×</button>
     <div class="m-ey">Dataset 2 · CLD · Deterioration model · Metabolomics Workbench · ST001849</div>
-    <h3>From longitudinal metabolomics to deterioration prediction.</h3>
+    <h3 style="font-size:25px;margin-bottom: 10px">From longitudinal metabolomics to deterioration prediction.</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Timepoint imbalance</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Data leakage risk</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">Independent obs. assumption</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:#fef2f2;border:1px solid #fecaca;color:var(--red)">No temporal modelling</div>
+    </div>
     <div>
       <div class="mstep">
         <div class="mstep-n">01</div>
@@ -1134,6 +1138,7 @@ Consistent with minimalist editorial theme
     </div>
   </div>
 </div>
+
 <!-- ================================================================ SLIDE 3b · RAPID-TEST MODELS ================================================================ -->
 <section class="slide" id="s3b">
   <div class="hd a1">
@@ -1960,8 +1965,6 @@ Consistent with minimalist editorial theme
 
   </div>
 </section>
-
-
 
 <!-- ================================================================ SLIDE 8 · MVP ================================================================ -->
 <section class="slide nv" id="s7">
