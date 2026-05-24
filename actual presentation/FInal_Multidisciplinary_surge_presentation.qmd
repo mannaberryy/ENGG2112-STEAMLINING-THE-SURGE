@@ -2135,22 +2135,43 @@ Consistent with minimalist editorial theme
 </section>
 
 <script>
+<script>
 function downloadAllCSV(){
   const files = [
-    "CSV files/prototype_patient_A_triage1.csv",
-    "CSV files/prototype_patient_B_triage2.csv",
-    "CSV files/prototype_patient_C_triage3.csv",
-    "CSV files/prototype_patient_D_triage4.csv"
+    {
+      name: 'prototype_patient_A_triage1.csv',
+      b64: 'cGF0aWVudF9pZCxuZXV0cm9waGlsX3BlcmNlbnQsbHltcGhvY3l0ZV9wZXJjZW50LGRfZGltZXIsYWdlLEYzX1BoZW55bGFsYW5pbmUsRjNfTC5TZXJpbmUsRjNfRC5UcnlwdG9waGFuLGFnZV9hdF9zeW1wdG9tX29uc2V0X3llYXJzLEN5YW5vc2lzLFN1ZGRlbiBvbnNldCBvZiBzeW1wdG9tcyxDaGVzdCB0aWdodG5lc3MsUG9seXBuZWEsTGFjdGljIGFjaWQsTXlhbGdpYSxIaXN0aWRpbmUsVHlyb3NpbmUsUGhlbnlsYWxhbmluZSxQcm9saW5lLFZhbGluZSxIZWFkYWNoZSxBcnRocmFsZ2lhcyxNZXRoaW9uaW5lLERpYWJldGVzLENocm9uaWMga2lkbmV5IGZhaWx1cmUsU21va2luZyxWYWNjaW5hdGVkClRFU1RfMDAxLDcyLjUsMTguMiwxLjgsNjcsMC44NCwxLjEyLDAuNDMsNjYsMSwxLDEsMSwzLjQsMSwwLjcxLDAuNjIsMC44OCwxLjAzLDAuOTQsMCwxLDAuMzksMSwwLDEsMQo='
+    },
+    {
+      name: 'prototype_patient_B_triage2.csv',
+      b64: 'cGF0aWVudF9pZCxuZXV0cm9waGlsX3BlcmNlbnQsbHltcGhvY3l0ZV9wZXJjZW50LGRfZGltZXIsYWdlLEYzX1BoZW55bGFsYW5pbmUsRjNfTC5TZXJpbmUsRjNfRC5UcnlwdG9waGFuLGFnZV9hdF9zeW1wdG9tX29uc2V0X3llYXJzLEN5YW5vc2lzLFN1ZGRlbiBvbnNldCBvZiBzeW1wdG9tcyxDaGVzdCB0aWdodG5lc3MsUG9seXBuZWEsTGFjdGljIGFjaWQsTXlhbGdpYSxIaXN0aWRpbmUsVHlyb3NpbmUsUGhlbnlsYWxhbmluZSxQcm9saW5lLFZhbGluZSxIZWFkYWNoZSxBcnRocmFsZ2lhcyxNZXRoaW9uaW5lLERpYWJldGVzLENocm9uaWMga2lkbmV5IGZhaWx1cmUsU21va2luZyxWYWNjaW5hdGVkClRFU1RfMDAyLDkzLjQsMy44LDExLjIsODIsMC4yOSwwLjUyLDAuMTYsODEsMSwxLDEsMSwzLjQsMSwwLjcxLDAuNjIsMC44OCwxLjAzLDAuOTQsMCwxLDAuMzksMSwwLDEsMQo='
+    },
+    {
+      name: 'prototype_patient_C_triage3.csv',
+      b64: 'cGF0aWVudF9pZCxuZXV0cm9waGlsX3BlcmNlbnQsbHltcGhvY3l0ZV9wZXJjZW50LGRfZGltZXIsYWdlLEYzX1BoZW55bGFsYW5pbmUsRjNfTC5TZXJpbmUsRjNfRC5UcnlwdG9waGFuLGFnZV9hdF9zeW1wdG9tX29uc2V0X3llYXJzLEN5YW5vc2lzLFN1ZGRlbiBvbnNldCBvZiBzeW1wdG9tcyxDaGVzdCB0aWdodG5lc3MsUG9seXBuZWEsTGFjdGljIGFjaWQsTXlhbGdpYSxIaXN0aWRpbmUsVHlyb3NpbmUsUGhlbnlsYWxhbmluZSxQcm9saW5lLFZhbGluZSxIZWFkYWNoZSxBcnRocmFsZ2lhcyxNZXRoaW9uaW5lLERpYWJldGVzLENocm9uaWMga2lkbmV5IGZhaWx1cmUsU21va2luZyxWYWNjaW5hdGVkClRFU1RfMDAyLDkxLjQsNC4zLDEwLjEsNzYsMC4zMiwwLjYxLDAuMjEsNzUsMCwwLDAsMCwwLjgsMCwwLjkyLDAuODQsMS4wNiwxLjIxLDEuMTMsMCwwLDAuNTQsMCwwLDAsMQo='
+    },
+    {
+      name: 'prototype_patient_D_triage4.csv',
+      b64: 'cGF0aWVudF9pZCxuZXV0cm9waGlsX3BlcmNlbnQsbHltcGhvY3l0ZV9wZXJjZW50LGRfZGltZXIsYWdlLEYzX1BoZW55bGFsYW5pbmUsRjNfTC5TZXJpbmUsRjNfRC5UcnlwdG9waGFuLGFnZV9hdF9zeW1wdG9tX29uc2V0X3llYXJzLEN5YW5vc2lzLFN1ZGRlbiBvbnNldCBvZiBzeW1wdG9tcyxDaGVzdCB0aWdodG5lc3MsUG9seXBuZWEsTGFjdGljIGFjaWQsTXlhbGdpYSxIaXN0aWRpbmUsVHlyb3NpbmUsUGhlbnlsYWxhbmluZSxQcm9saW5lLFZhbGluZSxIZWFkYWNoZSxBcnRocmFsZ2lhcyxNZXRoaW9uaW5lLERpYWJldGVzLENocm9uaWMga2lkbmV5IGZhaWx1cmUsU21va2luZyxWYWNjaW5hdGVkClRFU1RfMDA0LDkyLjgsNC4xLDkuNiw3OCwwLjMxLDAuNTgsMC4xOSw3NywwLDAsMCwwLDEuMiwwLDAuODgsMC43OSwxLjAyLDEuMTgsMS4wOSwxLDAsMC41MSwwLDAsMCwxCg=='
+    }
   ];
-  files.forEach(f=>{
-    const a = document.createElement("a");
-    a.href = f;
-    a.download = f.split("/").pop();
+  files.forEach(f => {
+    const bytes = atob(f.b64);
+    const arr = new Uint8Array(bytes.length);
+    for(let i=0;i<bytes.length;i++) arr[i]=bytes.charCodeAt(i);
+    const blob = new Blob([arr], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = f.name;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   });
 }
+</script>
+
 </script>
 <script>
 function downloadAllCSV(){
